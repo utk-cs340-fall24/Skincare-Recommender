@@ -1,0 +1,2 @@
+# Assignment 6: Hello Plus
+This program pops up a photo of a cat doing a thumbs up when the button is clicked. To run the program, simply open or drag and drop the index.html onto a web browser and it will execute the JavaScript. We will be using JavaScript in our group project to create the front-end. 
