@@ -11,4 +11,4 @@ Command-Line Interface: Users can interact with the script through the command l
 
 1. Save the script as `skincare_guide.py`.
 2. Navigate to the directory where `skincare_guide.py` is saved.
-3. Use python skinOverview.py
+3. Use python skincare_guide.py
