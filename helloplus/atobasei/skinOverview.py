@@ -10,7 +10,7 @@ products = {
     ],
     'serum': [
         'Vitamin C Serum - Brand 5',
-        'Hyaluronic Acid Serum - Brand 6'
+        'Hydration Serum - Brand 6'
     ]
 }
 
