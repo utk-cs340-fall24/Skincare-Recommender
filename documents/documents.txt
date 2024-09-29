@@ -1,3 +1,4 @@
 Design Doc: https://docs.google.com/document/d/1LSuyyS0UlI1LhPKcqgRdUtrKCHk4IAxMnlKwc_A082E/edit?usp=sharing
 PRD: https://docs.google.com/document/d/1KB0ud2HgEyCiQ8xGN_DQYm-EcitiIrk8EVA_73jLXPg/edit?usp=sharing
 User Flow Diagram: https://miro.com/welcomeonboard/c1B6b21vSTAwVXBtRmR2ZDZNQ3QzenpUOFdHb1VNclliNmlZMXJxZENYTlA5ckxWRVQwcmQ1TW4zb1Fxd05ocnwzMDc0NDU3MzQ5ODc4MTA1NTcwfDI=?share_link_id=664425847860
+Figma Design: https://www.figma.com/design/69arTU3MZpwTnDfaxVdmHY/Skincare-Recommender?node-id=0-1&t=cH3nlRsIDynOGX0S-1
