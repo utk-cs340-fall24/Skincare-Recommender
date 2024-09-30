@@ -1,0 +1,34 @@
+project-root/
+├── frontend/                  # React Frontend
+│   ├── src/
+│   │   ├── components/        # Reusable React components
+│   │   ├── pages/             # Page components, each representing a route
+│   │   ├── services/          # API calls to backend services
+│   │   ├── hooks/             # Custom React hooks for reusable logic
+│   │   ├── utils/             # Utility functions (e.g., formatters, validators)
+│   │   ├── context/           # Context API for global state management
+│   │   ├── App.js             # Main application component
+│   │   └── index.js           # Entry point for React application
+│   └── package.json           # React dependencies and project metadata
+├── backend/                   # Express/Node.js Backend
+│   ├── controllers/           # Logic for handling incoming requests
+│   ├── models/                # Database models/schemas (e.g., MongoDB models)
+│   ├── routes/                # API route definitions
+│   ├── services/              # Logic for communication with external services (e.g., databases, ML service)
+│   ├── middleware/            # Custom middleware for request processing
+│   ├── config/                # Configuration settings (e.g., environment variables, database configs)
+│   ├── utils/                 # Utility functions for backend (e.g., error handling, logging)
+│   └── server.js              # Entry point for the backend server
+│   └── package.json           # Node.js dependencies and project metadata
+├── ml-service/                # Machine Learning Model Service
+│   ├── app/                   # Main folder for ML microservice
+│   │   ├── model.py           # Python script to load and run the ML model
+│   │   ├── service.py         # API endpoints for the ML service (e.g., using Flask or FastAPI)
+│   │   ├── utils.py           # Data pre/post-processing utilities specific to ML
+│   ├── models/                # Folder for storing trained models
+│   │   └── model.pkl          # Pickled file of the trained ML model
+│   ├── Dockerfile             # Dockerfile to containerize the ML service
+│   ├── requirements.txt       # Python dependencies (e.g., FastAPI, numpy, scikit-learn)
+│   └── app.py                 # Main entry point to run the ML service
+├── docker-compose.yml         # (Optional) To orchestrate Docker containers for backend and ML service
+└── README.md                  # Project documentation
