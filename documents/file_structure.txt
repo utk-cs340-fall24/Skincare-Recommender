@@ -20,7 +20,7 @@ project-root/
 │   ├── utils/                 # Utility functions for backend (e.g., error handling, logging)
 │   └── server.js              # Entry point for the backend server
 │   └── package.json           # Node.js dependencies and project metadata
-├── ml-service/                # Machine Learning Model Service
+├── recommender/                # Machine Learning Model Service
 │   ├── app/                   # Main folder for ML microservice
 │   │   ├── model.py           # Python script to load and run the ML model
 │   │   ├── service.py         # API endpoints for the ML service (e.g., using Flask or FastAPI)
