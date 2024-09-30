@@ -4,7 +4,7 @@ import React from 'react';
 const Button = ({ label, color = 'blue', activeColor = 'blue', onClick }) => {
   const buttonStyle = {
     // Initial color for button.
-    backgroundColor: color, // Initial color
+    backgroundColor: color,
   };
 
   // Changes color when hovering over button.
@@ -14,7 +14,7 @@ const Button = ({ label, color = 'blue', activeColor = 'blue', onClick }) => {
 
   // Reverts back to initial color when not hovering anymore.
   const handleMouseLeave = (e) => {
-    e.target.style.backgroundColor = color; // Revert color when hover ends
+    e.target.style.backgroundColor = color;
   };
 
   return (
