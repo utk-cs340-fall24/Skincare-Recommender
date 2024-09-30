@@ -1,18 +1,23 @@
-import { useState, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import axios from 'axios'
+import { useState, useEffect } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
-  const fetchAPI = async () => {
-    const response = await axios.get("http://127.0.0.1:8080/api/users")
-    console.log(response.data.users)
-  };
+  useEffect(() => {
+    fetch("http://localhost:5001/api/test")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => console.log(data))
+      .catch((error) => console.error('There was a problem with the fetch operation:', error));
+  }, []);
 
-  useEffect(() => { fetchAPI() }, [])
   return (
     <>
       <div>
@@ -36,7 +41,7 @@ function App() {
         Click on the Vite and React logos to learn more
       </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
