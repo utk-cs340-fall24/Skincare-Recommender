@@ -15,7 +15,7 @@ const SearchBar = ({ placeholder, onSearch, className, searchValue }) => {
       type="text"
       className={
         className ??
-        "text-white font-bold py-2 px-4 rounded-full transition shadow-md"
+        "bg-white text-[#374151] font-bold py-2 px-6 rounded-full transition shadow-md"
       }
       value={searchValue}
       placeholder={placeholder}
