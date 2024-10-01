@@ -1,0 +1,508 @@
+../README.md: ^ae8328d (kvnguo 2024-09-17 12:27:56 -0400 1) # Skincare Website
+../README.md: ^ae8328d (kvnguo 2024-09-17 12:27:56 -0400 2) 
+../README.md: ^ae8328d (kvnguo 2024-09-17 12:27:56 -0400 3) ## Overview
+../README.md: ^ae8328d (kvnguo 2024-09-17 12:27:56 -0400 4) 
+../README.md: ^ae8328d (kvnguo 2024-09-17 12:27:56 -0400 5) The Skincare Website aims to simplify the process of finding the right skincare products. With countless options available, choosing the right product can be overwhelming. This website allows users to input their personal information such as age, skin type, concerns, and budget and/or other skincare products to receive tailored product recommendations. 
+../helloplus/kguo4/environment.yml: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 1) name: similar_ingredients_env
+../helloplus/kguo4/environment.yml: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 2) channels:
+../helloplus/kguo4/environment.yml: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 3)   - defaults
+../helloplus/kguo4/environment.yml: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 4) dependencies:
+../helloplus/kguo4/environment.yml: 8bc3d293 (kvnguo 2024-09-17 15:35:34 -0400 5)   - python=3.12
+../helloplus/kguo4/environment.yml: 8bc3d293 (kvnguo 2024-09-17 15:35:34 -0400 6)   - pandas
+../helloplus/kguo4/environment.yml: 8bc3d293 (kvnguo 2024-09-17 15:35:34 -0400 7)   - scikit-learn
+../helloplus/kguo4/environment.yml: 8bc3d293 (kvnguo 2024-09-17 15:35:34 -0400 8)   
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400  1) # Ingredient Similarity Analyzer
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400  2) 
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400  3) ## Description
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400  4) 
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400  5) This project calculates the similarity of skincare products based on their ingredient lists using cosine similarity. The script takes an input product, compares it with a predefined dataset of products, and computes the cosine similarity between the input product and the other products based on their ingredients.
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400  6) 
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400  7) ## Prerequisites
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400  8) 
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400  9) Ensure you have Conda installed. You can download and install Conda from [Anaconda](https://www.anaconda.com/products/distribution) or [Miniconda](https://docs.conda.io/en/latest/miniconda.html).
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 10) 
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 11) ## Setup
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 12) 
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 13) To replicate the development environment for this project, follow these steps:
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 14) 
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 15) ### 1. Clone the Repository
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 16) 
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 17) ```bash
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 18) git clone <your-repo-url>
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 19) cd <your-repo-directory>
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 20) ```
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 21) 
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 22) ### 2. Create and Activate the Conda Environment
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 23) 
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 24) ```bash
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 25) conda env create -f environment.yml
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 26) conda activate similar_ingredients_env
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 27) ```
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 28) 
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 29) ### 3. Run the Script
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 30) 
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 31) ```bash
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 32) python similar_ingredients.py
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 33) 
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 34) ```
+../helloplus/kguo4/README.md: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 35) 
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400  1) import pandas as pd
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400  2) from sklearn.feature_extraction.text import CountVectorizer
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400  3) from sklearn.metrics.pairwise import cosine_similarity
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400  4) 
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400  5) # Mock data
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400  6) data_list = [
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400  7)     {
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400  8)         'name': 'beauty of joseon relief sun: rice + probiotics',
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400  9)         'ingredients': 'water, oryza sativa (rice) extract, dibutyl adipate, propanediol, diethylamino hydroxybenzoyl hexyl benzoate, polymethylsilsesquioxane, ethylhexyl triazone, niacinamide, methylene bis-benzotriazolyl tetramethylbutylphenol, coco-caprylate/caprate, caprylyl methicone, diethylhexyl butamido triazone, glycerin, butylene glycol, oryza sativa (rice) germ extract, camellia sinensis leaf extract, lactobacillus/pumpkin ferment extract, bacillus/soybean ferment extract, saccharum officinarum (sugarcane) extract, macrocystis pyrifera (kelp) extract, cocos nucifera(coconut) fruit extract, panax ginseng root extract, camellia sinensis leaf extract, monascus/rice ferment, pentylene glycol, behenyl alcohol, poly c10-30 alkyl acrylate, polyglyceryl-3 methylglucose distearate, decyl glucoside, tromethamine, carbomer, acrylates/c10-30 alkyl acrylate crosspolymer, 1,2-hexanediol, sodium stearoyl glutamate, polyacrylate crosspolymer-6, ethylhexylglycerin, adenosine, xanthan gum, tocopherol, lactobacillus/rice ferment, aspergillus ferment, saccharomyces/rice ferment filtrate extract'
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 10)     },
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 11)     {
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 12)         'name': 'round lab birch juice moisturizing sunscreen',
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 13)         'ingredients': 'water, dibutyl adipate, propanediol, diethylamino hydroxybenzoyl hexyl benzoate, polymethylsilsesquioxane, ethylhexyl triazone, niacinamide, methylene bis-benzotriazolyl tetramethylbutylphenol, cocoa-caprylate/caprate, caprylyl methicone, diethylhexyl butamido triazone, glycerin, 1,2-hexanediol, butylene glycol, birch sap (1,425ppm), sodium hyaluronate, hyaluronic acid, glyceryl glucoside, dipotassium glycyrrhizate, allantoin, portulaca oleracea extract, artemisia annua extract, pinus sylvestris leaf extract, anthemis nobilis (chamomile) flower oil, acrylate/c10-30 alkyl acrylate crosspolymer, sodium stearoyl glutamate, polyacrylate crosspolymer-6, ethylhexylglycerin, ascorbic acid, adenosine, pentylene glycol, behenyl alcohol, poly c10-30 alkyl acrylate, polyglyceryl-3 methylglucose distearate, decyl glucoside, tromethamine, xanthan gum, t-butyl alcohol, tocopherol, carbomer'
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 14)     },
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 15)     {
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 16)         'name': 'goodal heartleaf calming moisture sun cream',
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 17)         'ingredients': 'water, dibutyl adipate, propanediol, polymethylsilsesquioxane, diisopropyl sebacate, diethylamino hydroxybenzoyl hexyl benzoate, ethylhexyl triazone, methylene bis-benzotriazolyl tetramethylbutylphenol, coco-caprylate/caprate, diethylhexyl butamido triazone, butylene glycol, glycerin, 1,2-hexanediol, caprylyl methicone, houttuynia cordata extract, pentylene glycol, behenyl alcohol, poly c10-30 alkyl acrylate, polyglyceryl-3 methylglucose distearate, decyl glucoside, tromethamine, carbomer, acrylates/c10-30 alkyl acrylate crosspolymer, sodium stearoyl glutamate, polyacrylate crosspolymer-6, ethylhexylglycerin, xanthan gum, t-butyl alcohol, tocopherol'
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 18)     },
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 19)     {
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 20)         'name': 'makeprem uv defense me no sebum sun cream',
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 21)         'ingredients': 'water,zinc oxide,cyclohexasiloxane,butyloctyl salicylate,propanediol,propylheptyl caprylate,isododecane,caprylyl methicone,polyglyceryl-3 polydimethylsiloxyethyl dimethicone,methyl methacrylate crosspolymer,methyl trimethicone,pelargonium graveolens extract,oenothera biennis (evening primrose) flower extract, ulmus davidiana root extract,pinus palustris leaf extract,pueraria lobata root extract,bacillus/soybean ferment extract,juniperus virginiana oil,litsea cubeba fruit oil,sodium hyaluronate,vetiveria zizanoides root oil,elettaria cardamomum seed oil,nymphaea caerulea flower water,disteardimonium hectorite,magnesium sulfate,triethoxycaprylylsilane,1,2-hexanediol,polyglyceryl-2 dipolyhydroxystearate, polymethylsilsesquioxane,lauryl polyglyceryl-3 polydimethylsiloxyethyl dimethicone,glyceryl caprylate,caprylyl glycol,ethylhexylglycerin,tocopherol,butylene glycol,folic acid'
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 22)     }
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 23) ]
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 24) 
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 25) # Mock input
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 26) input_product = {
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 27)     'name': 'skin1004 madagascar centella hyalu-cica water-fit sun serum',
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 28)     'ingredients': 'water, dibutyl adipate, propanediol, diethylamino hydroxybenzoyl hexyl benzoate, polymethylsilsesquioxane, ethylhexyl triazone, methylene bis-benzotriazolyl tetramethylbutylphenol, niacinamide, coco-caprylate/caprate, caprylyl methicone, diethylhexyl butamido triazone, glycerin, 1,2-hexanediol, butylene glycol, centella asiatica extract (9800ppm), betula platyphylla japonica bark extract, ginkgo biloba leaf extract, camellia sinensis leaf extract, triticum vulgare (wheat) sprout extract, medicago sativa (alfalfa) extract, brassica oleracea italica (broccoli) sprout extract, eruca sativa leaf extract, camellia japonica leaf extract, sodium hyaluronate (10ppm), behenyl alcohol, poly c10-30 alkyl acrylate, polyglyceryl-3 methylglucose distearate, decyl glucoside, tromethamine, carbomer, acrylates/c10-30 alkyl acrylate crosspolymer, sodium stearoyl glutamate, polyacrylate crosspolymer-6, adenosine, xanthan gum, t-butyl alcohol, tocopherol, hydrolyzed hyaluronic acid (1ppm), inositol, hyaluronic acid (0.01ppm), pentylene glycol, ethylhexylglycerin'
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 29) }
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 30) 
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 31) # Convert data to DataFrames
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 32) df = pd.DataFrame(data_list)
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 33) input_df = pd.DataFrame([input_product])
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 34) 
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 35) # Add the input product to the original DataFrame
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 36) df = pd.concat([df, input_df], ignore_index=True)
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 37) 
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 38) # Vectorize the ingredient lists
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 39) vectorizer = CountVectorizer()
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 40) X = vectorizer.fit_transform(df['ingredients'])
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 41) 
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 42) # Compute cosine similarity between the input product and other products
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 43) input_vector = X[-1]  # Input vector
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 44) other_vectors = X[:-1]  # Vectors for other products
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 45) cosine_similarities = cosine_similarity(input_vector, other_vectors)
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 46) 
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 47) # Create a DataFrame to display the results
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 48) results = pd.DataFrame({
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 49)     'Product': df['name'][:-1],
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 50)     'Similarity Score': cosine_similarities.flatten()
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 51) })
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 52) 
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 53) print(f'Input Product: {df.iloc[-1]['name']}\n')
+../helloplus/kguo4/similar_ingredients.py: 64e931a0 (kvnguo 2024-09-17 15:19:32 -0400 54) print(results.round(2))
+../sprint1/kguo4.md: ff6c35b9 (kvnguo 2024-10-01 18:50:16 -0400  1) # Sprint 1
+../sprint1/kguo4.md: ff6c35b9 (kvnguo 2024-10-01 18:50:16 -0400  2) 
+../sprint1/kguo4.md: ff6c35b9 (kvnguo 2024-10-01 18:50:16 -0400  3) Name: Kevin Guo
+../sprint1/kguo4.md: ff6c35b9 (kvnguo 2024-10-01 18:50:16 -0400  4) GitHub ID: kvnguo
+../sprint1/kguo4.md: ff6c35b9 (kvnguo 2024-10-01 18:50:16 -0400  5) Group Name: SkincareRecommender
+../sprint1/kguo4.md: ff6c35b9 (kvnguo 2024-10-01 18:50:16 -0400  6) 
+../sprint1/kguo4.md: ff6c35b9 (kvnguo 2024-10-01 18:50:16 -0400  7) ### What you planned to do
+../sprint1/kguo4.md: ff6c35b9 (kvnguo 2024-10-01 18:50:16 -0400  8) - Issue 3: Design Doc (https://github.com/utk-cs340-fall24/Skincare-Recommender/issues/3)
+../sprint1/kguo4.md: ff6c35b9 (kvnguo 2024-10-01 18:50:16 -0400  9) - Issue 7: PRD (https://github.com/utk-cs340-fall24/Skincare-Recommender/issues/7)
+../sprint1/kguo4.md: ff6c35b9 (kvnguo 2024-10-01 18:50:16 -0400 10) - Issue 11: Design Database Schema (https://github.com/utk-cs340-fall24/Skincare-Recommender/issues/11)
+../sprint1/kguo4.md: ff6c35b9 (kvnguo 2024-10-01 18:50:16 -0400 11) 
+../sprint1/kguo4.md: ff6c35b9 (kvnguo 2024-10-01 18:50:16 -0400 12) ### What you did not do
+../sprint1/kguo4.md: ff6c35b9 (kvnguo 2024-10-01 18:50:16 -0400 13) - Issue 12: Set Up MongoDB Database (https://github.com/utk-cs340-fall24/Skincare-Recommender/issues/12)
+../sprint1/kguo4.md: ff6c35b9 (kvnguo 2024-10-01 18:50:16 -0400 14) 
+../sprint1/kguo4.md: ff6c35b9 (kvnguo 2024-10-01 18:50:16 -0400 15) ### What problems you encountered
+../sprint1/kguo4.md: ff6c35b9 (kvnguo 2024-10-01 18:50:16 -0400 16) - Planning issues 
+../sprint1/kguo4.md: ff6c35b9 (kvnguo 2024-10-01 18:50:16 -0400 17) - Limited knowledge on system design 
+../sprint1/kguo4.md: ff6c35b9 (kvnguo 2024-10-01 18:50:16 -0400 18) - Planning and making the design doc
+../sprint1/kguo4.md: ff6c35b9 (kvnguo 2024-10-01 18:50:16 -0400 19) - Coordinating task between members 
+../sprint1/kguo4.md: ff6c35b9 (kvnguo 2024-10-01 18:50:16 -0400 20) 
+../sprint1/kguo4.md: ff6c35b9 (kvnguo 2024-10-01 18:50:16 -0400 21) ### Issues you worked on
+../sprint1/kguo4.md: ff6c35b9 (kvnguo 2024-10-01 18:50:16 -0400 22) - [#3](https://github.com/utk-cs340-fall24/Skincare-Recommender/issues/3)
+../sprint1/kguo4.md: ff6c35b9 (kvnguo 2024-10-01 18:50:16 -0400 23) - [#7](https://github.com/utk-cs340-fall24/Skincare-Recommender/issues/7)
+../sprint1/kguo4.md: ff6c35b9 (kvnguo 2024-10-01 18:50:16 -0400 24) - [#11](https://github.com/utk-cs340-fall24/Skincare-Recommender/issues/11)
+../sprint1/kguo4.md: ff6c35b9 (kvnguo 2024-10-01 18:50:16 -0400 25) 
+../sprint1/kguo4.md: ff6c35b9 (kvnguo 2024-10-01 18:50:16 -0400 26) ### Files you worked on
+../sprint1/kguo4.md: ff6c35b9 (kvnguo 2024-10-01 18:50:16 -0400 27) - everything in backend/models/ 
+../sprint1/kguo4.md: ff6c35b9 (kvnguo 2024-10-01 18:50:16 -0400 28) - shared/utils/constants.js
+../sprint1/kguo4.md: ff6c35b9 (kvnguo 2024-10-01 18:50:16 -0400 29) - documents/design_doc.pdf 
+../sprint1/kguo4.md: ff6c35b9 (kvnguo 2024-10-01 18:50:16 -0400 30) - documents/product_requirement_doc.pdf 
+../sprint1/kguo4.md: ff6c35b9 (kvnguo 2024-10-01 18:50:16 -0400 31) - documents/file_structure.txt
+../sprint1/kguo4.md: ff6c35b9 (kvnguo 2024-10-01 18:50:16 -0400 32) 
+../sprint1/kguo4.md: ff6c35b9 (kvnguo 2024-10-01 18:50:16 -0400 33) ### What you accomplished
+../sprint1/kguo4.md: ff6c35b9 (kvnguo 2024-10-01 18:50:16 -0400 34) During this sprint, I developed a design document and product requirements document to guide the development process. This involved outlining the application's infrastructure, designing the database and API structures, and organizing the file structure. I also created database schemas and assisted Alan with the specifics of the System Architecture diagram.
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   14)         "express": "^4.21.0",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   15)         "mongoose": "^8.7.0"
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   16)       }
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   17)     },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   18)     "node_modules/@mongodb-js/saslprep": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   19)       "version": "1.1.9",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   20)       "resolved": "https://registry.npmjs.org/@mongodb-js/saslprep/-/saslprep-1.1.9.tgz",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   21)       "integrity": "sha512-tVkljjeEaAhCqTzajSdgbQ6gE6f3oneVwa3iXR6csiEwXXOFsiC6Uh9iAjAhXPtqa/XMDHWjjeNH/77m/Yq2dw==",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   22)       "license": "MIT",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   23)       "dependencies": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   24)         "sparse-bitfield": "^3.0.3"
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   25)       }
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   26)     },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   27)     "node_modules/@types/webidl-conversions": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   28)       "version": "7.0.3",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   29)       "resolved": "https://registry.npmjs.org/@types/webidl-conversions/-/webidl-conversions-7.0.3.tgz",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   30)       "integrity": "sha512-CiJJvcRtIgzadHCYXw7dqEnMNRjhGZlYK05Mj9OyktqV8uVT8fD2BFOB7S1uwBE3Kj2Z+4UyPmFw/Ixgw/LAlA==",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   31)       "license": "MIT"
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   32)     },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   33)     "node_modules/@types/whatwg-url": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   34)       "version": "11.0.5",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   35)       "resolved": "https://registry.npmjs.org/@types/whatwg-url/-/whatwg-url-11.0.5.tgz",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   36)       "integrity": "sha512-coYR071JRaHa+xoEvvYqvnIHaVqaYrLPbsufM9BF63HkwI5Lgmy2QR8Q5K/lYDYo5AK82wOvSOS0UsLTpTG7uQ==",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   37)       "license": "MIT",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   38)       "dependencies": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   39)         "@types/webidl-conversions": "*"
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   85)     "node_modules/bson": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   86)       "version": "6.8.0",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   87)       "resolved": "https://registry.npmjs.org/bson/-/bson-6.8.0.tgz",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   88)       "integrity": "sha512-iOJg8pr7wq2tg/zSlCCHMi3hMm5JTOxLTagf3zxhcenHsFp+c6uOs6K7W5UE7A4QIJGtqh/ZovFNMP4mOPJynQ==",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   89)       "license": "Apache-2.0",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   90)       "engines": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   91)         "node": ">=16.20.1"
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   92)       }
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400   93)     },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  488)     "node_modules/kareem": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  489)       "version": "2.6.3",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  490)       "resolved": "https://registry.npmjs.org/kareem/-/kareem-2.6.3.tgz",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  491)       "integrity": "sha512-C3iHfuGUXK2u8/ipq9LfjFfXFxAZMQJJq7vLS45r3D9Y2xQ/m4S8zaR4zMLFWh9AsNPXmcFfUDhTEO8UIC/V6Q==",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  492)       "license": "Apache-2.0",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  493)       "engines": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  494)         "node": ">=12.0.0"
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  495)       }
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  496)     },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  506)     "node_modules/memory-pager": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  507)       "version": "1.5.0",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  508)       "resolved": "https://registry.npmjs.org/memory-pager/-/memory-pager-1.5.0.tgz",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  509)       "integrity": "sha512-ZS4Bp4r/Zoeq6+NLJpP+0Zzm0pR8whtGPf1XExKLJBAczGMnSi3It14OiNCStjQjM6NU1okjQGSxgEZN8eBYKg==",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  510)       "license": "MIT"
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  511)     },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  563)     "node_modules/mongodb": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  564)       "version": "6.9.0",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  565)       "resolved": "https://registry.npmjs.org/mongodb/-/mongodb-6.9.0.tgz",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  566)       "integrity": "sha512-UMopBVx1LmEUbW/QE0Hw18u583PEDVQmUmVzzBRH0o/xtE9DBRA5ZYLOjpLIa03i8FXjzvQECJcqoMvCXftTUA==",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  567)       "license": "Apache-2.0",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  568)       "dependencies": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  569)         "@mongodb-js/saslprep": "^1.1.5",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  570)         "bson": "^6.7.0",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  571)         "mongodb-connection-string-url": "^3.0.0"
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  572)       },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  573)       "engines": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  574)         "node": ">=16.20.1"
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  575)       },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  576)       "peerDependencies": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  577)         "@aws-sdk/credential-providers": "^3.188.0",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  578)         "@mongodb-js/zstd": "^1.1.0",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  579)         "gcp-metadata": "^5.2.0",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  580)         "kerberos": "^2.0.1",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  581)         "mongodb-client-encryption": ">=6.0.0 <7",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  582)         "snappy": "^7.2.2",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  583)         "socks": "^2.7.1"
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  584)       },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  585)       "peerDependenciesMeta": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  586)         "@aws-sdk/credential-providers": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  587)           "optional": true
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  588)         },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  589)         "@mongodb-js/zstd": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  590)           "optional": true
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  591)         },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  592)         "gcp-metadata": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  593)           "optional": true
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  594)         },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  595)         "kerberos": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  596)           "optional": true
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  597)         },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  598)         "mongodb-client-encryption": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  599)           "optional": true
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  600)         },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  601)         "snappy": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  602)           "optional": true
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  603)         },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  604)         "socks": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  605)           "optional": true
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  606)         }
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  607)       }
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  608)     },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  609)     "node_modules/mongodb-connection-string-url": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  610)       "version": "3.0.1",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  611)       "resolved": "https://registry.npmjs.org/mongodb-connection-string-url/-/mongodb-connection-string-url-3.0.1.tgz",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  612)       "integrity": "sha512-XqMGwRX0Lgn05TDB4PyG2h2kKO/FfWJyCzYQbIhXUxz7ETt0I/FqHjUeqj37irJ+Dl1ZtU82uYyj14u2XsZKfg==",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  613)       "license": "Apache-2.0",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  614)       "dependencies": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  615)         "@types/whatwg-url": "^11.0.2",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  616)         "whatwg-url": "^13.0.0"
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  617)       }
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  618)     },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  619)     "node_modules/mongoose": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  620)       "version": "8.7.0",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  621)       "resolved": "https://registry.npmjs.org/mongoose/-/mongoose-8.7.0.tgz",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  622)       "integrity": "sha512-rUCSF1mMYQXjXYdqEQLLlMD3xbcj2j1/hRn+9VnVj7ipzru/UoUZxlj/hWmteKMAh4EFnDZ+BIrmma9l/0Hi1g==",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  623)       "license": "MIT",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  624)       "dependencies": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  625)         "bson": "^6.7.0",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  626)         "kareem": "2.6.3",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  627)         "mongodb": "6.9.0",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  628)         "mpath": "0.9.0",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  629)         "mquery": "5.0.0",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  630)         "ms": "2.1.3",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  631)         "sift": "17.1.3"
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  632)       },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  633)       "engines": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  634)         "node": ">=16.20.1"
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  635)       },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  636)       "funding": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  637)         "type": "opencollective",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  638)         "url": "https://opencollective.com/mongoose"
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  639)       }
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  640)     },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  641)     "node_modules/mongoose/node_modules/ms": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  642)       "version": "2.1.3",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  643)       "resolved": "https://registry.npmjs.org/ms/-/ms-2.1.3.tgz",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  644)       "integrity": "sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  645)       "license": "MIT"
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  646)     },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  647)     "node_modules/mpath": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  648)       "version": "0.9.0",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  649)       "resolved": "https://registry.npmjs.org/mpath/-/mpath-0.9.0.tgz",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  650)       "integrity": "sha512-ikJRQTk8hw5DEoFVxHG1Gn9T/xcjtdnOKIU1JTmGjZZlg9LST2mBLmcX3/ICIbgJydT2GOc15RnNy5mHmzfSew==",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  651)       "license": "MIT",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  652)       "engines": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  653)         "node": ">=4.0.0"
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  654)       }
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  655)     },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  656)     "node_modules/mquery": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  657)       "version": "5.0.0",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  658)       "resolved": "https://registry.npmjs.org/mquery/-/mquery-5.0.0.tgz",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  659)       "integrity": "sha512-iQMncpmEK8R8ncT8HJGsGc9Dsp8xcgYMVSbs5jgnm1lFHTZqMJTUWTDx1LBO8+mK3tPNZWFLBghQEIOULSTHZg==",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  660)       "license": "MIT",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  661)       "dependencies": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  662)         "debug": "4.x"
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  663)       },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  664)       "engines": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  665)         "node": ">=14.0.0"
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  666)       }
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  667)     },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  668)     "node_modules/mquery/node_modules/debug": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  669)       "version": "4.3.7",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  670)       "resolved": "https://registry.npmjs.org/debug/-/debug-4.3.7.tgz",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  671)       "integrity": "sha512-Er2nc/H7RrMXZBFCEim6TCmMk02Z8vLC2Rbi1KEBggpo0fS6l0S1nnapwmIi3yW/+GOJap1Krg4w0Hg80oCqgQ==",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  672)       "license": "MIT",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  673)       "dependencies": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  674)         "ms": "^2.1.3"
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  675)       },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  676)       "engines": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  677)         "node": ">=6.0"
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  678)       },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  679)       "peerDependenciesMeta": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  680)         "supports-color": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  681)           "optional": true
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  682)         }
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  683)       }
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  684)     },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  685)     "node_modules/mquery/node_modules/ms": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  686)       "version": "2.1.3",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  687)       "resolved": "https://registry.npmjs.org/ms/-/ms-2.1.3.tgz",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  688)       "integrity": "sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  689)       "license": "MIT"
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  690)     },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  767)     "node_modules/punycode": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  768)       "version": "2.3.1",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  769)       "resolved": "https://registry.npmjs.org/punycode/-/punycode-2.3.1.tgz",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  770)       "integrity": "sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  771)       "license": "MIT",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  772)       "engines": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  773)         "node": ">=6"
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  774)       }
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  775)     },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  936)     "node_modules/sift": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  937)       "version": "17.1.3",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  938)       "resolved": "https://registry.npmjs.org/sift/-/sift-17.1.3.tgz",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  939)       "integrity": "sha512-Rtlj66/b0ICeFzYTuNvX/EF1igRbbnGSvEyT79McoZa/DeGhMyC5pWKOEsZKnpkqtSeovd5FL/bjHWC3CIIvCQ==",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  940)       "license": "MIT"
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  941)     },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  942)     "node_modules/sparse-bitfield": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  943)       "version": "3.0.3",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  944)       "resolved": "https://registry.npmjs.org/sparse-bitfield/-/sparse-bitfield-3.0.3.tgz",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  945)       "integrity": "sha512-kvzhi7vqKTfkh0PZU+2D2PIllw2ymqJKujUcyPMd9Y75Nv4nPbGJZXNhxsgdQab2BmlDct1YnfQCguEvHr7VsQ==",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  946)       "license": "MIT",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  947)       "dependencies": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  948)         "memory-pager": "^1.0.2"
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  949)       }
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  950)     },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  969)     "node_modules/tr46": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  970)       "version": "4.1.1",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  971)       "resolved": "https://registry.npmjs.org/tr46/-/tr46-4.1.1.tgz",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  972)       "integrity": "sha512-2lv/66T7e5yNyhAAC4NaKe5nVavzuGJQVVtRYLyQ2OI8tsJ61PMLlelehb0wi2Hx6+hT/OJUWZcw8MjlSRnxvw==",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  973)       "license": "MIT",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  974)       "dependencies": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  975)         "punycode": "^2.3.0"
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  976)       },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  977)       "engines": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  978)         "node": ">=14"
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  979)       }
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400  980)     },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400 1020)     },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400 1021)     "node_modules/webidl-conversions": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400 1022)       "version": "7.0.0",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400 1023)       "resolved": "https://registry.npmjs.org/webidl-conversions/-/webidl-conversions-7.0.0.tgz",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400 1024)       "integrity": "sha512-VwddBukDzu71offAQR975unBIGqfKZpM+8ZX6ySk8nYhVoo5CYaZyzt3YBvYtRtO+aoGlqxPg/B87NGVZ/fu6g==",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400 1025)       "license": "BSD-2-Clause",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400 1026)       "engines": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400 1027)         "node": ">=12"
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400 1028)       }
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400 1029)     },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400 1030)     "node_modules/whatwg-url": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400 1031)       "version": "13.0.0",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400 1032)       "resolved": "https://registry.npmjs.org/whatwg-url/-/whatwg-url-13.0.0.tgz",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400 1033)       "integrity": "sha512-9WWbymnqj57+XEuqADHrCJ2eSXzn8WXIW/YSGaZtb2WKAInQ6CHfaUUcTyyver0p8BDg5StLQq8h1vtZuwmOig==",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400 1034)       "license": "MIT",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400 1035)       "dependencies": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400 1036)         "tr46": "^4.1.1",
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400 1037)         "webidl-conversions": "^7.0.0"
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400 1038)       },
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400 1039)       "engines": {
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400 1040)         "node": ">=16"
+../backend/package-lock.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400 1041)       }
+../backend/package.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400 15)     "express": "^4.21.0",
+../backend/package.json: 7ebd1c5d (kvnguo       2024-09-30 13:25:56 -0400 16)     "mongoose": "^8.7.0"
+../backend/models/Review.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  1) import mongoose from 'mongoose';
+../backend/models/Review.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  2) const { Schema, model } = mongoose;
+../backend/models/Review.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  3) 
+../backend/models/Review.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  4) // Review model schema
+../backend/models/Review.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  5) const reviewSchema = new Schema({
+../backend/models/Review.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  6)   userId: {
+../backend/models/Review.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  7)     type: mongoose.Schema.Types.ObjectId,
+../backend/models/Review.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  8)     ref: "User", // Reference to the User model
+../backend/models/Review.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  9)     required: true,
+../backend/models/Review.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 10)   },
+../backend/models/Review.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 11)   productId: {
+../backend/models/Review.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 12)     type: mongoose.Schema.Types.ObjectId,
+../backend/models/Review.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 13)     ref: "Product", // Reference to the Product model
+../backend/models/Review.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 14)     required: true,
+../backend/models/Review.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 15)   },
+../backend/models/Review.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 16)   rating: {
+../backend/models/Review.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 17)     type: Number,
+../backend/models/Review.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 18)     required: true,
+../backend/models/Review.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 19)     min: 1, // Minimum rating
+../backend/models/Review.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 20)     max: 5, // Maximum rating
+../backend/models/Review.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 21)   },
+../backend/models/Review.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 22)   comment: {
+../backend/models/Review.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 23)     type: String, // Optional comment
+../backend/models/Review.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 24)     required: false
+../backend/models/Review.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 25)   },
+../backend/models/Review.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 26)   createdAt: {
+../backend/models/Review.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 27)     type: Date,
+../backend/models/Review.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 28)     default: Date.now,
+../backend/models/Review.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 29)   },
+../backend/models/Review.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 30) });
+../backend/models/Review.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 31) 
+../backend/models/Review.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 32) const Review = model("Review", reviewSchema);
+../backend/models/Review.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 33) export default Review;
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  1) import mongoose from 'mongoose';
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  2) const { Schema, model } = mongoose;
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  3) 
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  4) // User model schema
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  5) const userSchema = new Schema({
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  6)   username: {
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  7)     type: String,
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  8)     required: true,
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  9)     unique: true,
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 10)   },
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 11)   email: {
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 12)     type: String,
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 13)     required: true,
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 14)     unique: true,
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 15)   },
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 16)   password: {
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 17)     type: String,
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 18)     required: true,
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 19)   },
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 20)   skinType: {
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 21)     type: Number, // Store skin type as a bitwise number
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 22)     required: false,
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 23)     default: 0, // Default to no skin type
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 24)   },
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 25)   concerns: {
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 26)     type: Number, // Store concerns as a bitwise number
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 27)     required: false,
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 28)     default: 0, // Default to no concerns
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 29)   },
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 30)   createdAt: {
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 31)     type: Date,
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 32)     default: Date.now,
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 33)   },
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 34) });
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 35) 
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 36) const User = model("User", userSchema);
+../backend/models/User.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 37) export default User;
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  1) import mongoose from 'mongoose';
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  2) const { Schema, model } = mongoose;
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  3) 
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  4) // User model schema
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  5) const userSchema = new Schema({
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  6)   username: {
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  7)     type: String,
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  8)     required: true,
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  9)     unique: true,
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 10)   },
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 11)   email: {
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 12)     type: String,
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 13)     required: true,
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 14)     unique: true,
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 15)   },
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 16)   password: {
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 17)     type: String,
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 18)     required: true,
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 19)   },
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 20)   skinType: {
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 21)     type: Number, // Store as a bitwise number
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 22)     required: false,
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 23)     default: 0, // Default to no skin type
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 24)   },
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 25)   concerns: {
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 26)     type: Number, // Store concerns as a bitwise number
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 27)     required: false,
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 28)     default: 0, // Default to no concerns
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 29)   },
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 30)   createdAt: {
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 31)     type: Date,
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 32)     default: Date.now,
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 33)   },
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 34) });
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 35) 
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 36) const User = model("User", userSchema);
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 37) export default User;
+../shared/utils/constants.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  1) // Use bitwise OR (|) to combine multiple skin types and concerns
+../shared/utils/constants.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  2) // Use bitwise AND (&) to check if a user has a specific skin type or concern.
+../shared/utils/constants.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  3) 
+../shared/utils/constants.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  4) // Skin Types
+../shared/utils/constants.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  5) export const SKIN_TYPES = {
+../shared/utils/constants.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  6)     DRY: 1 << 0,       // 1 (0b001) - Represents dry skin
+../shared/utils/constants.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  7)     OILY: 1 << 1,      // 2 (0b010) - Represents oily skin
+../shared/utils/constants.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  8)     SENSITIVE: 1 << 2, // 4 (0b100) - Represents sensitive skin
+../shared/utils/constants.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  9) };
+../shared/utils/constants.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 10) 
+../shared/utils/constants.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 11) // Skin Concerns
+../shared/utils/constants.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 12) export const SKIN_CONCERNS = {
+../shared/utils/constants.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 13)     ACNE: 1 << 0,              // 1 (0b0001) - Represents acne concern
+../shared/utils/constants.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 14)     AGING: 1 << 1,             // 2 (0b0010) - Represents aging concern
+../shared/utils/constants.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 15)     DRYNESS: 1 << 2,           // 4 (0b0100) - Represents dryness concern
+../shared/utils/constants.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 16)     REDNESS: 1 << 3,           // 8 (0b1000) - Represents redness concern
+../shared/utils/constants.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 17)     HYPERPIGMENTATION: 1 << 4, // 16 (0b0001 0000) - Represents hyperpigmentation concern
+../shared/utils/constants.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 18)     LARGE_PORES: 1 << 5,       // 32 (0b0010 0000) - Represents large pores concern
+../shared/utils/constants.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 19) };
+../documents/document_links.txt: ff82bc85 (kvnguo 2024-10-01 17:27:02 -0400 1) Design Doc: https://docs.google.com/document/d/1LSuyyS0UlI1LhPKcqgRdUtrKCHk4IAxMnlKwc_A082E/edit?usp=sharing
+../documents/document_links.txt: ff82bc85 (kvnguo 2024-10-01 17:27:02 -0400 2) PRD: https://docs.google.com/document/d/1KB0ud2HgEyCiQ8xGN_DQYm-EcitiIrk8EVA_73jLXPg/edit?usp=sharing
+../documents/document_links.txt: ff82bc85 (kvnguo 2024-10-01 17:27:02 -0400 3) User Flow Diagram: https://miro.com/welcomeonboard/c1B6b21vSTAwVXBtRmR2ZDZNQ3QzenpUOFdHb1VNclliNmlZMXJxZENYTlA5ckxWRVQwcmQ1TW4zb1Fxd05ocnwzMDc0NDU3MzQ5ODc4MTA1NTcwfDI=?share_link_id=180482281167
+../documents/document_links.txt: ff82bc85 (kvnguo 2024-10-01 17:27:02 -0400 4) Figma Design: https://www.figma.com/proto/69arTU3MZpwTnDfaxVdmHY/Skincare-Recommender?node-id=0-1&t=k3E03h2MDlv5TzbX-1
+../documents/document_links.txt: ff82bc85 (kvnguo 2024-10-01 17:27:02 -0400 5) System Architecture Diagram: https://miro.com/welcomeonboard/TVUxV05oT3RQMDJTdE9FSjdQUkFHaElCN3JJUmJ5MDZUYjJVbGxVSFo4T1BLQUR3UVkyVU9ONDVHUzRtTVZxTnwzMDc0NDU3MzU0MzkwNTkyODE0fDI=?share_link_id=820394978362
+../documents/document_links.txt: ff82bc85 (kvnguo 2024-10-01 17:27:02 -0400 6) User Authentication Doc: https://docs.google.com/document/d/1xXMq6BzDiQP1AkWM5OQg3Tnye6nF-PcRGYS5a1M_PZE/edit
+../documents/document_links.txt: ff82bc85 (kvnguo 2024-10-01 17:27:02 -0400 7) ML Algorithms research Doc: https://docs.google.com/document/d/1m7sNZ-pwocLWA6LBOLx2-upEzhdknS4ptELOuMC-KkM/edit
+../documents/document_links.txt: ff82bc85 (kvnguo 2024-10-01 17:27:02 -0400 8) ML Algorithm Implementation Doc: https://docs.google.com/document/d/1dy5XO-QuQMnKRMtkxGu5zAB02REuWRhpkgAwKWP0taU/edit
