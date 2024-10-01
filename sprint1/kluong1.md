@@ -25,6 +25,8 @@ Group Name: SkincareRecommender
 
 ### Files you worked on
 - frontend/src/components/button.jsx
+- documents/figma.pdf
+- documents/user_flow_diagram.pdf
 
 ### What you accomplished
 - I created the user flow diagram. I visited various websites and got inspiration for how I wanted the website to be laid out. I had Kevin help me because he created the design doc and I needed an idea of what pages we needed for the website. The user flow diagram helped me plan out the full website so I knew what to design.
