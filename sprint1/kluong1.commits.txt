@@ -1,0 +1,38 @@
+frontend/src/components/button.jsx:
+be173550 (Kelly Luong 2024-09-30 01:17:29 -0400  1) // Button Component
+be173550 (Kelly Luong 2024-09-30 01:17:29 -0400  2) import React from 'react';
+be173550 (Kelly Luong 2024-09-30 01:17:29 -0400  3) 
+be173550 (Kelly Luong 2024-09-30 01:17:29 -0400  4) const Button = ({ label, color = 'blue', activeColor = 'blue', onClick }) => {
+be173550 (Kelly Luong 2024-09-30 01:17:29 -0400  5)   const buttonStyle = {
+be173550 (Kelly Luong 2024-09-30 01:17:29 -0400  6)     // Initial color for button.
+9c00e200 (Kelly Luong 2024-09-30 13:10:51 -0400  7)     backgroundColor: color,
+be173550 (Kelly Luong 2024-09-30 01:17:29 -0400  8)   };
+be173550 (Kelly Luong 2024-09-30 01:17:29 -0400  9) 
+be173550 (Kelly Luong 2024-09-30 01:17:29 -0400 10)   // Changes color when hovering over button.
+be173550 (Kelly Luong 2024-09-30 01:17:29 -0400 11)   const handleMouseEnter = (e) => {
+be173550 (Kelly Luong 2024-09-30 01:17:29 -0400 12)     e.target.style.backgroundColor = activeColor;
+be173550 (Kelly Luong 2024-09-30 01:17:29 -0400 13)   };
+be173550 (Kelly Luong 2024-09-30 01:17:29 -0400 14) 
+be173550 (Kelly Luong 2024-09-30 01:17:29 -0400 15)   // Reverts back to initial color when not hovering anymore.
+be173550 (Kelly Luong 2024-09-30 01:17:29 -0400 16)   const handleMouseLeave = (e) => {
+9c00e200 (Kelly Luong 2024-09-30 13:10:51 -0400 17)     e.target.style.backgroundColor = color;
+be173550 (Kelly Luong 2024-09-30 01:17:29 -0400 18)   };
+be173550 (Kelly Luong 2024-09-30 01:17:29 -0400 19) 
+be173550 (Kelly Luong 2024-09-30 01:17:29 -0400 20)   return (
+be173550 (Kelly Luong 2024-09-30 01:17:29 -0400 21)     <button
+be173550 (Kelly Luong 2024-09-30 01:17:29 -0400 22)       onClick={onClick}
+be173550 (Kelly Luong 2024-09-30 01:17:29 -0400 23)       onMouseEnter={handleMouseEnter}
+be173550 (Kelly Luong 2024-09-30 01:17:29 -0400 24)       onMouseLeave={handleMouseLeave}
+be173550 (Kelly Luong 2024-09-30 01:17:29 -0400 25)       style={buttonStyle}
+be173550 (Kelly Luong 2024-09-30 01:17:29 -0400 26)       className="text-white font-bold py-2 px-4 rounded-full transition shadow-md"
+be173550 (Kelly Luong 2024-09-30 01:17:29 -0400 27)     >
+be173550 (Kelly Luong 2024-09-30 01:17:29 -0400 28)       {label}
+be173550 (Kelly Luong 2024-09-30 01:17:29 -0400 29)     </button>
+be173550 (Kelly Luong 2024-09-30 01:17:29 -0400 30)   );
+be173550 (Kelly Luong 2024-09-30 01:17:29 -0400 31) };
+be173550 (Kelly Luong 2024-09-30 01:17:29 -0400 32) 
+be173550 (Kelly Luong 2024-09-30 01:17:29 -0400 33) export default Button;
+
+documents/documents.txt:
+dfa2a09e documents/documents.txt (Kelly Luong 2024-10-01 14:09:52 -0400 3) User Flow Diagram: https://miro.com/welcomeonboard/c1B6b21vSTAwVXBtRmR2ZDZNQ3QzenpUOFdHb1VNclliNmlZMXJxZENYTlA5ckxWRVQwcmQ1TW4zb1Fxd05ocnwzMDc0NDU3MzQ5ODc4MTA1NTcwfDI=?share_link_id=180482281167
+7e302bbe documents/documents.txt (Kelly Luong 2024-10-01 14:02:38 -0400 4) Figma Design: https://www.figma.com/proto/69arTU3MZpwTnDfaxVdmHY/Skincare-Recommender?node-id=0-1&t=k3E03h2MDlv5TzbX-1
