@@ -2,7 +2,6 @@ Design Doc: https://docs.google.com/document/d/1LSuyyS0UlI1LhPKcqgRdUtrKCHk4IAxM
 PRD: https://docs.google.com/document/d/1KB0ud2HgEyCiQ8xGN_DQYm-EcitiIrk8EVA_73jLXPg/edit?usp=sharing
 User Flow Diagram: https://miro.com/welcomeonboard/c1B6b21vSTAwVXBtRmR2ZDZNQ3QzenpUOFdHb1VNclliNmlZMXJxZENYTlA5ckxWRVQwcmQ1TW4zb1Fxd05ocnwzMDc0NDU3MzQ5ODc4MTA1NTcwfDI=?share_link_id=180482281167
 Figma Design: https://www.figma.com/proto/69arTU3MZpwTnDfaxVdmHY/Skincare-Recommender?node-id=0-1&t=k3E03h2MDlv5TzbX-1
-
 System Architecture Diagram: https://miro.com/welcomeonboard/TVUxV05oT3RQMDJTdE9FSjdQUkFHaElCN3JJUmJ5MDZUYjJVbGxVSFo4T1BLQUR3UVkyVU9ONDVHUzRtTVZxTnwzMDc0NDU3MzU0MzkwNTkyODE0fDI=?share_link_id=820394978362
 User Authentication Doc: https://docs.google.com/document/d/1xXMq6BzDiQP1AkWM5OQg3Tnye6nF-PcRGYS5a1M_PZE/edit
 ML Algorithms research Doc: https://docs.google.com/document/d/1m7sNZ-pwocLWA6LBOLx2-upEzhdknS4ptELOuMC-KkM/edit
