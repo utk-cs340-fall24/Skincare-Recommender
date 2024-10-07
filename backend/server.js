@@ -10,6 +10,12 @@ const app = express(); // Initialize Express app
 const PORT = process.env.PORT || 5001; // Set server port (fallback to 5001)
 const uri = process.env.MONGO_URI; // MongoDB connection string from .env
 
+// Check for valid URI
+if (!uri) {
+  console.error("Error: MONGO_URI is not defined in the environment.");
+  process.exit(1);
+}
+
 // Connect to MongoDB using Mongoose
 async function connectToDatabase() {
   try {
@@ -35,7 +41,21 @@ app.get('/api/test', (req, res) => {
 });
 
 // Start server and connect to database
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-  connectToDatabase(); // Initiate MongoDB connection when server starts
+(async () => {
+  try {
+    await connectToDatabase(); // Wait for MongoDB connection
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error('Failed to start server:', error);
+  }
+})();
+
+// Graceful shutdown
+process.on('SIGINT', async () => {
+  console.log('Shutting down server...');
+  await mongoose.disconnect();
+  console.log('MongoDB disconnected');
+  process.exit(0);
 });
