@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        inknut: ['"Inknut Antiqua"', 'serif'],
+      },
     },
   },
   plugins: [],

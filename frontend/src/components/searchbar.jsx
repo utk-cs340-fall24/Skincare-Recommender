@@ -14,8 +14,7 @@ const SearchBar = ({ placeholder, onSearch, className, searchValue }) => {
     <input
       type="text"
       className={
-        className ??
-        "bg-white text-[#374151] font-bold py-2 px-6 rounded-full transition shadow-md"
+        `${className ?? "bg-white text-[#374151] font-bold py-2 px-6 rounded-full transition shadow-md"} w-full`
       }
       value={searchValue}
       placeholder={placeholder}
