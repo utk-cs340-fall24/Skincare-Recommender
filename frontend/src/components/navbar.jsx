@@ -9,16 +9,16 @@ const NavBar = () => {
         console.log(value);
     }
     return (
-        <nav className ="bg-customBlue py-4 max-w-8xl px-2 sm:px-6 lg:px-8">
+        <nav className="bg-customBlue py-4 max-w-8xl px-8">
             <div className="flex justify-between items-center">
                 <div className="text-customCream text-4xl font-bold font-inknut">SKINrecs</div>
 
                 <div className="flex ml-[10%] mr-[5%] w-1/3">
-                <SearchBar
-                    placeholder="Search Products"
-                    onSearch={handleUpdate}
-                    searchValue={query}
-                ></SearchBar>
+                    <SearchBar
+                        placeholder="Search Products"
+                        onSearch={handleUpdate}
+                        searchValue={query}
+                    ></SearchBar>
                 </div>
 
                 <div className="flex items-center space-x-10 text-customGray font-small">
