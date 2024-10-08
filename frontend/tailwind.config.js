@@ -6,6 +6,13 @@ export default {
   ],
   theme: {
     extend: {
+      colors: {
+        customBlue: '#AEC4DC',
+        customCream: '#FFFDF8',
+        customGray: '#585353',
+        customDarkGray: '#181212',
+      },
+
       fontFamily: {
         inknut: ['"Inknut Antiqua"', 'serif'],
       },
