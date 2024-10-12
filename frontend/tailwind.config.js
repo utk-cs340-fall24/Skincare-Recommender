@@ -8,6 +8,7 @@ export default {
     extend: {
       colors: {
         customBlue: '#AEC4DC',
+        customLightPink: '#F6CACB',
         customCream: '#FFFDF8',
         customLightGray: '#374151',
         customGray: '#585353',
