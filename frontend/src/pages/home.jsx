@@ -11,7 +11,7 @@ function Home() {
 
       {/* This is the headline of the homepage. */}
       <div className="bg-customCream py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between">
           {/* Text to welcome and introduce the website */}
           <div className="text-center md:text-left space-y-4 -ml-12">
             <h1 className="text-6xl text-customBlue">
@@ -39,7 +39,7 @@ function Home() {
               src="./src/images/mask.webp"
               alt="Skincare Products"
               loading="lazy"
-              class="w-full h-auto"
+              className="w-full h-auto"
             ></img>
           </div>
         </div>
