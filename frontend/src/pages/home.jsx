@@ -1,9 +1,9 @@
 {/* This is the homepage. */}
-import "../index.css";
-import NavBar from "./components/navbar.jsx";
-import Button from "./components/button.jsx";
+import "../../index.css";
+import NavBar from "../components/navbar.jsx";
+import Button from "../components/button.jsx";
 
-function home() {
+function Home() {
   return (
     <>
       <NavBar />
@@ -47,4 +47,4 @@ function home() {
   );
 }
 
-export default home;
+export default Home;
