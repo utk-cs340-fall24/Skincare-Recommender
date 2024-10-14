@@ -3,28 +3,28 @@ const { Schema, model } = mongoose;
 
 // User model schema
 const userSchema = new Schema({
-  username: {
-    type: String,
+  uid: {
+    type: String, // Firebase's unique identifier for the user
     required: true,
-    unique: true,
+    unique: true
   },
   email: {
     type: String,
     required: true,
-    unique: true,
+    unique: true
   },
-  password: {
-    type: String,
-    required: true,
+  displayName: {
+    type: String, // Firebase display name
+    required: false
   },
   skinType: {
-    type: Number, // Store skin type as a bitwise number
-    required: false,
+    type: Number, // Using bitwise operations to represent skin type
+    required: false, 
     default: 0, // Default to no skin type
   },
   concerns: {
-    type: Number, // Store concerns as a bitwise number
-    required: false,
+    type: Number, // Using bitwise operations to represent skin concerns
+    required: false, 
     default: 0, // Default to no concerns
   },
   createdAt: {

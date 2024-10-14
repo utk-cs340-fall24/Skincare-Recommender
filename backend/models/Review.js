@@ -21,7 +21,7 @@ const reviewSchema = new Schema({
   },
   comment: {
     type: String, // Optional comment
-    required: false
+    required: false,
   },
   createdAt: {
     type: Date,

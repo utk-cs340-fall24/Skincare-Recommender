@@ -1,30 +1,32 @@
 import mongoose from 'mongoose';
 const { Schema, model } = mongoose;
 
-// User model schema
-const userSchema = new Schema({
-  username: {
+// Product model schema
+const productSchema = new Schema({
+  name: {
     type: String,
     required: true,
-    unique: true,
   },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
+  price: {
+    type: Number,
+    required: false,
   },
-  password: {
-    type: String,
+  ingredients: {
+    type: [String], // Array of strings for ingredients
     required: true,
+  },
+  category: {
+    type: Number, // Bitwise number representing product type
+    required: true, // e.g., moisturizer, cleanser
   },
   skinType: {
-    type: Number, // Store as a bitwise number
-    required: false,
+    type: Number, // Bitwise number representing skin type
+    required: false, 
     default: 0, // Default to no skin type
   },
   concerns: {
-    type: Number, // Store concerns as a bitwise number
-    required: false,
+    type: Number, // Bitwise number representing skin concerns
+    required: false, 
     default: 0, // Default to no concerns
   },
   createdAt: {
@@ -33,5 +35,5 @@ const userSchema = new Schema({
   },
 });
 
-const User = model("User", userSchema);
-export default User;
+const Product = model("Product", productSchema);
+export default Product;
