@@ -18,13 +18,13 @@ const userSchema = new Schema({
     required: true,
   },
   skinType: {
-    type: Number, // Store skin type as a bitwise number
-    required: false,
+    type: Number, // Using bitwise operations to represent skin type
+    required: false, 
     default: 0, // Default to no skin type
   },
   concerns: {
-    type: Number, // Store concerns as a bitwise number
-    required: false,
+    type: Number, // Using bitwise operations to represent skin concerns
+    required: false, 
     default: 0, // Default to no concerns
   },
   createdAt: {

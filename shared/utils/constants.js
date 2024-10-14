@@ -17,3 +17,14 @@ export const SKIN_CONCERNS = {
     HYPERPIGMENTATION: 1 << 4, // 16 (0b0001 0000) - Represents hyperpigmentation concern
     LARGE_PORES: 1 << 5,       // 32 (0b0010 0000) - Represents large pores concern
 };
+
+// Product Categories
+export const PRODUCT_CATEGORIES = {
+    CLEANSER: 1 << 0,       // 1 (0b0001) - Represents cleanser category
+    MOISTURIZER: 1 << 1,    // 2 (0b0010) - Represents moisturizer category
+    SUNSCREEN: 1 << 2,      // 4 (0b0100) - Represents sunscreen category
+    SERUM: 1 << 3,          // 8 (0b1000) - Represents serum category
+    MASK: 1 << 4,           // 16 (0b0001 0000) - Represents mask category
+    TONER: 1 << 5,          // 32 (0b0010 0000) - Represents toner category
+    EXFOLIATOR: 1 << 6,     // 64 (0b0100 0000) - Represents exfoliator category
+};
