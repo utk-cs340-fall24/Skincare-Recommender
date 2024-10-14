@@ -5,6 +5,7 @@ project-root/
 │   │   ├── pages/             # Page components, each representing a route
 │   │   ├── services/          # API calls to backend services
 │   │   ├── hooks/             # Custom React hooks for reusable logic
+│   │   ├── images/            # Images
 │   │   ├── utils/             # Utility functions (e.g., formatters, validators)
 │   │   ├── context/           # Context API for global state management
 │   │   ├── App.js             # Main application component
