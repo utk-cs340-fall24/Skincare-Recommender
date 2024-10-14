@@ -17,6 +17,7 @@ export default {
 
       fontFamily: {
         inknut: ['"Inknut Antiqua"', 'serif'],
+        istok: ['"Istok Web"', 'sans-serif'],
       },
     },
   },

@@ -2,6 +2,7 @@
 import "../../index.css";
 import NavBar from "../components/navbar.jsx";
 import Button from "../components/button.jsx";
+import Footer from "../components/footer.jsx";
 
 function Home() {
   return (
@@ -43,6 +44,7 @@ function Home() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }
