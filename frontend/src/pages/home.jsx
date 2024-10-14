@@ -1,14 +1,17 @@
-import "../index.css";
-import NavBar from "./components/navbar.jsx";
-import Button from "./components/button.jsx";
+{/* This is the homepage. */}
+import "../../index.css";
+import NavBar from "../components/navbar.jsx";
+import Button from "../components/button.jsx";
 
-function home() {
+function Home() {
   return (
     <>
       <NavBar />
 
+      {/* This is the headline of the homepage. */}
       <div className="bg-customCream py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between">
+          {/* Text to welcome and introduce the website */}
           <div className="text-center md:text-left space-y-4 -ml-12">
             <h1 className="text-6xl text-customBlue">
               Your skin deserves the best,
@@ -20,6 +23,7 @@ function home() {
             <p className="text-lg text-customBlue">
               Take our skincare quiz to get started:
             </p>
+            {/* Button to take the Skincare Quiz */}
             <Button
               label="Skincare Quiz"
               color="#F6CACB"
@@ -28,6 +32,7 @@ function home() {
             />
           </div>
 
+          {/* Image to take up some white space and represent our website */}
           <div className="mt-8 md:mt-0 -mr-12">
             <img
               src="./src/images/mask.webp"
@@ -42,4 +47,4 @@ function home() {
   );
 }
 
-export default home;
+export default Home;
