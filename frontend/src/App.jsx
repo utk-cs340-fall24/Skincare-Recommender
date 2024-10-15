@@ -1,9 +1,9 @@
 import "../index.css";
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/home';
 import Quiz from './pages/quiz';
 import Products from './pages/products';
+import Test from "./pages/test";
 import Error from './pages/error';
 
 function App() {
@@ -16,6 +16,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/quiz" element={<Quiz />} />
             <Route path="/products" element={<Products />} />
+            <Route path="/test" element={<Test />} />
             {/* Error if page not found */}
             <Route path="*" element={<Error />} />
           </Routes>

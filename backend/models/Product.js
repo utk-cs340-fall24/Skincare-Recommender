@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 const { Schema, model } = mongoose;
 
 // Product model schema
@@ -17,16 +17,16 @@ const productSchema = new Schema({
   },
   category: {
     type: Number, // Bitwise number representing product type
-    required: true, // e.g., moisturizer, cleanser
+    required: false, // e.g., moisturizer, cleanser
   },
   skinType: {
     type: Number, // Bitwise number representing skin type
-    required: false, 
+    required: false,
     default: 0, // Default to no skin type
   },
   concerns: {
     type: Number, // Bitwise number representing skin concerns
-    required: false, 
+    required: false,
     default: 0, // Default to no concerns
   },
   createdAt: {
