@@ -1,3 +1,9 @@
+// Examples on interacting with API endpoints
+// POST to add a user.
+// DELETE to remove a user.
+// PUT to update a user's details.
+// GET to retrieve a user's information.
+
 import { useState } from "react";
 import axios from "axios";
 
