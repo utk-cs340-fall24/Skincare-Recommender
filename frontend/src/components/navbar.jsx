@@ -3,6 +3,7 @@ This component allows the navigation bar to be easily placed on multiple pages *
 
 import React from "react";
 import SearchBar from "./searchbar";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 
 const NavBar = () => {
@@ -14,8 +15,8 @@ const NavBar = () => {
     return (
         <nav className="bg-customBlue py-4 max-w-8xl px-8">
             <div className="flex justify-between items-center">
-                {/* Place logo on left side of navigation bar */}
-                <div className="text-customCream text-4xl font-bold font-inknut">SKINrecs</div>
+                {/* Place logo on left side of navigation bar and is also acts as the home button */}
+                <Link to="/" className="text-customCream text-4xl font-bold font-inknut">SKINrecs</Link>
 
                 {/* Placing the search bar in the center */}
                 <div className="flex ml-[10%] mr-[5%] w-1/3">
@@ -28,9 +29,8 @@ const NavBar = () => {
 
                 {/* Links to other pages on the right of the navigation bar */}
                 <div className="flex items-center space-x-10 text-customGray font-small">
-                    <a href="#" className="hover:text-customDarkGray">About</a>
-                    <a href="#" className="hover:text-customDarkGray">Products</a>
-                    <a href="#" className="hover:text-customDarkGray">Quiz</a>
+                    <Link to="/products" className="hover:text-customDarkGray">Products</Link>
+                    <Link to="/quiz" className="hover:text-customDarkGray">Quiz</Link>
                     <a href="#" className="hover:text-customDarkGray flex items-center space-x-2">
                         {/* Makes the icon and darkens the color of it when hovering over it */}
                         <svg className="h-6 w-6 text-customGray hover:text-customDarkGray" fill="none" viewBox="0 0 24 24" stroke="currentColor">

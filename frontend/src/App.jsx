@@ -5,6 +5,10 @@ import Quiz from './pages/quiz';
 import Products from './pages/products';
 import Test from "./pages/test";
 import Error from './pages/error';
+import Signup from './pages/signup';
+import Login from './pages/login';
+import Logout from './pages/logout';
+import UserInfo from "./pages/userInfo";
 
 function App() {
   return (
@@ -17,6 +21,10 @@ function App() {
             <Route path="/quiz" element={<Quiz />} />
             <Route path="/products" element={<Products />} />
             <Route path="/test" element={<Test />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/logout" element={<Logout />} />
+            <Route path="/userInfo" element={<UserInfo />} />
             {/* Error if page not found */}
             <Route path="*" element={<Error />} />
           </Routes>

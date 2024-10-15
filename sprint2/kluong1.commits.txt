@@ -1,0 +1,193 @@
+7114edda (Kelly Luong 2024-10-13 18:30:04 -0400  1) import "../index.css";
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400  2) import React from 'react';
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400  3) import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400  4) import Home from './pages/home';
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400  5) import Quiz from './pages/quiz';
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400  6) import Products from './pages/products';
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400  7) import Error from './pages/error';
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400 12)       <Router>
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400 13)         <div>
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400 14)           <Routes>
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400 15)             {/* This is the routing for our pages such as the home, quiz, and products page. */}
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400 16)             <Route path="/" element={<Home />} />
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400 17)             <Route path="/quiz" element={<Quiz />} />
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400 18)             <Route path="/products" element={<Products />} />
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400 19)             {/* Error if page not found */}
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400 20)             <Route path="*" element={<Error />} />
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400 21)           </Routes>
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400 22)         </div>
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400 23)       </Router>
+7114edda (Kelly Luong 2024-10-13 18:30:04 -0400 28) export default App;
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400 29) 
+
+70aa7528 (Kelly Luong  2024-10-12 19:42:58 -0400  1) {/* This is the navigation bar Component. 
+70aa7528 (Kelly Luong  2024-10-12 19:42:58 -0400  2) This component allows the navigation bar to be easily placed on multiple pages */}
+70aa7528 (Kelly Luong  2024-10-12 19:42:58 -0400  3) 
+860ba341 (Kelly Luong  2024-10-07 19:08:53 -0400  4) import React from "react";
+860ba341 (Kelly Luong  2024-10-07 19:08:53 -0400  5) import SearchBar from "./searchbar";
+733e43e9 (Kelly Luong  2024-10-14 23:54:33 -0400  6) import { Link } from "react-router-dom";
+860ba341 (Kelly Luong  2024-10-07 19:08:53 -0400  7) import { useState } from "react";
+860ba341 (Kelly Luong  2024-10-07 19:08:53 -0400  8) 
+860ba341 (Kelly Luong  2024-10-07 19:08:53 -0400  9) const NavBar = () => {
+860ba341 (Kelly Luong  2024-10-07 19:08:53 -0400 10)     const [query, setQuery] = useState("");
+860ba341 (Kelly Luong  2024-10-07 19:08:53 -0400 11)     function handleUpdate(value) {
+860ba341 (Kelly Luong  2024-10-07 19:08:53 -0400 12)         setQuery(value);
+860ba341 (Kelly Luong  2024-10-07 19:08:53 -0400 13)         console.log(value);
+860ba341 (Kelly Luong  2024-10-07 19:08:53 -0400 14)     }
+860ba341 (Kelly Luong  2024-10-07 19:08:53 -0400 15)     return (
+82aa0835 (Alan Khalili 2024-10-08 12:53:59 -0400 16)         <nav className="bg-customBlue py-4 max-w-8xl px-8">
+860ba341 (Kelly Luong  2024-10-07 19:08:53 -0400 17)             <div className="flex justify-between items-center">
+733e43e9 (Kelly Luong  2024-10-14 23:54:33 -0400 18)                 {/* Place logo on left side of navigation bar and is also acts as the home button */}
+733e43e9 (Kelly Luong  2024-10-14 23:54:33 -0400 19)                 <Link to="/" className="text-customCream text-4xl font-bold font-inknut">SKINrecs</Link>
+860ba341 (Kelly Luong  2024-10-07 19:08:53 -0400 20) 
+70aa7528 (Kelly Luong  2024-10-12 19:42:58 -0400 21)                 {/* Placing the search bar in the center */}
+860ba341 (Kelly Luong  2024-10-07 19:08:53 -0400 22)                 <div className="flex ml-[10%] mr-[5%] w-1/3">
+82aa0835 (Alan Khalili 2024-10-08 12:53:59 -0400 23)                     <SearchBar
+82aa0835 (Alan Khalili 2024-10-08 12:53:59 -0400 24)                         placeholder="Search Products"
+82aa0835 (Alan Khalili 2024-10-08 12:53:59 -0400 25)                         onSearch={handleUpdate}
+82aa0835 (Alan Khalili 2024-10-08 12:53:59 -0400 26)                         searchValue={query}
+82aa0835 (Alan Khalili 2024-10-08 12:53:59 -0400 27)                     ></SearchBar>
+860ba341 (Kelly Luong  2024-10-07 19:08:53 -0400 28)                 </div>
+860ba341 (Kelly Luong  2024-10-07 19:08:53 -0400 29) 
+70aa7528 (Kelly Luong  2024-10-12 19:42:58 -0400 30)                 {/* Links to other pages on the right of the navigation bar */}
+efc1a27b (Alan Khalili 2024-10-08 12:37:47 -0400 31)                 <div className="flex items-center space-x-10 text-customGray font-small">
+733e43e9 (Kelly Luong  2024-10-14 23:54:33 -0400 32)                     <Link to="/products" className="hover:text-customDarkGray">Products</Link>
+733e43e9 (Kelly Luong  2024-10-14 23:54:33 -0400 33)                     <Link to="/quiz" className="hover:text-customDarkGray">Quiz</Link>
+efc1a27b (Alan Khalili 2024-10-08 12:37:47 -0400 34)                     <a href="#" className="hover:text-customDarkGray flex items-center space-x-2">
+70aa7528 (Kelly Luong  2024-10-12 19:42:58 -0400 35)                         {/* Makes the icon and darkens the color of it when hovering over it */}
+efc1a27b (Alan Khalili 2024-10-08 12:37:47 -0400 36)                         <svg className="h-6 w-6 text-customGray hover:text-customDarkGray" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+860ba341 (Kelly Luong  2024-10-07 19:08:53 -0400 37)                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+860ba341 (Kelly Luong  2024-10-07 19:08:53 -0400 38)                         </svg>
+860ba341 (Kelly Luong  2024-10-07 19:08:53 -0400 39)                     </a>
+860ba341 (Kelly Luong  2024-10-07 19:08:53 -0400 40)                 </div>
+860ba341 (Kelly Luong  2024-10-07 19:08:53 -0400 41)             </div>
+860ba341 (Kelly Luong  2024-10-07 19:08:53 -0400 42)         </nav>
+860ba341 (Kelly Luong  2024-10-07 19:08:53 -0400 43)     );
+860ba341 (Kelly Luong  2024-10-07 19:08:53 -0400 44) }
+860ba341 (Kelly Luong  2024-10-07 19:08:53 -0400 45) export default NavBar;
+
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400   1) {/* This is the homepage. */}
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400   2) import "../../index.css";
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400   3) import NavBar from "../components/navbar.jsx";
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400   4) import Button from "../components/button.jsx";
+7114edda (Kelly Luong 2024-10-13 18:30:04 -0400   6) 
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400   7) function Home() {
+7114edda (Kelly Luong 2024-10-13 18:30:04 -0400   8)   return (
+7114edda (Kelly Luong 2024-10-13 18:30:04 -0400   9)     <>
+7114edda (Kelly Luong 2024-10-13 18:30:04 -0400  10)       <NavBar />
+7114edda (Kelly Luong 2024-10-13 18:30:04 -0400  11) 
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  12)       {/* This is the entire homepage. */}
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  13)       <div className="bg-customCream">
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  14)         {/* This is the headline of the homepage. */}
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  15)         <div className="py-12">
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  16)           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between">
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  17)             {/* Text to welcome and introduce the website */}
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  18)             <div className="text-center md:text-left space-y-4 -ml-12">
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  19)               <h1 className="text-6xl text-customBlue">
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  20)                 Your skin deserves the best,
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  21)               </h1>
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  22)               <h2 className="text-6xl text-customBlue">
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  23)                 and we can recommend the
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  24)               </h2>
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  25)               <h3 className="text-6xl text-customBlue">best!</h3>
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  26)               <p className="text-lg text-customBlue">
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  27)                 Take our skincare quiz to get started:
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  28)               </p>
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  29)               {/* Button to take the Skincare Quiz */}
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  30)               <Button
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  31)                 label="Skincare Quiz"
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  32)                 color="#F6CACB"
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  33)                 activeColor="#DF9D9D"
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  34)                 onClick={() => console.log("Another button clicked!")}
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  35)               />
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  36)             </div>
+7114edda (Kelly Luong 2024-10-13 18:30:04 -0400  37) 
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  38)             {/* Image to take up some white space and represent our website */}
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  39)             <div className="mt-8 md:mt-0 -mr-12">
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  40)               <img
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  41)                 src="./src/images/mask.webp"
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  42)                 alt="Skincare Products"
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  43)                 loading="lazy"
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  44)                 className="w-full h-auto"
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  45)               ></img>
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  46)             </div>
+7114edda (Kelly Luong 2024-10-13 18:30:04 -0400  47)           </div>
+7114edda (Kelly Luong 2024-10-13 18:30:04 -0400  48)         </div>
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  50)         {/* Container for Image and About Section */}
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  51)         <div className="flex justify-left mr-3 ml-60 mt-2 relative mb-2">
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  52)           {/* Image for Serum */}
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  53)           <img
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  54)             src="./src/images/serum.jpeg"
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  55)             alt="Skincare Serum"
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  56)             loading="lazy"
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  57)             className="w-[500px] h-[520px] rounded-lg opacity-100"
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  58)           ></img>
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  59) 
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  60)           {/* About Section */}
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  61)           <div className="w-[480px] h-auto bg-customLightPink rounded-lg opacity-100 flex flex-col p-4 absolute left-[38%] top-[48%] mb-20">
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  62)             <h2 className="text-customCream text-[56px] font-inknut font-bold leading-[64px] text-center mb-4">
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  63)               About
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  64)             </h2>
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  65)             <p className="font-inclusive text-customCream text-[18px] font-normal leading-[36px] text-center px-4 py-2">
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  66)               Welcome to the Skincare Recommender! We provide personalized
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  67)               skincare recommendations tailored to your unique needs. Our
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  68)               mission is to help you find the right products for your skin. Join
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  69)               our community to explore a curated selection of skincare solutions
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  70)               for all skin types and concerns. Let's simplify your skincare
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  71)               routine and enhance your natural beauty!
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  72)             </p>
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  73)           </div>
+47766c91 (Kelly Luong 2024-10-14 18:47:55 -0400  77)       </div>
+7114edda (Kelly Luong 2024-10-13 18:30:04 -0400  98)     </>
+7114edda (Kelly Luong 2024-10-13 18:30:04 -0400  99)   );
+7114edda (Kelly Luong 2024-10-13 18:30:04 -0400 100) }
+7114edda (Kelly Luong 2024-10-13 18:30:04 -0400 101) 
+
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400  1) {/* This is the products page. */}
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400  2) 
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400  3) import "../../index.css";
+733e43e9 (Kelly Luong 2024-10-14 23:54:33 -0400  4) import NavBar from "../components/navbar.jsx";
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400  5) 
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400  6) function Products() {
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400  7)     return (
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400  8)         <>
+733e43e9 (Kelly Luong 2024-10-14 23:54:33 -0400  9)         <NavBar />
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400 10)         <p>this is the products page</p>
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400 11)         </>
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400 12)     )
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400 13) }
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400 14) export default Products;
+
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400  1) {/* This is the quiz page. */}
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400  2) 
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400  3) import "../../index.css";
+733e43e9 (Kelly Luong 2024-10-14 23:54:33 -0400  4) import NavBar from "../components/navbar.jsx";
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400  5) 
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400  6) function Quiz() {
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400  7)     return (
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400  8)         <>
+733e43e9 (Kelly Luong 2024-10-14 23:54:33 -0400  9)         <NavBar />
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400 10)         <p>this is the quiz page</p>
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400 11)         </>
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400 12)     )
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400 13) }
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400 14) export default Quiz;
+
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400  1) {/* This is the error page. */}
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400  2) 
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400  3) function Error() {
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400  4)     return (
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400  5)         <>
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400  6)         <div className="text-center">
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400  7)             <h1 className="text-4xl">404 - Page Not Found</h1>
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400  8)             <p>The page you are looking for does not exist.</p>
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400  9)         </div>
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400 10)         </>
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400 11)     )
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400 12) }
+1b009819 (Kelly Luong 2024-10-14 11:41:58 -0400 13) export default Error;
+
+70aa7528 (Kelly Luong  2024-10-12 19:42:58 -0400 11)         customLightPink: '#F6CACB',
+860ba341 (Kelly Luong  2024-10-07 19:08:53 -0400 18)       fontFamily: {
+860ba341 (Kelly Luong  2024-10-07 19:08:53 -0400 19)         inknut: ['"Inknut Antiqua"', 'serif'],
+860ba341 (Kelly Luong  2024-10-07 19:08:53 -0400 22)       },

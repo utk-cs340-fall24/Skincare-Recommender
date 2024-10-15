@@ -1,12 +1,17 @@
-{/* This is the quiz page. */}
-
+{
+  /* This is the quiz page. */
+}
 import "../../index.css";
+import NavBar from "../components/navbar.jsx";
+import AuthPrompt from "../components/promptLogin";
 
 function Quiz() {
-    return (
-        <>
-        <p>this is the quiz page</p>
-        </>
-    )
+  return (
+    <>
+      <NavBar />
+      <AuthPrompt />
+      <p>this is the quiz page</p>
+    </>
+  );
 }
 export default Quiz;
