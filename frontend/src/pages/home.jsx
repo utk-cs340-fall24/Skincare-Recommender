@@ -3,12 +3,13 @@ import "../../index.css";
 import NavBar from "../components/navbar.jsx";
 import Button from "../components/button.jsx";
 import Footer from "../components/footer.jsx";
+import AuthPrompt from "../components/promptLogin";
 
 function Home() {
   return (
     <>
       <NavBar />
-
+      <AuthPrompt />
       {/* This is the headline of the homepage. */}
       <div className="bg-customCream py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between">
