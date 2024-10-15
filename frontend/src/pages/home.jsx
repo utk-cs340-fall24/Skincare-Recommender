@@ -3,12 +3,13 @@ import "../../index.css";
 import NavBar from "../components/navbar.jsx";
 import Button from "../components/button.jsx";
 import Footer from "../components/footer.jsx";
+import AuthPrompt from "../components/promptLogin";
 
 function Home() {
   return (
     <>
       <NavBar />
-
+      <AuthPrompt />
       {/* This is the entire homepage. */}
       <div className="bg-customCream">
         {/* This is the headline of the homepage. */}
