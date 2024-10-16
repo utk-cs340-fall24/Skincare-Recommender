@@ -4,14 +4,10 @@ import { config } from "dotenv";
 import applyMiddleware from "./middleware/middleware.js";
 import setupRoutes from "./routes/index.js";
 import { connectToDatabase, gracefulShutdown } from "./utils/database.js";
-import { initializeFirebase } from "./utils/firebase.js";
 
 config();
 const PORT = process.env.PORT || 5001;
 const app = express();
-
-// Initialize Firebase Admin
-initializeFirebase();
 
 // Apply middleware
 applyMiddleware(app);
