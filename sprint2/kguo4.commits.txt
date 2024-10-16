@@ -1,0 +1,472 @@
+../frontend/src/App.jsx: f7a4f2d0 (kvnguo       2024-10-15 02:00:18 -0400  6) import Test from "./pages/test";
+../frontend/src/App.jsx: f7a4f2d0 (kvnguo       2024-10-15 02:00:18 -0400 23)             <Route path="/test" element={<Test />} />
+../frontend/src/pages/test.jsx: dff8f9ed (kvnguo 2024-10-15 13:21:37 -0400   1) // Examples on interacting with API endpoints
+../frontend/src/pages/test.jsx: dff8f9ed (kvnguo 2024-10-15 13:21:37 -0400   2) // POST to add a user.
+../frontend/src/pages/test.jsx: dff8f9ed (kvnguo 2024-10-15 13:21:37 -0400   3) // DELETE to remove a user.
+../frontend/src/pages/test.jsx: dff8f9ed (kvnguo 2024-10-15 13:21:37 -0400   4) // PUT to update a user's details.
+../frontend/src/pages/test.jsx: dff8f9ed (kvnguo 2024-10-15 13:21:37 -0400   5) // GET to retrieve a user's information.
+../frontend/src/pages/test.jsx: dff8f9ed (kvnguo 2024-10-15 13:21:37 -0400   6) 
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400   7) import { useState } from "react";
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400   8) import axios from "axios";
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400   9) 
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  10) const Test = () => {
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  11)   const [uid, setUid] = useState("");
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  12)   const [email, setEmail] = useState("");
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  13)   const [userId, setUserId] = useState("");
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  14)   const [message, setMessage] = useState("");
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  15)   const [user, setUser] = useState([]);
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  16) 
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  17)   const handleSubmit = async (e) => {
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  18)     e.preventDefault();
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  19)     try {
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  20)       const response = await axios.post("http://localhost:5001/api/user/", { uid, email });
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  21)       console.log(response);
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  22)       setMessage("User added successfully!");
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  23)       setUid("");
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  24)       setEmail("");
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  25)     } catch (error) {
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  26)       setMessage("Error adding user: " + error.message);
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  27)     }
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  28)   };
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  29) 
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  30)   const handleDelete = async (e) => {
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  31)     e.preventDefault();
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  32)     if (!userId) {
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  33)       setMessage("Please enter a user ID to delete.");
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  34)       return;
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  35)     }
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  36)     try {
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  37)       await axios.delete(`http://localhost:5001/api/user/${userId}`);
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  38)       setMessage("User deleted successfully!");
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  39)       setUserId("");
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  40)     } catch (error) {
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  41)       setMessage("Error deleting user: " + error.message);
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  42)     }
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  43)   };
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  44) 
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  45)   const handleUpdate = async (e) => {
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  46)     e.preventDefault();
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  47)     if (!userId) {
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  48)       setMessage("Please enter a user ID to update.");
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  49)       return;
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  50)     }
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  51)     try {
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  52)       const response = await axios.put(`http://localhost:5001/api/user/${userId}`, { uid, email });
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  53)       console.log(response);
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  54)       setMessage("User updated successfully!");
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  55)       setUid("");
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  56)       setEmail("");
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  57)       setUserId("");
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  58)     } catch (error) {
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  59)       setMessage("Error updating user: " + error.message);
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  60)     }
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  61)   };
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  62) 
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  63)   const handleGet = async (e) => {
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  64)     e.preventDefault();
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  65)     if (!userId) {
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  66)       setMessage("Please enter a user ID to retrieve.");
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  67)       return;
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  68)     }
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  69)     try {
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  70)       const response = await axios.get(`http://localhost:5001/api/user/${userId}`);
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  71)       setUser([response.data]);
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  72)       console.log(user);
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  73)       setMessage("User retrieved successfully!");
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  74)     } catch (error) {
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  75)       setMessage("Error getting user: " + error.message);
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  76)     }
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  77)   };
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  78) 
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  79)   return (
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  80)     <>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  81)       <h1>User Management</h1>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  82) 
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  83)       {message && <p style={{ color: "blue", fontWeight: "bold" }}>{message}</p>}
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  84) 
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  85)       <section style={{ marginBottom: "20px" }}>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  86)         <h2>Add New User</h2>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  87)         <form onSubmit={handleSubmit}>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  88)           <div>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  89)             <label>UID: </label>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  90)             <input type="text" value={uid} onChange={(e) => setUid(e.target.value)} required />
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  91)           </div>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  92)           <div>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  93)             <label>Email: </label>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  94)             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  95)           </div>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  96)           <button type="submit">Add User</button>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  97)         </form>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  98)       </section>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  99) 
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 100)       <section style={{ marginBottom: "20px" }}>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 101)         <h2>Update User</h2>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 102)         <form onSubmit={handleUpdate}>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 103)           <div>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 104)             <label>User ID: </label>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 105)             <input type="text" value={userId} onChange={(e) => setUserId(e.target.value)} required />
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 106)           </div>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 107)           <div>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 108)             <label>New UID: </label>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 109)             <input type="text" value={uid} onChange={(e) => setUid(e.target.value)} required />
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 110)           </div>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 111)           <div>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 112)             <label>New Email: </label>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 113)             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 114)           </div>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 115)           <button type="submit">Update User</button>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 116)         </form>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 117)       </section>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 118) 
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 119)       <section style={{ marginBottom: "20px" }}>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 120)         <h2>Delete User</h2>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 121)         <form onSubmit={handleDelete}>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 122)           <div>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 123)             <label>User ID: </label>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 124)             <input type="text" value={userId} onChange={(e) => setUserId(e.target.value)} required />
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 125)           </div>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 126)           <button type="submit">Delete User</button>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 127)         </form>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 128)       </section>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 129) 
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 130)       <section style={{ marginBottom: "20px" }}>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 131)         <h2>Get User</h2>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 132)         <form onSubmit={handleGet}>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 133)           <div>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 134)             <label>User ID: </label>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 135)             <input type="text" value={userId} onChange={(e) => setUserId(e.target.value)} required />
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 136)           </div>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 137)           <button type="submit">Get User</button>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 138)         </form>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 139)       </section>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 140)     </>
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 141)   );
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 142) };
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 143) 
+../frontend/src/pages/test.jsx: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 144) export default Test;
+../frontend/src/pages/products.jsx: 0a674e47 (kvnguo       2024-10-15 12:33:19 -0400 11)       <NavBar />
+../frontend/src/pages/products.jsx: 0a674e47 (kvnguo       2024-10-15 12:33:19 -0400 16) 
+../frontend/src/pages/quiz.jsx: 0a674e47 (kvnguo       2024-10-15 12:33:19 -0400  1) {
+../frontend/src/pages/quiz.jsx: 0a674e47 (kvnguo       2024-10-15 12:33:19 -0400  2)   /* This is the quiz page. */
+../frontend/src/pages/quiz.jsx: 0a674e47 (kvnguo       2024-10-15 12:33:19 -0400  3) }
+../frontend/src/pages/quiz.jsx: 0a674e47 (kvnguo       2024-10-15 12:33:19 -0400  9)   return (
+../frontend/src/pages/quiz.jsx: 0a674e47 (kvnguo       2024-10-15 12:33:19 -0400 10)     <>
+../frontend/src/pages/quiz.jsx: 0a674e47 (kvnguo       2024-10-15 12:33:19 -0400 11)       <NavBar />
+../frontend/src/pages/quiz.jsx: 0a674e47 (kvnguo       2024-10-15 12:33:19 -0400 12)       <AuthPrompt />
+../frontend/src/pages/quiz.jsx: 0a674e47 (kvnguo       2024-10-15 12:33:19 -0400 13)       <p>this is the quiz page</p>
+../frontend/src/pages/quiz.jsx: 0a674e47 (kvnguo       2024-10-15 12:33:19 -0400 14)     </>
+../frontend/src/pages/quiz.jsx: 0a674e47 (kvnguo       2024-10-15 12:33:19 -0400 15)   );
+../frontend/src/pages/quiz.jsx: 0a674e47 (kvnguo       2024-10-15 12:33:19 -0400 17) export default Quiz;
+../backend/server.js: f7a4f2d0 (kvnguo       2024-10-15 02:00:18 -0400  1) import express from "express";
+../backend/server.js: f7a4f2d0 (kvnguo       2024-10-15 02:00:18 -0400  2) import { config } from "dotenv";
+../backend/server.js: f7a4f2d0 (kvnguo       2024-10-15 02:00:18 -0400  4) import applyMiddleware from "./middleware/middleware.js";
+../backend/server.js: f7a4f2d0 (kvnguo       2024-10-15 02:00:18 -0400  5) import setupRoutes from "./routes/index.js";
+../backend/server.js: f7a4f2d0 (kvnguo       2024-10-15 02:00:18 -0400  6) import { connectToDatabase, gracefulShutdown } from "./utils/database.js";
+../backend/server.js: f7a4f2d0 (kvnguo       2024-10-15 02:00:18 -0400  8) config();
+../backend/server.js: f7a4f2d0 (kvnguo       2024-10-15 02:00:18 -0400  9) const PORT = process.env.PORT || 5001;
+../backend/server.js: f7a4f2d0 (kvnguo       2024-10-15 02:00:18 -0400 10) const app = express();
+../backend/server.js: 7b7b16ed (kvnguo       2024-10-07 16:30:21 -0400 11) 
+../backend/server.js: f7a4f2d0 (kvnguo       2024-10-15 02:00:18 -0400 12) // Apply middleware
+../backend/server.js: 530e849e (kvnguo       2024-10-06 18:46:53 -0400 13) applyMiddleware(app);
+../backend/server.js: 530e849e (kvnguo       2024-10-06 18:46:53 -0400 14) 
+../backend/server.js: f7a4f2d0 (kvnguo       2024-10-15 02:00:18 -0400 15) // Setup routes
+../backend/server.js: f7a4f2d0 (kvnguo       2024-10-15 02:00:18 -0400 16) setupRoutes(app);
+../backend/server.js: f7a4f2d0 (kvnguo       2024-10-15 02:00:18 -0400 18) // Start server
+../backend/server.js: f7a4f2d0 (kvnguo       2024-10-15 02:00:18 -0400 19) async function startServer() {
+../backend/server.js: 7b7b16ed (kvnguo       2024-10-07 16:30:21 -0400 20)   try {
+../backend/server.js: f7a4f2d0 (kvnguo       2024-10-15 02:00:18 -0400 21)     await connectToDatabase();
+../backend/server.js: 7b7b16ed (kvnguo       2024-10-07 16:30:21 -0400 22)     app.listen(PORT, () => {
+../backend/server.js: 7b7b16ed (kvnguo       2024-10-07 16:30:21 -0400 23)       console.log(`Server running on port ${PORT}`);
+../backend/server.js: 7b7b16ed (kvnguo       2024-10-07 16:30:21 -0400 24)     });
+../backend/server.js: 7b7b16ed (kvnguo       2024-10-07 16:30:21 -0400 25)   } catch (error) {
+../backend/server.js: f7a4f2d0 (kvnguo       2024-10-15 02:00:18 -0400 26)     console.error("Failed to start server:", error);
+../backend/server.js: f7a4f2d0 (kvnguo       2024-10-15 02:00:18 -0400 27)     process.exit(1);
+../backend/server.js: 7b7b16ed (kvnguo       2024-10-07 16:30:21 -0400 28)   }
+../backend/server.js: f7a4f2d0 (kvnguo       2024-10-15 02:00:18 -0400 29) }
+../backend/server.js: f7a4f2d0 (kvnguo       2024-10-15 02:00:18 -0400 30) startServer();
+../backend/server.js: 7b7b16ed (kvnguo       2024-10-07 16:30:21 -0400 31) 
+../backend/server.js: 7b7b16ed (kvnguo       2024-10-07 16:30:21 -0400 32) // Graceful shutdown
+../backend/server.js: f7a4f2d0 (kvnguo       2024-10-15 02:00:18 -0400 33) process.on("SIGINT", gracefulShutdown);
+../backend/middleware/middleware.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  1) import cors from "cors";
+../backend/middleware/middleware.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  2) import express from "express";
+../backend/middleware/middleware.js: 530e849e (kvnguo 2024-10-06 18:46:53 -0400  3) 
+../backend/middleware/middleware.js: 530e849e (kvnguo 2024-10-06 18:46:53 -0400  4) const applyMiddleware = (app) => {
+../backend/middleware/middleware.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  5)   app.use(cors()); // Enables CORS
+../backend/middleware/middleware.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  6)   app.use(express.json()); // Parses incoming JSON requests
+../backend/middleware/middleware.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  7)   app.use((req, res, next) => {
+../backend/middleware/middleware.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  8)     console.log(`${req.method} request to ${req.url}`);
+../backend/middleware/middleware.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  9)     next();
+../backend/middleware/middleware.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 10)   });
+../backend/middleware/middleware.js: 530e849e (kvnguo 2024-10-06 18:46:53 -0400 11) };
+../backend/middleware/middleware.js: 530e849e (kvnguo 2024-10-06 18:46:53 -0400 12) 
+../backend/middleware/middleware.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 13) export default applyMiddleware;
+../backend/utils/database.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  1) import mongoose from "mongoose";
+../backend/utils/database.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  2) import { config } from "dotenv";
+../backend/utils/database.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  3) 
+../backend/utils/database.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  4) config();
+../backend/utils/database.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  5) const uri = process.env.MONGO_URI;
+../backend/utils/database.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  6) 
+../backend/utils/database.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  7) if (!uri) {
+../backend/utils/database.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  8)   console.error("Error: MONGO_URI is not defined in the environment.");
+../backend/utils/database.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  9)   process.exit(1);
+../backend/utils/database.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 10) }
+../backend/utils/database.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 11) 
+../backend/utils/database.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 12) export async function connectToDatabase() {
+../backend/utils/database.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 13)   try {
+../backend/utils/database.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 14)     await mongoose.connect(uri);
+../backend/utils/database.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 15)     console.log("Successfully connected to MongoDB");
+../backend/utils/database.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 16)   } catch (error) {
+../backend/utils/database.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 17)     console.error("MongoDB connection error:", error);
+../backend/utils/database.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 18)     throw error;
+../backend/utils/database.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 19)   }
+../backend/utils/database.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 20) }
+../backend/utils/database.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 21) 
+../backend/utils/database.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 22) export async function gracefulShutdown() {
+../backend/utils/database.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 23)   console.log("Shutting down server...");
+../backend/utils/database.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 24)   await mongoose.disconnect();
+../backend/utils/database.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 25)   console.log("MongoDB disconnected");
+../backend/utils/database.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 26)   process.exit(0);
+../backend/utils/database.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 27) }
+../backend/models/Review.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  1) import mongoose from "mongoose";
+../backend/models/Review.js: a3a02360 (kvnguo 2024-10-14 18:42:49 -0400 24)     required: false,
+../backend/models/User.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  1) import mongoose from "mongoose";
+../backend/models/User.js: e7cc5721 (kvnguo 2024-10-14 19:03:50 -0400  6)   uid: {
+../backend/models/User.js: e7cc5721 (kvnguo 2024-10-14 19:03:50 -0400  7)     type: String, // Firebase's unique identifier for the user
+../backend/models/User.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  9)     unique: true,
+../backend/models/User.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 14)     unique: true,
+../backend/models/User.js: e7cc5721 (kvnguo 2024-10-14 19:03:50 -0400 16)   displayName: {
+../backend/models/User.js: e7cc5721 (kvnguo 2024-10-14 19:03:50 -0400 17)     type: String, // Firebase display name
+../backend/models/User.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 18)     required: false,
+../backend/models/User.js: a3a02360 (kvnguo 2024-10-14 18:42:49 -0400 21)     type: Number, // Using bitwise operations to represent skin type
+../backend/models/User.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 22)     required: false,
+../backend/models/User.js: a3a02360 (kvnguo 2024-10-14 18:42:49 -0400 26)     type: Number, // Using bitwise operations to represent skin concerns
+../backend/models/User.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 27)     required: false,
+../backend/models/Product.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  1) import mongoose from "mongoose";
+../backend/models/Product.js: a3a02360 (kvnguo 2024-10-14 18:42:49 -0400  4) // Product model schema
+../backend/models/Product.js: a3a02360 (kvnguo 2024-10-14 18:42:49 -0400  5) const productSchema = new Schema({
+../backend/models/Product.js: a3a02360 (kvnguo 2024-10-14 18:42:49 -0400  6)   name: {
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400  9)   },
+../backend/models/Product.js: a3a02360 (kvnguo 2024-10-14 18:42:49 -0400 10)   price: {
+../backend/models/Product.js: a3a02360 (kvnguo 2024-10-14 18:42:49 -0400 11)     type: Number,
+../backend/models/Product.js: a3a02360 (kvnguo 2024-10-14 18:42:49 -0400 12)     required: false,
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 13)   },
+../backend/models/Product.js: a3a02360 (kvnguo 2024-10-14 18:42:49 -0400 14)   ingredients: {
+../backend/models/Product.js: a3a02360 (kvnguo 2024-10-14 18:42:49 -0400 15)     type: [String], // Array of strings for ingredients
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 16)     required: true,
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 17)   },
+../backend/models/Product.js: a3a02360 (kvnguo 2024-10-14 18:42:49 -0400 18)   category: {
+../backend/models/Product.js: a3a02360 (kvnguo 2024-10-14 18:42:49 -0400 19)     type: Number, // Bitwise number representing product type
+../backend/models/Product.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 20)     required: false, // e.g., moisturizer, cleanser
+../backend/models/Product.js: a3a02360 (kvnguo 2024-10-14 18:42:49 -0400 21)   },
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 22)   skinType: {
+../backend/models/Product.js: a3a02360 (kvnguo 2024-10-14 18:42:49 -0400 23)     type: Number, // Bitwise number representing skin type
+../backend/models/Product.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 24)     required: false,
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 25)     default: 0, // Default to no skin type
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 26)   },
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 27)   concerns: {
+../backend/models/Product.js: a3a02360 (kvnguo 2024-10-14 18:42:49 -0400 28)     type: Number, // Bitwise number representing skin concerns
+../backend/models/Product.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 29)     required: false,
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 30)     default: 0, // Default to no concerns
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 31)   },
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 32)   createdAt: {
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 33)     type: Date,
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 34)     default: Date.now,
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 35)   },
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 36) });
+../backend/models/Product.js: 7ebd1c5d (kvnguo 2024-09-30 13:25:56 -0400 37) 
+../backend/models/Product.js: a3a02360 (kvnguo 2024-10-14 18:42:49 -0400 38) const Product = model("Product", productSchema);
+../backend/models/Product.js: a3a02360 (kvnguo 2024-10-14 18:42:49 -0400 39) export default Product;
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  1) import User from "../models/User.js";
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  2) 
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  3) // Create a new user
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  4) export const createUser = async (req, res) => {
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  5)   try {
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  6)     console.log('creating user');
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  7)     const user = new User(req.body);
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  8)     await user.save();
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  9)     res.status(201).json(user);
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 10)   } catch (error) {
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 11)     res.status(400).json({ message: error.message });
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 12)   }
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 13) };
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 14) 
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 15) // Get a user by ID
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 16) export const getUser = async (req, res) => {
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 17)   try {
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 18)     const user = await User.findById(req.params.userId);
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 19)     if (!user) return res.status(404).json({ message: "User not found" });
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 20)     res.json(user);
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 21)   } catch (error) {
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 22)     res.status(400).json({ message: error.message });
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 23)   }
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 24) };
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 25) 
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 26) // Update a user by ID
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 27) export const updateUser = async (req, res) => {
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 28)   try {
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 29)     const user = await User.findByIdAndUpdate(req.params.userId, req.body, {
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 30)       new: true,
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 31)     });
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 32)     if (!user) return res.status(404).json({ message: "User not found" });
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 33)     res.json(user);
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 34)   } catch (error) {
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 35)     res.status(400).json({ message: error.message });
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 36)   }
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 37) };
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 38) 
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 39) // Delete a user by ID
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 40) export const deleteUser = async (req, res) => {
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 41)   try {
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 42)     const user = await User.findByIdAndDelete(req.params.userId);
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 43)     if (!user) return res.status(404).json({ message: "User not found" });
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 44)     res.json({ message: "User deleted successfully" });
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 45)   } catch (error) {
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 46)     res.status(400).json({ message: error.message });
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 47)   }
+../backend/controllers/userController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 48) };
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  1) import Product from '../models/Product.js'; 
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  2) 
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  3) // Create a new product
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  4) export const createProduct = async (req, res) => {
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  5)     try {
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  6)         const product = new Product(req.body);
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  7)         await product.save();
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  8)         res.status(201).json(product);
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  9)     } catch (error) {
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 10)         res.status(400).json({ message: error.message });
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 11)     }
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 12) };
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 13) 
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 14) // Get a single product by ID
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 15) export const getProduct = async (req, res) => {
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 16)     try {
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 17)         const product = await Product.findById(req.params.productId);
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 18)         if (!product) return res.status(404).json({ message: 'Product not found' });
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 19)         res.json(product);
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 20)     } catch (error) {
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 21)         res.status(400).json({ message: error.message });
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 22)     }
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 23) };
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 24) 
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 25) // Get all products
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 26) export const getAllProducts = async (req, res) => {
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 27)     try {
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 28)         const products = await Product.find();
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 29)         res.json(products);
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 30)     } catch (error) {
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 31)         res.status(400).json({ message: error.message });
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 32)     }
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 33) };
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 34) 
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 35) // Update a product by ID
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 36) export const updateProduct = async (req, res) => {
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 37)     try {
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 38)         const product = await Product.findByIdAndUpdate(req.params.productId, req.body, { new: true });
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 39)         if (!product) return res.status(404).json({ message: 'Product not found' });
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 40)         res.json(product);
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 41)     } catch (error) {
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 42)         res.status(400).json({ message: error.message });
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 43)     }
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 44) };
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 45) 
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 46) // Delete a product by ID
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 47) export const deleteProduct = async (req, res) => {
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 48)     try {
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 49)         const product = await Product.findByIdAndDelete(req.params.productId);
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 50)         if (!product) return res.status(404).json({ message: 'Product not found' });
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 51)         res.json({ message: 'Product deleted successfully' });
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 52)     } catch (error) {
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 53)         res.status(400).json({ message: error.message });
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 54)     }
+../backend/controllers/productController.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 55) };
+../backend/routes/productRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  1) import express from "express";
+../backend/routes/productRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  2) import {
+../backend/routes/productRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  3)   createProduct,
+../backend/routes/productRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  4)   getProduct,
+../backend/routes/productRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  5)   getAllProducts,
+../backend/routes/productRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  6)   updateProduct,
+../backend/routes/productRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  7)   deleteProduct,
+../backend/routes/productRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  8) } from "../controllers/productController.js";
+../backend/routes/productRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  9) 
+../backend/routes/productRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 10) const router = express.Router();
+../backend/routes/productRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 11) 
+../backend/routes/productRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 12) // Create a new product
+../backend/routes/productRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 13) router.post("/", createProduct);
+../backend/routes/productRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 14) 
+../backend/routes/productRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 15) // Get a single product by ID
+../backend/routes/productRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 16) router.get("/:productId", getProduct);
+../backend/routes/productRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 17) 
+../backend/routes/productRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 18) // Get all products
+../backend/routes/productRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 19) router.get("/", getAllProducts);
+../backend/routes/productRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 20) 
+../backend/routes/productRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 21) // Update a product by ID
+../backend/routes/productRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 22) router.put("/:productId", updateProduct);
+../backend/routes/productRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 23) 
+../backend/routes/productRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 24) // Delete a product by ID
+../backend/routes/productRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 25) router.delete("/:productId", deleteProduct);
+../backend/routes/productRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 26) 
+../backend/routes/productRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 27) export default router;
+../backend/routes/index.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  1) import userRoutes from "./userRoutes.js";
+../backend/routes/index.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  2) import productRoutes from "./productRoutes.js";
+../backend/routes/index.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  3) 
+../backend/routes/index.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  4) export default function setupRoutes(app) {
+../backend/routes/index.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  5)   app.use((req, res, next) => {
+../backend/routes/index.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  6)     console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+../backend/routes/index.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  7)     next();
+../backend/routes/index.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  8)   });
+../backend/routes/index.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  9) 
+../backend/routes/index.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 10)   // Health check route
+../backend/routes/index.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 11)   app.get("/", (req, res) => {
+../backend/routes/index.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 12)     res.send("Backend is running");
+../backend/routes/index.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 13)   });
+../backend/routes/index.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 14) 
+../backend/routes/index.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 15)   // Sample API route
+../backend/routes/index.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 16)   app.get("/api/test", (req, res) => {
+../backend/routes/index.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 17)     console.log("Test route hit");
+../backend/routes/index.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 18)     res.json({ message: "Hello from the backend!" });
+../backend/routes/index.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 19)   });
+../backend/routes/index.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 20) 
+../backend/routes/index.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 21)   app.use("/api/user", userRoutes);
+../backend/routes/index.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 22)   app.use("/api/products", productRoutes);
+../backend/routes/index.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 23)   // TODO: add routes for reviews and recommendations
+../backend/routes/index.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 24) 
+../backend/routes/index.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 25)   // Catch-all route for debugging
+../backend/routes/index.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 26)   app.use((req, res) => {
+../backend/routes/index.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 27)     console.log("404 - Route not found:", req.method, req.url);
+../backend/routes/index.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 28)     res.status(404).json({ message: "Route not found" });
+../backend/routes/index.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 29)   });
+../backend/routes/index.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 30) }
+../backend/routes/userRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  1) import express from "express";
+../backend/routes/userRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  2) import {
+../backend/routes/userRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  3)   createUser,
+../backend/routes/userRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  4)   getUser,
+../backend/routes/userRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  5)   updateUser,
+../backend/routes/userRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  6)   deleteUser,
+../backend/routes/userRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  7) } from "../controllers/userController.js";
+../backend/routes/userRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  8) 
+../backend/routes/userRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400  9) const router = express.Router();
+../backend/routes/userRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 10) 
+../backend/routes/userRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 11) // Create a new user
+../backend/routes/userRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 12) router.post("/", createUser);
+../backend/routes/userRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 13) 
+../backend/routes/userRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 14) // Get a user by ID
+../backend/routes/userRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 15) router.get("/:userId", getUser);
+../backend/routes/userRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 16) 
+../backend/routes/userRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 17) // Update a user by ID
+../backend/routes/userRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 18) router.put("/:userId", updateUser);
+../backend/routes/userRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 19) 
+../backend/routes/userRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 20) // Delete a user by ID
+../backend/routes/userRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 21) router.delete("/:userId", deleteUser);
+../backend/routes/userRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 22) 
+../backend/routes/userRoutes.js: f7a4f2d0 (kvnguo 2024-10-15 02:00:18 -0400 23) export default router;
+../shared/utils/constants.js: a3a02360 (kvnguo 2024-10-14 18:42:49 -0400 20) 
+../shared/utils/constants.js: a3a02360 (kvnguo 2024-10-14 18:42:49 -0400 21) // Product Categories
+../shared/utils/constants.js: a3a02360 (kvnguo 2024-10-14 18:42:49 -0400 22) export const PRODUCT_CATEGORIES = {
+../shared/utils/constants.js: a3a02360 (kvnguo 2024-10-14 18:42:49 -0400 23)     CLEANSER: 1 << 0,       // 1 (0b0001) - Represents cleanser category
+../shared/utils/constants.js: a3a02360 (kvnguo 2024-10-14 18:42:49 -0400 24)     MOISTURIZER: 1 << 1,    // 2 (0b0010) - Represents moisturizer category
+../shared/utils/constants.js: a3a02360 (kvnguo 2024-10-14 18:42:49 -0400 25)     SUNSCREEN: 1 << 2,      // 4 (0b0100) - Represents sunscreen category
+../shared/utils/constants.js: a3a02360 (kvnguo 2024-10-14 18:42:49 -0400 26)     SERUM: 1 << 3,          // 8 (0b1000) - Represents serum category
+../shared/utils/constants.js: a3a02360 (kvnguo 2024-10-14 18:42:49 -0400 27)     MASK: 1 << 4,           // 16 (0b0001 0000) - Represents mask category
+../shared/utils/constants.js: a3a02360 (kvnguo 2024-10-14 18:42:49 -0400 28)     TONER: 1 << 5,          // 32 (0b0010 0000) - Represents toner category
+../shared/utils/constants.js: a3a02360 (kvnguo 2024-10-14 18:42:49 -0400 29)     EXFOLIATOR: 1 << 6,     // 64 (0b0100 0000) - Represents exfoliator category
+../shared/utils/constants.js: a3a02360 (kvnguo 2024-10-14 18:42:49 -0400 30) };
