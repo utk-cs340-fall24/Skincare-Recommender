@@ -7,16 +7,24 @@ net_id = input("Enter your net id: ")
 
 # Define the output file
 output_file = f'{net_id}.commits.txt'
+previous_output_file = f'../sprint1/{net_id}.commits.txt'
 
 # File extensions to skip (e.g., binary files)
-skip_extensions = ('.pdf', '.png', '.jpg', '.jpeg', '.gif', '.exe', '.zip', '.md', '.txt', '.yml', '.gitignore', '.gitattributes', '.json')
+skip_extensions = ('.pdf', '.png', '.jpg', '.jpeg', '.gif', '.exe', '.zip', 
+                   '.md', '.txt', '.yml', '.gitignore', '.gitattributes', '.json')
+
+# Read previous output file to avoid duplicates
+existing_lines = set()
+if os.path.exists(previous_output_file):
+    with open(previous_output_file, 'r') as prev_file:
+        existing_lines = set(prev_file.readlines())
 
 # Open the output file in write mode
 with open(output_file, 'w') as f:
     # Walk through the repository files
     for root, dirs, files in os.walk('..'):
-        # Skip the .git directory
-        if '.git' in root:
+        # Skip the .git and node_modules directories
+        if '.git' in root or 'node_modules' in root:
             continue
         
         for file in files:
@@ -34,8 +42,9 @@ with open(output_file, 'w') as f:
                     ['git', 'ls-files', filepath], 
                     stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
                 )
+                
+                # If the file is untracked, skip it
                 if not result.stdout.strip():
-                    # File is not tracked by Git
                     print(f"Skipping untracked file: {filepath}")
                     continue
 
@@ -48,8 +57,11 @@ with open(output_file, 'w') as f:
                 # Check if git_name appears in the output
                 if blame_result.returncode == 0:
                     for line in blame_result.stdout.splitlines():
-                        if git_name in line:
-                            f.write(f'{filepath}: {line}\n')
+                        output_line = f'{filepath}: {line}\n'
+                        # Write the line only if it's from the specified git_name and not in existing lines
+                        if git_name in line and output_line not in existing_lines:
+                            f.write(output_line)
+                            existing_lines.add(output_line)  # Avoid writing duplicates to the output file
                 else:
                     print(f"Error running git blame on {filepath}: {blame_result.stderr}")
             except Exception as e:

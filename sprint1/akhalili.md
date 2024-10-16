@@ -13,7 +13,7 @@ I planned to do the following issues for this sprint:
 
 ### What you did not do
 
-Origionally, I was planning to d othe backend completely in python using Flask, but after talking it over with my team we decided to have a JS backend seperate from our Python Recommender.
+Originally, I was planning to do the backend completely in python using Flask, but after talking it over with my team we decided to have a JS backend separate from our Python Recommender.
 
 ### What problems you encountered
 The main problem we encountered, and the reason we did not end up going with a python backend is performance.

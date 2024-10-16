@@ -1,0 +1,476 @@
+../frontend/tailwind.config.js: efc1a27b (Alan Khalili 2024-10-08 12:37:47 -0400  9)       colors: {
+../frontend/tailwind.config.js: efc1a27b (Alan Khalili 2024-10-08 12:37:47 -0400 10)         customBlue: '#AEC4DC',
+../frontend/tailwind.config.js: efc1a27b (Alan Khalili 2024-10-08 12:37:47 -0400 12)         customCream: '#FFFDF8',
+../frontend/tailwind.config.js: 82aa0835 (Alan Khalili 2024-10-08 12:53:59 -0400 13)         customLightGray: '#374151',
+../frontend/tailwind.config.js: efc1a27b (Alan Khalili 2024-10-08 12:37:47 -0400 14)         customGray: '#585353',
+../frontend/tailwind.config.js: efc1a27b (Alan Khalili 2024-10-08 12:37:47 -0400 15)         customDarkGray: '#181212',
+../frontend/tailwind.config.js: efc1a27b (Alan Khalili 2024-10-08 12:37:47 -0400 16)       },
+../frontend/tailwind.config.js: efc1a27b (Alan Khalili 2024-10-08 12:37:47 -0400 17) 
+../frontend/src/App.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400  8) import Signup from './pages/signup';
+../frontend/src/App.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400  9) import Login from './pages/login';
+../frontend/src/App.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 10) import Logout from './pages/logout';
+../frontend/src/App.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 11) import UserInfo from "./pages/userInfo";
+../frontend/src/App.jsx: 1cc68cce (Alan Khalili 2024-09-29 17:09:23 -0400 12) 
+../frontend/src/App.jsx: 1cc68cce (Alan Khalili 2024-09-29 17:09:23 -0400 13) function App() {
+../frontend/src/App.jsx: 1cc68cce (Alan Khalili 2024-09-29 17:09:23 -0400 14)   return (
+../frontend/src/App.jsx: 1cc68cce (Alan Khalili 2024-09-29 17:09:23 -0400 15)     <>
+../frontend/src/App.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 23)             <Route path="/signup" element={<Signup />} />
+../frontend/src/App.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 24)             <Route path="/login" element={<Login />} />
+../frontend/src/App.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 25)             <Route path="/logout" element={<Logout />} />
+../frontend/src/App.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 26)             <Route path="/userInfo" element={<UserInfo />} />
+../frontend/src/App.jsx: 1cc68cce (Alan Khalili 2024-09-29 17:09:23 -0400 32)     </>
+../frontend/src/App.jsx: 976c30ee (Alan Khalili 2024-09-29 20:34:55 -0400 33)   );
+../frontend/src/App.jsx: 1cc68cce (Alan Khalili 2024-09-29 17:09:23 -0400 34) }
+../frontend/src/App.jsx: 1cc68cce (Alan Khalili 2024-09-29 17:09:23 -0400 35) 
+../frontend/src/firebase.js: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400  1) // Import the functions you need from the SDKs you need
+../frontend/src/firebase.js: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400  2) import { initializeApp } from "firebase/app";
+../frontend/src/firebase.js: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400  3) import { getAuth } from "firebase/auth";
+../frontend/src/firebase.js: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400  4) 
+../frontend/src/firebase.js: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400  5) // TODO: Add SDKs for Firebase products that you want to use
+../frontend/src/firebase.js: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400  6) // https://firebase.google.com/docs/web/setup#available-libraries
+../frontend/src/firebase.js: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400  7) 
+../frontend/src/firebase.js: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400  8) // Your web app's Firebase configuration
+../frontend/src/firebase.js: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400  9) const firebaseConfig = {
+../frontend/src/firebase.js: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 10)   apiKey: "AIzaSyDPkSTmR28jzMny0fqDKpRADi0znQu_MbI",
+../frontend/src/firebase.js: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 11)   authDomain: "skincare-recommender-3a679.firebaseapp.com",
+../frontend/src/firebase.js: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 12)   projectId: "skincare-recommender-3a679",
+../frontend/src/firebase.js: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 13)   storageBucket: "skincare-recommender-3a679.appspot.com",
+../frontend/src/firebase.js: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 14)   messagingSenderId: "1039328606924",
+../frontend/src/firebase.js: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 15)   appId: "1:1039328606924:web:e0d24ddbc9457567fde069"
+../frontend/src/firebase.js: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 16) };
+../frontend/src/firebase.js: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 17) 
+../frontend/src/firebase.js: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 18) // Initialize Firebase
+../frontend/src/firebase.js: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 19) const app = initializeApp(firebaseConfig);
+../frontend/src/firebase.js: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 20) 
+../frontend/src/firebase.js: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 21) // Initialize Firebase Authentication and get a reference to the service
+../frontend/src/firebase.js: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 22) export const auth = getAuth(app);
+../frontend/src/firebase.js: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 23) export default app;
+../frontend/src/components/navbar.jsx: 82aa0835 (Alan Khalili 2024-10-08 12:53:59 -0400 16)         <nav className="bg-customBlue py-4 max-w-8xl px-8">
+../frontend/src/components/navbar.jsx: 82aa0835 (Alan Khalili 2024-10-08 12:53:59 -0400 23)                     <SearchBar
+../frontend/src/components/navbar.jsx: 82aa0835 (Alan Khalili 2024-10-08 12:53:59 -0400 24)                         placeholder="Search Products"
+../frontend/src/components/navbar.jsx: 82aa0835 (Alan Khalili 2024-10-08 12:53:59 -0400 25)                         onSearch={handleUpdate}
+../frontend/src/components/navbar.jsx: 82aa0835 (Alan Khalili 2024-10-08 12:53:59 -0400 26)                         searchValue={query}
+../frontend/src/components/navbar.jsx: 82aa0835 (Alan Khalili 2024-10-08 12:53:59 -0400 27)                     ></SearchBar>
+../frontend/src/components/navbar.jsx: efc1a27b (Alan Khalili 2024-10-08 12:37:47 -0400 31)                 <div className="flex items-center space-x-10 text-customGray font-small">
+../frontend/src/components/navbar.jsx: efc1a27b (Alan Khalili 2024-10-08 12:37:47 -0400 34)                     <a href="#" className="hover:text-customDarkGray flex items-center space-x-2">
+../frontend/src/components/navbar.jsx: efc1a27b (Alan Khalili 2024-10-08 12:37:47 -0400 36)                         <svg className="h-6 w-6 text-customGray hover:text-customDarkGray" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  1) import { useNavigate } from "react-router-dom";
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  2) import { auth } from "../firebase";
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  3) import { onAuthStateChanged } from "firebase/auth";
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  4) import React, { useEffect, useState } from "react";
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  5) 
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  6) const AuthPrompt = () => {
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  7)   const navigate = useNavigate();
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  8) 
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  9)   const handleLogin = () => {
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 10)     navigate("/login");
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 11)   };
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 12) 
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 13)   const handleSignup = () => {
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 14)     navigate("/signup");
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 15)   };
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 16) 
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 17)   const [isAuthenticated, setIsAuthenticated] = useState(false);
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 18)   const [loading, setLoading] = useState(true);
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 19) 
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 20)   useEffect(() => {
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 21)     // Check the authentication state
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 22)     const unsubscribe = onAuthStateChanged(auth, (user) => {
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 23)       if (user) {
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 24)         // User is signed in
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 25)         setIsAuthenticated(true);
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 26)       } else {
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 27)         // User is not signed in
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 28)         setIsAuthenticated(false);
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 29)       }
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 30)       setLoading(false); // Set loading to false after checking auth state
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 31)     });
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 32) 
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 33)     // Cleanup subscription on unmount
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 34)     return () => unsubscribe();
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 35)   }, []);
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 36) 
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 37)   return (
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 38)     !loading &&
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 39)     !isAuthenticated && (
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 40)       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 overflow-hidden">
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 41)         <div className="bg-white rounded-lg p-8 shadow-lg text-center">
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 42)           <h2 className="text-lg font-semibold mb-4">
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 43)             Please Log In or Sign Up
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 44)           </h2>
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 45)           <div className="flex justify-center space-x-4">
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 46)             <button
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 47)               onClick={handleLogin}
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 48)               className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none"
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 49)             >
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 50)               Log In
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 51)             </button>
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 52)             <button
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 53)               onClick={handleSignup}
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 54)               className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 focus:outline-none"
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 55)             >
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 56)               Sign Up
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 57)             </button>
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 58)           </div>
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 59)         </div>
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 60)       </div>
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 61)     )
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 62)   );
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 63) };
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 64) 
+../frontend/src/components/promptLogin.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 65) export default AuthPrompt;
+../frontend/src/components/searchbar.jsx: 82aa0835 (Alan Khalili 2024-10-08 12:53:59 -0400 17)         `${className ?? "bg-white text-customLightGray font-bold py-2 px-6 rounded-full transition shadow-md"} w-full`
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  1) {/* This is the user info page. */}
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  2) import React, { useEffect, useState } from 'react';
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  3) import { auth } from '../firebase'; // Adjust the import path as necessary
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  4) import { onAuthStateChanged } from 'firebase/auth';
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  5) 
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  6) const UserInfo = () => {
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  7)   const [userInfo, setUserInfo] = useState(null);
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  8)   const [loading, setLoading] = useState(true); // Loading state
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  9) 
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 10)   useEffect(() => {
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 11)     const unsubscribe = onAuthStateChanged(auth, (user) => {
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 12)       if (user) {
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 13)         // User is signed in, retrieve user info
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 14)         setUserInfo({
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 15)           uid: user.uid,
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 16)           email: user.email,
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 17)           displayName: user.displayName || 'N/A',
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 18)           photoURL: user.photoURL || 'N/A',
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 19)         });
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 20)       } else {
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 21)         // User is not signed in
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 22)         setUserInfo(null);
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 23)       }
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 24)       setLoading(false); // Set loading to false after checking auth state
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 25)     });
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 26) 
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 27)     // Cleanup subscription on unmount
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 28)     return () => unsubscribe();
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 29)   }, []);
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 30) 
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 31)   // Show loading indicator while checking user info
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 32)   if (loading) {
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 33)     return <div className="flex items-center justify-center h-screen">Loading...</div>;
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 34)   }
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 35) 
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 36)   return (
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 37)     <div className="max-w-2xl mx-auto p-4">
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 38)       <h2 className="text-2xl font-bold mb-4">User Information</h2>
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 39)       {userInfo ? (
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 40)         <div className="bg-white shadow-md rounded-lg p-4">
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 41)           <p><strong>User ID:</strong> {userInfo.uid}</p>
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 42)           <p><strong>Email:</strong> {userInfo.email}</p>
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 43)           <p><strong>Display Name:</strong> {userInfo.displayName}</p>
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 44)           <p><strong>Photo URL:</strong> <img src={userInfo.photoURL} alt="User Profile" className="w-24 h-24 rounded-full" /></p>
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 45)         </div>
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 46)       ) : (
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 47)         <p>No user is currently logged in.</p>
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 48)       )}
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 49)     </div>
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 50)   );
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 51) };
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 52) 
+../frontend/src/pages/userInfo.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 53) export default UserInfo;
+../frontend/src/pages/signup.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  1) {/* This is the signup page. */}
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400  2) import React, {useState} from 'react';
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400  3) import { NavLink, useNavigate } from 'react-router-dom';
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400  4) import {  createUserWithEmailAndPassword  } from 'firebase/auth';
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400  5) import { auth } from '../firebase';
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400  6) 
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400  7) const Signup = () => {
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400  8)     const navigate = useNavigate();
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400  9) 
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 10)     const [email, setEmail] = useState('')
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 11)     const [password, setPassword] = useState('');
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 12) 
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 13)     const onSubmit = async (e) => {
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 14)       e.preventDefault()
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 15) 
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 16)       await createUserWithEmailAndPassword(auth, email, password)
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 17)         .then((userCredential) => {
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 18)             // Signed in
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 19)             const user = userCredential.user;
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 20)             console.log(user);
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 21)             navigate("/login")
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 22)             // ...
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 23)         })
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 24)         .catch((error) => {
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 25)             const errorCode = error.code;
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 26)             const errorMessage = error.message;
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 27)             console.log(errorCode, errorMessage);
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 28)             // ..
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 29)         });
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 30) 
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 31) 
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 32)     }
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 33) 
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 34)   return (
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 35)     <main >        
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 36)         <section>
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 37)             <div>
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 38)                 <div>                  
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 39)                     <form>                                                                                            
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 40)                         <div>
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 41)                             <label htmlFor="email-address">
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 42)                                 Email address
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 43)                             </label>
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 44)                             <input
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 45)                                 type="email"
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 46)                                 label="Email address"
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 47)                                 value={email}
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 48)                                 onChange={(e) => setEmail(e.target.value)}  
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 49)                                 required                                    
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 50)                                 placeholder="Email address"                                
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 51)                             />
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 52)                         </div>
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 53) 
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 54)                         <div>
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 55)                             <label htmlFor="password">
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 56)                                 Password
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 57)                             </label>
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 58)                             <input
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 59)                                 type="password"
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 60)                                 label="Create password"
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 61)                                 value={password}
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 62)                                 onChange={(e) => setPassword(e.target.value)} 
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 63)                                 required                                 
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 64)                                 placeholder="Password"              
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 65)                             />
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 66)                         </div>                                             
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 67) 
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 68)                         <button
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 69)                             type="submit" 
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 70)                             onClick={onSubmit}                        
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 71)                         >  
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 72)                             Sign up                                
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 73)                         </button>
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 74) 
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 75)                     </form>
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 76) 
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 77)                     <p>
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 78)                         Already have an account?{' '}
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 79)                         <NavLink to="/login" >
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 80)                             Sign in
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 81)                         </NavLink>
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 82)                     </p>                   
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 83)                 </div>
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 84)             </div>
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 85)         </section>
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 86)     </main>
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 87)   )
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 88) }
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 89) 
+../frontend/src/pages/signup.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 90) export default Signup
+../frontend/src/pages/products.jsx: 2acaa86e (Alan Khalili 2024-10-15 10:24:10 -0400  4) import AuthPrompt from "../components/promptLogin";
+../frontend/src/pages/products.jsx: 2acaa86e (Alan Khalili 2024-10-15 10:24:10 -0400  8)   return (
+../frontend/src/pages/products.jsx: 2acaa86e (Alan Khalili 2024-10-15 10:24:10 -0400  9)     <>
+../frontend/src/pages/products.jsx: 2acaa86e (Alan Khalili 2024-10-15 10:24:10 -0400 10)       <AuthPrompt />
+../frontend/src/pages/products.jsx: 2acaa86e (Alan Khalili 2024-10-15 10:24:10 -0400 12)       <p>this is the products page</p>
+../frontend/src/pages/products.jsx: 2acaa86e (Alan Khalili 2024-10-15 10:24:10 -0400 13)     </>
+../frontend/src/pages/products.jsx: 2acaa86e (Alan Khalili 2024-10-15 10:24:10 -0400 14)   );
+../frontend/src/pages/quiz.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  6) import AuthPrompt from "../components/promptLogin";
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  1) {/* This is the login. */}
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  2) import React, { useState } from "react";
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  3) import { signInWithEmailAndPassword } from "firebase/auth";
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  4) import { auth } from "../firebase";
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  5) import { NavLink, useNavigate } from "react-router-dom";
+../frontend/src/pages/login.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400  6) 
+../frontend/src/pages/login.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400  7) const Login = () => {
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  8)   const navigate = useNavigate();
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  9)   const [email, setEmail] = useState("");
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 10)   const [password, setPassword] = useState("");
+../frontend/src/pages/login.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 11) 
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 12)   const onLogin = (e) => {
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 13)     e.preventDefault();
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 14)     signInWithEmailAndPassword(auth, email, password)
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 15)       .then((userCredential) => {
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 16)         // Signed in
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 17)         const user = userCredential.user;
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 18)         navigate("/");
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 19)         console.log(user);
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 20)       })
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 21)       .catch((error) => {
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 22)         const errorCode = error.code;
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 23)         const errorMessage = error.message;
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 24)         console.log(errorCode, errorMessage);
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 25)       });
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 26)   };
+../frontend/src/pages/login.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 27) 
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 28)   return (
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 29)     <>
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 30)       <main>
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 31)         <section>
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 32)           <div>
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 33)             <form>
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 34)               <div>
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 35)                 <label htmlFor="email-address">Email address</label>
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 36)                 <input
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 37)                   id="email-address"
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 38)                   name="email"
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 39)                   type="email"
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 40)                   required
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 41)                   placeholder="Email address"
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 42)                   onChange={(e) => setEmail(e.target.value)}
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 43)                 />
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 44)               </div>
+../frontend/src/pages/login.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 45) 
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 46)               <div>
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 47)                 <label htmlFor="password">Password</label>
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 48)                 <input
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 49)                   id="password"
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 50)                   name="password"
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 51)                   type="password"
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 52)                   required
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 53)                   placeholder="Password"
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 54)                   onChange={(e) => setPassword(e.target.value)}
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 55)                 />
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 56)               </div>
+../frontend/src/pages/login.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 57) 
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 58)               <div>
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 59)                 <button onClick={onLogin}>Login</button>
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 60)               </div>
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 61)             </form>
+../frontend/src/pages/login.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 62) 
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 63)             <p className="text-sm text-white text-center">
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 64)               No account yet? <NavLink to="/signup">Sign up</NavLink>
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 65)             </p>
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 66)           </div>
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 67)         </section>
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 68)       </main>
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 69)     </>
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 70)   );
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 71) };
+../frontend/src/pages/login.jsx: 3de73750 (Alan Khalili 2024-10-14 19:22:51 -0400 72) 
+../frontend/src/pages/login.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 73) export default Login;
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  1) {/* This is the logout page. */}
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  2) import React, { useEffect, useState } from "react";
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  3) import { signOut, onAuthStateChanged } from "firebase/auth";
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  4) import { auth } from "../firebase";
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  5) 
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  6) const Logout = () => {
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  7)   const [message, setMessage] = useState("");
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  8)   const [loading, setLoading] = useState(true); // Start with loading as true
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  9)   const [isAuthenticated, setIsAuthenticated] = useState(false);
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 10) 
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 11)   // Check authentication state
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 12)   useEffect(() => {
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 13)     const unsubscribe = onAuthStateChanged(auth, (user) => {
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 14)       if (user) {
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 15)         setIsAuthenticated(true); // User is signed in
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 16)       } else {
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 17)         setIsAuthenticated(false); // No user is signed in
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 18)         setMessage("No user signed in");
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 19)       }
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 20)       setLoading(false); // Set loading to false after checking auth state
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 21)     });
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 22) 
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 23)     // Cleanup subscription on unmount
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 24)     return () => unsubscribe();
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 25)   }, []);
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 26) 
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 27)   const handleLogout = () => {
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 28)     if (loading) return; // Prevent logout if still loading
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 29) 
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 30)     setLoading(true);
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 31)     signOut(auth)
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 32)       .then(() => {
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 33)         // Sign-out successful
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 34)         setMessage("Signed out successfully");
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 35)         console.log("Signed out successfully");
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 36)       })
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 37)       .catch((error) => {
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 38)         // An error happened
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 39)         setMessage("Error signing out");
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 40)         console.error("Error signing out: ", error);
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 41)       })
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 42)       .finally(() => {
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 43)         setLoading(false);
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 44)       });
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 45)   };
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 46) 
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 47)   // Call handleLogout if user is authenticated
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 48)   useEffect(() => {
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 49)     if (isAuthenticated) {
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 50)       handleLogout();
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 51)     }
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 52)   }, [isAuthenticated]);
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 53) 
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 54)   return (
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 55)     !loading && (
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 56)       <>
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 57)         <h1>{message}</h1>{" "}
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 58)       </>
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 59)     )
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 60)   );
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 61) };
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 62) 
+../frontend/src/pages/logout.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400 63) export default Logout;
+../frontend/src/pages/home.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400   6) import AuthPrompt from "../components/promptLogin";
+../frontend/src/pages/home.jsx: ba3ab0b0 (Alan Khalili 2024-10-14 20:18:17 -0400  12)       <AuthPrompt />
+../frontend/src/pages/home.jsx: 8477be1d (asmith7939   2024-10-15 08:17:08 -0400  87)               {["Kevin Guo", "Kelly Luong", "Alan Khalili", "Ahmad Tobasei", "Annalise Smith"].map((name, index) => (
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400  1) import os
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400  2) import subprocess
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400  3) 
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400  4) # Ask for git name and net id
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400  5) git_name = input("Enter your git name: ")
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400  6) net_id = input("Enter your net id: ")
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400  7) 
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400  8) # Define the output file
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400  9) output_file = f'{net_id}.commits.txt'
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 10) 
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 11) # File extensions to skip (e.g., binary files)
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 13) 
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 14) # Open the output file in write mode
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 15) with open(output_file, 'w') as f:
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 16)     # Walk through the repository files
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 17)     for root, dirs, files in os.walk('..'):
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 18)         # Skip the .git directory
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 19)         if '.git' in root:
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 20)             continue
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 21)         
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 22)         for file in files:
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 23)             # Skip binary files and the output file itself
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 24)             if file.endswith(skip_extensions) or file == output_file:
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 25)                 print(f"Skipping file: {file}")
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 26)                 continue
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 27) 
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 28)             # Construct the full file path
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 29)             filepath = os.path.join(root, file)
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 30) 
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 31)             # Check if the file is tracked by git
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 32)             try:
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 33)                 result = subprocess.run(
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 34)                     ['git', 'ls-files', filepath], 
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 35)                     stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 36)                 )
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 37)                 if not result.stdout.strip():
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 38)                     # File is not tracked by Git
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 39)                     print(f"Skipping untracked file: {filepath}")
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 40)                     continue
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 41) 
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 42)                 # Run 'git blame' and grep for git_name
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 43)                 blame_result = subprocess.run(
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 44)                     ['git', 'blame', filepath], 
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 45)                     stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 46)                 )
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 47) 
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 48)                 # Check if git_name appears in the output
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 49)                 if blame_result.returncode == 0:
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 50)                     for line in blame_result.stdout.splitlines():
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 51)                         if git_name in line:
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 52)                             f.write(f'{filepath}: {line}\n')
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 53)                 else:
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 54)                     print(f"Error running git blame on {filepath}: {blame_result.stderr}")
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 55)             except Exception as e:
+../sprint1/blame.py: 69b3b80a (Alan Khalili      2024-10-01 17:46:37 -0400 56)                 print(f"Error processing {filepath}: {e}")
+../backend/server.js: 976c30ee (Alan Khalili 2024-09-29 20:34:55 -0400  5) 
+../backend/server.js: 976c30ee (Alan Khalili 2024-09-29 20:34:55 -0400  8) 
+../backend/server.js: 976c30ee (Alan Khalili 2024-09-29 20:34:55 -0400 12) 
+../backend/server.js: 976c30ee (Alan Khalili 2024-09-29 20:34:55 -0400 29) 
+../backend/server.js: 976c30ee (Alan Khalili 2024-09-29 20:34:55 -0400 34) app.get('/', (req, res) => {
+../backend/server.js: 976c30ee (Alan Khalili 2024-09-29 20:34:55 -0400 36) });
+../backend/server.js: 976c30ee (Alan Khalili 2024-09-29 20:34:55 -0400 37) 
+../backend/server.js: 976c30ee (Alan Khalili 2024-09-29 20:34:55 -0400 41) });
+../backend/server.js: 976c30ee (Alan Khalili 2024-09-29 20:34:55 -0400 42) 
