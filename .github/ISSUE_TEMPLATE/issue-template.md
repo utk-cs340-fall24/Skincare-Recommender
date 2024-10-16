@@ -25,13 +25,8 @@ _State the conditions for the task to be considered complete._  i.e.
 
 ---
 
-### **Assignees**
-- [ ] _Assign team members to this task._
-
----
-
 ### **Due Date**
-- [ ] _Set a due date or timeline for completion._
+- Sprint N
 
 ---
 
