@@ -1,6 +1,6 @@
 {/* This is the user info page. */}
 import React, { useEffect, useState } from 'react';
-import { auth } from '../firebase'; // Adjust the import path as necessary
+import { auth } from '../../firebase'; // Adjust the import path as necessary
 import { onAuthStateChanged } from 'firebase/auth';
 
 const UserInfo = () => {

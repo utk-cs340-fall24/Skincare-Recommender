@@ -1,7 +1,7 @@
 {/* This is the logout page. */}
 import React, { useEffect, useState } from "react";
 import { signOut, onAuthStateChanged } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth } from "../../firebase";
 
 const Logout = () => {
   const [message, setMessage] = useState("");
