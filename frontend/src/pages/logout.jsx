@@ -1,4 +1,4 @@
-{/* This is the logout page. */}
+{ /* This is the logout page. */ }
 import React, { useEffect, useState } from "react";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase";
@@ -15,7 +15,7 @@ const Logout = () => {
         setIsAuthenticated(true); // User is signed in
       } else {
         setIsAuthenticated(false); // No user is signed in
-        setMessage("No user signed in");
+        setMessage("No user signed in.");
       }
       setLoading(false); // Set loading to false after checking auth state
     });
@@ -31,12 +31,12 @@ const Logout = () => {
     signOut(auth)
       .then(() => {
         // Sign-out successful
-        setMessage("Signed out successfully");
+        setMessage("Signed out successfully!");
         console.log("Signed out successfully");
       })
       .catch((error) => {
         // An error happened
-        setMessage("Error signing out");
+        setMessage("Error signing out.");
         console.error("Error signing out: ", error);
       })
       .finally(() => {
@@ -54,7 +54,9 @@ const Logout = () => {
   return (
     !loading && (
       <>
-        <h1>{message}</h1>{" "}
+        <div className="bg-customCream h-screen flex items-center justify-center">
+          <h1 className="text-customBlue text-4xl font-bold font-inknut">{message}</h1>{" "}
+        </div>
       </>
     )
   );
