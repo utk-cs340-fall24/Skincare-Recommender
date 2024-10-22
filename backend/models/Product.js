@@ -7,9 +7,20 @@ const productSchema = new Schema({
     type: String,
     required: true,
   },
+  name: {
+    type: String,
+    required: true,
+  },
   price: {
     type: Number,
     required: false,
+  },
+  rating: {
+    type: Number,
+    required: false,
+    min: 1, // Minimum rating
+    max: 5, // Maximum rating
+    default: 0,
   },
   ingredients: {
     type: [String], // Array of strings for ingredients
