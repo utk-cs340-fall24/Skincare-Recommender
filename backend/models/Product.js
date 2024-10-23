@@ -7,7 +7,7 @@ const productSchema = new Schema({
     type: String,
     required: true,
   },
-  name: {
+  brand: {
     type: String,
     required: true,
   },
@@ -16,7 +16,7 @@ const productSchema = new Schema({
     required: false,
   },
   rating: {
-    type: Number,
+    type: Number, // Avg. of all reviews tied to the product 
     required: false,
     min: 1, // Minimum rating
     max: 5, // Maximum rating
