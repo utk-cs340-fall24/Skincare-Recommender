@@ -1,6 +1,3 @@
-{
-  /* This is the signup page. */
-}
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -15,11 +12,15 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
+  const [status, setStatus] = useState(""); // New state for tracking status
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
     try {
+      // Clear any previous status
+      setStatus("");
+
       // Create user with Firebase
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -32,16 +33,23 @@ const Signup = () => {
       await axios.post("http://localhost:5001/api/users/register", {
         uid: user.uid, // Firebase UID
         email: user.email,
-        displayName: displayName, 
+        displayName: displayName,
       });
 
-      // Navigate to login after successful registration
-      alert("Account created successfully! Please log in.");
-      navigate("/login");
-    } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
+      setStatus("Successfully registered!");
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second for the user to see the success message
+      navigate("/");
+    } catch (status) {
+      const statusMessage = status.message;
+      if (statusMessage.includes("auth/email-already-in-use")) {
+        setStatus("Email already in use. Please try another.");
+      } else if (statusMessage.includes("auth/invalid-email")) {
+        setStatus("Invalid email address. Please try again.");
+      } else if (statusMessage.includes("auth/weak-password")) {
+        setStatus("Password should be at least 6 characters.");
+      } else {
+        setStatus(statusMessage); // Set status message to state
+      }
     }
   };
 
@@ -112,13 +120,18 @@ const Signup = () => {
               />
             </div>
 
+            {/* Display status message if there's any */}
+            {status && (
+              <div className="mb-4 text-customGray text-center">{status}</div>
+            )}
+
             {/* Button to sign up */}
             <div className="mb-4 text-center">
               <Button
                 label="Sign up"
                 color="#F6CACB"
                 activeColor="#DF9D9D"
-                type="submit" // Change to type="submit"
+                type="submit"
               />
             </div>
           </form>
