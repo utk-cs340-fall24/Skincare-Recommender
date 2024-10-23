@@ -7,14 +7,14 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 import Button from "../components/button.jsx";
 import { Link } from "react-router-dom";
-import axios from "axios"; // Import axios at the top of your file
+import axios from "axios";
 
 const Signup = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [displayName, setDisplayName] = useState(""); // Add state for displayName
+  const [displayName, setDisplayName] = useState("");
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -31,13 +31,13 @@ const Signup = () => {
       // Send user data to the server
       await axios.post("http://localhost:5001/api/users/register", {
         uid: user.uid, // Firebase UID
-        email: user.email, // User email
-        displayName: displayName, // Add displayName
-        // Optionally add other fields like skinType, concerns
+        email: user.email,
+        displayName: displayName, 
       });
 
       // Navigate to login after successful registration
-      // navigate("/login");
+      alert("Account created successfully! Please log in.");
+      navigate("/login");
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
