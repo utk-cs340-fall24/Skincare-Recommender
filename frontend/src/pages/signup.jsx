@@ -1,34 +1,48 @@
-{ /* This is the signup page. */ }
-import React, { useState } from "react";
+{
+  /* This is the signup page. */
+}
+import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 import Button from "../components/button.jsx";
 import { Link } from "react-router-dom";
+import axios from "axios"; // Import axios at the top of your file
 
 const Signup = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [displayName, setDisplayName] = useState(""); // Add state for displayName
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    await createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        console.log(user);
-        navigate("/login");
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-        // ..
+    try {
+      // Create user with Firebase
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+
+      // Send user data to the server
+      await axios.post("http://localhost:5001/api/users/register", {
+        uid: user.uid, // Firebase UID
+        email: user.email, // User email
+        displayName: displayName, // Add displayName
+        // Optionally add other fields like skinType, concerns
       });
+
+      // Navigate to login after successful registration
+      // navigate("/login");
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+    }
   };
 
   return (
@@ -46,7 +60,24 @@ const Signup = () => {
           <h2 className="text-center text-customCream text-3xl font-bold mb-6 font-inknut">
             Sign Up
           </h2>
-          <form>
+          <form onSubmit={onSubmit}>
+            {/* Input display name */}
+            <div className="mb-4">
+              <label htmlFor="display-name" className="sr-only">
+                Display Name
+              </label>
+              <input
+                id="display-name"
+                name="displayName"
+                type="text"
+                value={displayName}
+                required
+                className="w-full p-3 rounded border border-gray-300 text-customLightGray font-bold"
+                placeholder="Display Name"
+                onChange={(e) => setDisplayName(e.target.value)}
+              />
+            </div>
+
             {/* Input email address */}
             <div className="mb-4">
               <label htmlFor="email-address" className="sr-only">
@@ -56,7 +87,6 @@ const Signup = () => {
                 id="email-address"
                 name="email"
                 type="email"
-                label="Email address"
                 value={email}
                 required
                 className="w-full p-3 rounded border border-gray-300 text-customLightGray font-bold"
@@ -74,7 +104,6 @@ const Signup = () => {
                 id="password"
                 name="password"
                 type="password"
-                label="Create password"
                 value={password}
                 required
                 className="w-full p-3 rounded border border-gray-300 text-customLightGray font-bold"
@@ -89,7 +118,7 @@ const Signup = () => {
                 label="Sign up"
                 color="#F6CACB"
                 activeColor="#DF9D9D"
-                onClick={onSubmit}
+                type="submit" // Change to type="submit"
               />
             </div>
           </form>
