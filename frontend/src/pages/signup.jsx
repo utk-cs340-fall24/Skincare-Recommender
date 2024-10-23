@@ -73,7 +73,7 @@ const Signup = () => {
                 value={displayName}
                 required
                 className="w-full p-3 rounded border border-gray-300 text-customLightGray font-bold"
-                placeholder="Display Name"
+                placeholder="Username"
                 onChange={(e) => setDisplayName(e.target.value)}
               />
             </div>
