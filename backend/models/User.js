@@ -16,6 +16,7 @@ const userSchema = new Schema({
   displayName: {
     type: String, // Firebase display name
     required: false,
+    unique: false,
   },
   skinType: {
     type: Number, // Using bitwise operations to represent skin type
