@@ -4,8 +4,10 @@ import NavBar from "../components/navbar.jsx";
 import Button from "../components/button.jsx";
 import Footer from "../components/footer.jsx";
 import AuthPrompt from "../components/promptLogin";
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
+  const navigate = useNavigate();
   return (
     <>
       <NavBar />
@@ -32,7 +34,7 @@ function Home() {
                 label="Skincare Quiz"
                 color="#F6CACB"
                 activeColor="#DF9D9D"
-                onClick={() => console.log("Another button clicked!")}
+                onClick={() => navigate("/quiz")}
               />
             </div>
 
