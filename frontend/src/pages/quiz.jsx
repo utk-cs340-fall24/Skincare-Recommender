@@ -4,13 +4,14 @@
 import "../../index.css";
 import NavBar from "../components/navbar.jsx";
 import AuthPrompt from "../components/promptLogin";
+import SurveyComponent from "../components/survey.jsx";
 
 function Quiz() {
   return (
     <>
       <NavBar />
       <AuthPrompt />
-      <p>this is the quiz page</p>
+      <SurveyComponent />
     </>
   );
 }
