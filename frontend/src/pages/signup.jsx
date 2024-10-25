@@ -30,7 +30,7 @@ const Signup = () => {
       const user = userCredential.user;
 
       // Send user data to the server
-      await axios.post("http://localhost:5001/api/users/register", {
+      await axios.post("http://localhost:5001/api/user/register", {
         uid: user.uid, // Firebase UID
         email: user.email,
         displayName: displayName,
