@@ -15,7 +15,7 @@ sys.path.append(project_root)
 from shared.utils.constants import SKIN_TYPES, PRODUCT_CATEGORIES
 
 # List of phrases in ingredient lists that we want to ignore
-unwanted_phrases = ["No Info", "Visit the", "check out", "find more at", "see more at",]
+unwanted_phrases = ["No Info", "Visit the", "check out", "find more at", "see more at", "Please", "\\", ":", "Change" , "please", "change", "feel"]
 
 # Function to check if ingredients list is valid
 def is_valid_ingredients(ingredient_list):
