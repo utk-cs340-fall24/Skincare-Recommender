@@ -9,6 +9,7 @@ import Signup from './pages/signup';
 import Login from './pages/login';
 import Logout from './pages/logout';
 import UserInfo from "./pages/userInfo";
+import Results from "./pages/results"
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
             <Route path="/userInfo" element={<UserInfo />} />
+            <Route path="/results" element={<Results />} />
             {/* Error if page not found */}
             <Route path="*" element={<Error />} />
           </Routes>
