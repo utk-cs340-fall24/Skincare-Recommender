@@ -4,12 +4,12 @@ const { Schema, model } = mongoose;
 // Review model schema
 const reviewSchema = new Schema({
   userId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "User", // Reference to the User model
     required: true,
   },
   productId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "Product", // Reference to the Product model
     required: true,
   },
