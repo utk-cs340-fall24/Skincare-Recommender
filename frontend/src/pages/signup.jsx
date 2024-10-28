@@ -1,34 +1,56 @@
-{ /* This is the signup page. */ }
-import React, { useState } from "react";
+import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 import Button from "../components/button.jsx";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Signup = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [displayName, setDisplayName] = useState("");
+  const [status, setStatus] = useState(""); // New state for tracking status
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    await createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        console.log(user);
-        navigate("/login");
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-        // ..
+    try {
+      // Clear any previous status
+      setStatus("");
+
+      // Create user with Firebase
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+
+      // Send user data to the server
+      await axios.post("http://localhost:5001/api/user/register", {
+        uid: user.uid, // Firebase UID
+        email: user.email,
+        displayName: displayName,
       });
+
+      setStatus("Successfully registered!");
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second for the user to see the success message
+      navigate("/");
+    } catch (status) {
+      const statusMessage = status.message;
+      if (statusMessage.includes("auth/email-already-in-use")) {
+        setStatus("Email already in use. Please try another.");
+      } else if (statusMessage.includes("auth/invalid-email")) {
+        setStatus("Invalid email address. Please try again.");
+      } else if (statusMessage.includes("auth/weak-password")) {
+        setStatus("Password should be at least 6 characters.");
+      } else {
+        setStatus(statusMessage); // Set status message to state
+      }
+    }
   };
 
   return (
@@ -46,7 +68,24 @@ const Signup = () => {
           <h2 className="text-center text-customCream text-3xl font-bold mb-6 font-inknut">
             Sign Up
           </h2>
-          <form>
+          <form onSubmit={onSubmit}>
+            {/* Input display name */}
+            <div className="mb-4">
+              <label htmlFor="display-name" className="sr-only">
+                Display Name
+              </label>
+              <input
+                id="display-name"
+                name="displayName"
+                type="text"
+                value={displayName}
+                required
+                className="w-full p-3 rounded border border-gray-300 text-customLightGray font-bold"
+                placeholder="Username"
+                onChange={(e) => setDisplayName(e.target.value)}
+              />
+            </div>
+
             {/* Input email address */}
             <div className="mb-4">
               <label htmlFor="email-address" className="sr-only">
@@ -56,7 +95,6 @@ const Signup = () => {
                 id="email-address"
                 name="email"
                 type="email"
-                label="Email address"
                 value={email}
                 required
                 className="w-full p-3 rounded border border-gray-300 text-customLightGray font-bold"
@@ -74,7 +112,6 @@ const Signup = () => {
                 id="password"
                 name="password"
                 type="password"
-                label="Create password"
                 value={password}
                 required
                 className="w-full p-3 rounded border border-gray-300 text-customLightGray font-bold"
@@ -83,13 +120,18 @@ const Signup = () => {
               />
             </div>
 
+            {/* Display status message if there's any */}
+            {status && (
+              <div className="mb-4 text-customGray text-center">{status}</div>
+            )}
+
             {/* Button to sign up */}
             <div className="mb-4 text-center">
               <Button
                 label="Sign up"
                 color="#F6CACB"
                 activeColor="#DF9D9D"
-                onClick={onSubmit}
+                type="submit"
               />
             </div>
           </form>

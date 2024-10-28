@@ -9,7 +9,7 @@ import {
 const router = express.Router();
 
 // Create a new user
-router.post("/", createUser);
+router.post("/register", createUser);
 
 // Get a user by ID
 router.get("/:userId", getUser);
