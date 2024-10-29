@@ -38,7 +38,7 @@ export default function Header() {
         </div>
       </div>
 
-      <div className="hidden md:flex ml-[10%] mr-[5%] w-1/3">
+      <div className="md:flex-grow md:px-[5vh] hidden md:flex ml-[10%] mr-[5%] w-1/3">
         <SearchBar
           placeholder="Search Products"
           onSearch={handleUpdate}
@@ -49,7 +49,7 @@ export default function Header() {
       <nav
         className={`${
           isOpen ? "block" : "hidden"
-        } px-2 pt-2 pb-12 md:pb-2 md:flex md:items-center md:space-x-4 md:ml-auto`}
+        } px-2 pt-2 pb-12 md:pb-2 md:flex md:items-center md:ml-auto`}
       >
         <div className="block md:hidden px-2 py-1 text-customGray font-semibold rounded">
           <SearchBar
