@@ -46,3 +46,15 @@ export const deleteUser = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+// Get a User by UID
+export const getUserByUID = async (req, res) => {
+  try {
+    //console.log("UID from request params:", req.params.uid); // Debugging line
+    const user = await User.findOne({ uid: req.params.uid });
+    if (!user) return res.status(404).json({ message: "User not found" });
+    res.json(user);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
