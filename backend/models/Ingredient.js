@@ -7,12 +7,7 @@ const ingredientSchema = new Schema({
     type: String,
     required: true, // Ingredient name is required
     unique: true, // Ensuring each ingredient is unique
-  },
-  treats: {
-    type: Number, // Bitwise number representing skin concerns treated
-    required: false,
-    default: 0,
-  },
+  }
 });
 
 const Ingredient = model("Ingredient", ingredientSchema);
