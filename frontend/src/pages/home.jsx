@@ -113,7 +113,8 @@ function Home() {
                   },
                   {
                     name: "Annalise Smith",
-                    photo:
+                    photo: "https://i.imgur.com/GjohJ8f.png",
+                    linkedin:
                       "https://www.linkedin.com/in/annalise-smith-0666b2304/",
                   },
                 ].map((person, index) => (
