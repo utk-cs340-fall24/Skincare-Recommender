@@ -24,5 +24,4 @@ router.delete("/:userId", deleteUser);
 // Get a user by UID
 router.get("/uid/:uid", getUserByUID);
 
-
 export default router;
