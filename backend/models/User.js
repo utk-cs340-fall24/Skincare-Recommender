@@ -32,8 +32,14 @@ const userSchema = new Schema({
     type: Schema.Types.ObjectId, // References Ingredient collection
     ref: 'Ingredient',
     required: false,
-    default: []
+    default: ''
   }],
+  prevProduct: {
+    type: Schema.Types.ObjectId, // References Product collection
+    ref: 'Product',
+    required: false,
+    default: ''
+  },
   createdAt: {
     type: Date,
     default: Date.now,
