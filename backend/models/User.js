@@ -28,10 +28,19 @@ const userSchema = new Schema({
     required: false,
     default: 0, // Default to no concerns
   },
-  allergies: [{
-    type: Schema.Types.ObjectId, // References Ingredient collection
-    ref: 'Ingredient',
+  allergies: [
+    {
+      type: Schema.Types.ObjectId, // References Ingredient collection
+      ref: "Ingredient",
+      required: false,
+      default: "",
+    },
+  ],
+  prevProduct: {
+    type: Schema.Types.ObjectId, // References Product collection
+    ref: "Product",
     required: false,
+<<<<<<< HEAD
     default: ''
   }],
   prevProduct: {
@@ -39,6 +48,9 @@ const userSchema = new Schema({
     ref: 'Product',
     required: false,
     default: ''
+=======
+    default: "",
+>>>>>>> origin/74-set-up-flask
   },
   createdAt: {
     type: Date,
