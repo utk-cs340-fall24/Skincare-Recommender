@@ -40,17 +40,7 @@ const userSchema = new Schema({
     type: Schema.Types.ObjectId, // References Product collection
     ref: "Product",
     required: false,
-<<<<<<< HEAD
-    default: ''
-  }],
-  prevProduct: {
-    type: Schema.Types.ObjectId, // References Product collection
-    ref: 'Product',
-    required: false,
-    default: ''
-=======
     default: "",
->>>>>>> origin/74-set-up-flask
   },
   createdAt: {
     type: Date,
