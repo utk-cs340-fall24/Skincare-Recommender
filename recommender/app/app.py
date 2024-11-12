@@ -6,7 +6,7 @@ from models.product import Product
 
 app = Flask(__name__)
 
-mongo_uri = "mongodb+srv://alankhalili:fq0y7FsiyZneg1UI@skinrecs.emb1z.mongodb.net/?retryWrites=true&w=majority&appName=SKINrecs"
+mongo_uri = None
 
 
 try:
