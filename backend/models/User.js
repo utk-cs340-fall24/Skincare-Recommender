@@ -41,7 +41,7 @@ const userSchema = new Schema({
     ref: "Product",
     required: false,
     default: ''
-  }],
+  },
   prevProduct: {
     type: Schema.Types.ObjectId, // References Product collection
     ref: 'Product',
