@@ -2,14 +2,19 @@ import { useState } from "react";
 import SearchBar from "./searchbar";
 import { Link } from "react-router-dom";
 import { Spin as Hamburger } from "hamburger-react";
-
+import ProfileModal from "./profileModal";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [isModalOpen, setModalOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+  };
+
+  const toggleModal = () => {
+    setModalOpen(!isModalOpen);
   };
 
   function handleUpdate(value) {
@@ -33,7 +38,7 @@ export default function Header() {
             type="button"
             className="block text-customGray focus:text-customDarkGray focus:outline-none"
           >
-            <Hamburger toggled={isOpen} toggle={setIsOpen}/>
+            <Hamburger toggled={isOpen} toggle={setIsOpen} />
           </button>
         </div>
       </div>
@@ -71,7 +76,10 @@ export default function Header() {
           Quiz
         </Link>
         <div className="mt-1 block px-2 py-1 absolute right-2 md:relative md:mt-0 md:ml-2">
-          <a href="#" className="text-customDarkGray hover:text-customGray">
+          <button
+            onClick={toggleModal}
+            className="text-customGray hover:text-customDarkGray"
+          >
             <svg
               className="h-6 w-6"
               fill="none"
@@ -85,9 +93,11 @@ export default function Header() {
                 d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
               />
             </svg>
-          </a>
+          </button>
         </div>
       </nav>
+
+      <ProfileModal isOpen={isModalOpen} onClose={toggleModal} />
     </header>
   );
 }
