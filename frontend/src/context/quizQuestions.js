@@ -217,7 +217,7 @@ export const quizQuestions = {
   ],
   "showPageTitles": false,
   "showCompletedPage": false,
-  "navigateToUrl": "https://localhost500",
+  "navigateToUrl": "",
   "navigateToUrlOnCondition": [
     {
       "url": "https://localhost500"
