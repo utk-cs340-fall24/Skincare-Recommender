@@ -1,54 +1,48 @@
-import os
 from flask import Flask, jsonify
-from dotenv import load_dotenv
 from pymongo import MongoClient
-from pathlib import Path
+from bson import ObjectId
 
-from services.recommender import Recommendation
-from models.user import User
 from models.product import Product
 
 app = Flask(__name__)
 
-# Load environment variables from the .env file located in 'recommender'
-env_path = Path(__file__).resolve().parent.parent / '.env'  
-load_dotenv(dotenv_path=env_path)
+mongo_uri = None #replace with your uri
 
-# Get the MongoDB URI from environment variables
-mongodb_uri = os.getenv("MONGODB_URI")
 
-# Connect to MongoDB using the URI
-client = MongoClient(mongodb_uri)
-db = client.get_database()  # Assuming db name is not specified
+try:
+    client = MongoClient(mongo_uri)
+    db = client.get_database("test")
+    users_collection = db["users"]
+    products_collection = db["products"]
+except Exception as e:
+    print(f"Error connecting to MongoDB: {e}")
+    exit(1)
 
-# Collection references
-users_collection = db["users"]
-products_collection = db["products"]
+
+@app.route("/", methods=["GET"])
+def home():
+    return "Recommender is running"
 
 @app.route("/recommender/<userid>", methods=["GET"])
 def recommend(userid):
-    # Fetch user data from the MongoDB users collection
-    user_data = users_collection.find_one({"uid": userid})
+    try:
+        user_id_obj = ObjectId(userid)
+    except Exception as e:
+        return jsonify({"message": f"Invalid user ID format: {str(e)}"}), 400
+
+    # Find the user by ObjectId
+    user_data = users_collection.find_one({"_id": user_id_obj})
 
     if not user_data:
         return jsonify({"message": "User not found"}), 404
 
-    # Fetch product data from the MongoDB products collection
-    products_data = products_collection.find({})  # Modify this query as needed
+    # TODO: Replace with actual recommendation logic
+    mock_products = [
+        {"name": "Moisturizing Lotion", "brand": "Brand A", "price": 19.99},
+    ]
 
-    # Map the products data to Product objects
-    product_objects = [Product(**product) for product in products_data]
+    return jsonify(mock_products)
 
-    # Create User object from the fetched user data
-    user = User(**user_data)
-
-    # Generate product recommendations
-    # recommendation_model = Recommendation(user, product_objects)
-    # recommended_products = recommendation_model.recommend_products()
-
-    # Return recommended product names
-    # recommended_product_names = [product.name for product in recommended_products]
-    # return jsonify(recommended_product_names)
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
