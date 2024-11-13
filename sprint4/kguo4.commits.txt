@@ -1,0 +1,241 @@
+../backend/models/User.js: 7215233f (kvnguo     2024-11-11 19:51:16 -0500 31)   allergies: [
+../backend/models/User.js: 7215233f (kvnguo     2024-11-11 19:51:16 -0500 32)     {
+../backend/models/User.js: 7215233f (kvnguo     2024-11-11 19:51:16 -0500 33)       type: Schema.Types.ObjectId, // References Ingredient collection
+../backend/models/User.js: 7215233f (kvnguo     2024-11-11 19:51:16 -0500 34)       ref: "Ingredient",
+../backend/models/User.js: 7215233f (kvnguo     2024-11-11 19:51:16 -0500 35)       required: false,
+../backend/models/User.js: 7215233f (kvnguo     2024-11-11 19:51:16 -0500 36)       default: "",
+../backend/models/User.js: 7215233f (kvnguo     2024-11-11 19:51:16 -0500 37)     },
+../backend/models/User.js: 7215233f (kvnguo     2024-11-11 19:51:16 -0500 38)   ],
+../backend/models/User.js: 7215233f (kvnguo     2024-11-11 19:51:16 -0500 39)   prevProduct: {
+../backend/models/User.js: 7215233f (kvnguo     2024-11-11 19:51:16 -0500 40)     type: Schema.Types.ObjectId, // References Product collection
+../backend/models/User.js: 7215233f (kvnguo     2024-11-11 19:51:16 -0500 41)     ref: "Product",
+../backend/models/User.js: 7215233f (kvnguo     2024-11-11 19:51:16 -0500 43)     default: "",
+../backend/models/User.js: 7215233f (kvnguo     2024-11-11 19:51:16 -0500 44)   },
+../backend/controllers/recommendationController.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500  1) import axios from "axios";
+../backend/controllers/recommendationController.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500  2) import { config } from "dotenv";
+../backend/controllers/recommendationController.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500  3) 
+../backend/controllers/recommendationController.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500  4) config();
+../backend/controllers/recommendationController.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500  5) 
+../backend/controllers/recommendationController.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500  6) // Define the base URL for the Python recommender service
+../backend/controllers/recommendationController.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500  7) const RECOMMENDER_API_URL =
+../backend/controllers/recommendationController.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500  8)   process.env.RECOMMENDER_API_URL || "http://127.0.0.1:5000/recommender";
+../backend/controllers/recommendationController.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500  9) 
+../backend/controllers/recommendationController.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 10) // Get product recommendations for a given user
+../backend/controllers/recommendationController.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 11) export const getRecommendations = async (req, res) => {
+../backend/controllers/recommendationController.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 12)   const { userid } = req.params;
+../backend/controllers/recommendationController.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 13) 
+../backend/controllers/recommendationController.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 14)   try {
+../backend/controllers/recommendationController.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 15)     // Make the request to the Python recommender service
+../backend/controllers/recommendationController.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 16)     console.log(`${RECOMMENDER_API_URL}/${userid}`);
+../backend/controllers/recommendationController.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 17)     const response = await axios.get(`${RECOMMENDER_API_URL}/${userid}`);
+../backend/controllers/recommendationController.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 18) 
+../backend/controllers/recommendationController.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 19)     // Check if the response contains the recommended products
+../backend/controllers/recommendationController.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 20)     if (response.data && response.data.length > 0) {
+../backend/controllers/recommendationController.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 21)       return res.json({
+../backend/controllers/recommendationController.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 22)         userId: userid,
+../backend/controllers/recommendationController.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 23)         recommendations: response.data,
+../backend/controllers/recommendationController.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 24)       });
+../backend/controllers/recommendationController.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 25)     } else {
+../backend/controllers/recommendationController.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 26)       return res
+../backend/controllers/recommendationController.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 27)         .status(404)
+../backend/controllers/recommendationController.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 28)         .json({ message: "No recommendations found for this user." });
+../backend/controllers/recommendationController.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 29)     }
+../backend/controllers/recommendationController.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 30)   } catch (error) {
+../backend/controllers/recommendationController.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 31)     console.error("Error while fetching recommendations:", error);
+../backend/controllers/recommendationController.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 32)     return res.status(500).json({ message: "Error fetching recommendations." });
+../backend/controllers/recommendationController.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 33)   }
+../backend/controllers/recommendationController.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 34) };
+../backend/routes/recommendationRoutes.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 1) import express from "express";
+../backend/routes/recommendationRoutes.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 2) import { getRecommendations } from "../controllers/recommendationController.js";
+../backend/routes/recommendationRoutes.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 3) 
+../backend/routes/recommendationRoutes.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 4) const router = express.Router();
+../backend/routes/recommendationRoutes.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 5) 
+../backend/routes/recommendationRoutes.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 6) // Get recommendations for a specific user by user ID
+../backend/routes/recommendationRoutes.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 7) router.get("/:userid", getRecommendations);
+../backend/routes/recommendationRoutes.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 8) 
+../backend/routes/recommendationRoutes.js: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 9) export default router;
+../backend/routes/index.js: 7ff72dcb (kvnguo     2024-11-11 21:51:43 -0500  5) import recommenderRoutes from "./recommendationRoutes.js";
+../backend/routes/index.js: 7ff72dcb (kvnguo     2024-11-11 21:51:43 -0500 27)   app.use("/api/ingredients", ingredientRoutes);
+../backend/routes/index.js: 7ff72dcb (kvnguo     2024-11-11 21:51:43 -0500 28)   app.use("/api/recommendation", recommenderRoutes);
+../recommender/app/app.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500  1) from flask import Flask, jsonify
+../recommender/app/app.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500  2) from pymongo import MongoClient
+../recommender/app/app.py: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500  3) from bson import ObjectId
+../recommender/app/app.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500  4) 
+../recommender/app/app.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500  5) from models.product import Product
+../recommender/app/app.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500  6) 
+../recommender/app/app.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500  7) app = Flask(__name__)
+../recommender/app/app.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500  8) 
+../recommender/app/app.py: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500  9) mongo_uri = None #replace with your uri
+../recommender/app/app.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 10) 
+../recommender/app/app.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 11) 
+../recommender/app/app.py: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 12) try:
+../recommender/app/app.py: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 13)     client = MongoClient(mongo_uri)
+../recommender/app/app.py: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 14)     db = client.get_database("test")
+../recommender/app/app.py: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 15)     users_collection = db["users"]
+../recommender/app/app.py: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 16)     products_collection = db["products"]
+../recommender/app/app.py: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 17) except Exception as e:
+../recommender/app/app.py: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 18)     print(f"Error connecting to MongoDB: {e}")
+../recommender/app/app.py: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 19)     exit(1)
+../recommender/app/app.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 20) 
+../recommender/app/app.py: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 21) 
+../recommender/app/app.py: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 22) @app.route("/", methods=["GET"])
+../recommender/app/app.py: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 23) def home():
+../recommender/app/app.py: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 24)     return "Recommender is running"
+../recommender/app/app.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 25) 
+../recommender/app/app.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 26) @app.route("/recommender/<userid>", methods=["GET"])
+../recommender/app/app.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 27) def recommend(userid):
+../recommender/app/app.py: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 28)     try:
+../recommender/app/app.py: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 29)         user_id_obj = ObjectId(userid)
+../recommender/app/app.py: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 30)     except Exception as e:
+../recommender/app/app.py: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 31)         return jsonify({"message": f"Invalid user ID format: {str(e)}"}), 400
+../recommender/app/app.py: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 32) 
+../recommender/app/app.py: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 33)     # Find the user by ObjectId
+../recommender/app/app.py: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 34)     user_data = users_collection.find_one({"_id": user_id_obj})
+../recommender/app/app.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 35) 
+../recommender/app/app.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 36)     if not user_data:
+../recommender/app/app.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 37)         return jsonify({"message": "User not found"}), 404
+../recommender/app/app.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 38) 
+../recommender/app/app.py: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 39)     # TODO: Replace with actual recommendation logic
+../recommender/app/app.py: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 40)     mock_products = [
+../recommender/app/app.py: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 41)         {"name": "Moisturizing Lotion", "brand": "Brand A", "price": 19.99},
+../recommender/app/app.py: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 42)     ]
+../recommender/app/app.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 43) 
+../recommender/app/app.py: 7ff72dcb (kvnguo 2024-11-11 21:51:43 -0500 44)     return jsonify(mock_products)
+../recommender/app/app.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 45) 
+../recommender/app/app.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 46) 
+../recommender/app/app.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 47) if __name__ == "__main__":
+../recommender/app/app.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 48)     app.run(debug=True, port=5000)
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500  1) class User:
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500  2)     def __init__(
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500  3)         self,
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500  4)         uid,
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500  5)         email,
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500  6)         display_name,
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500  7)         skin_type,
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500  8)         concerns,
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500  9)         allergies,
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 10)         prev_product,
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 11)         created_at,
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 12)     ):
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 13)         self.uid = uid
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 14)         self.email = email
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 15)         self.display_name = display_name
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 16)         self.skin_type = skin_type  # Bitwise representation
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 17)         self.concerns = concerns  # Bitwise representation
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 18)         self.allergies = allergies  # List of allergy product ids (or ingredient ids)
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 19)         self.prev_product = prev_product  # List of previously used product ids
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 20)         self.created_at = created_at
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 21) 
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 22)     def get_skin_type(self):
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 23)         return self.skin_type
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 24) 
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 25)     def get_concerns(self):
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 26)         return self.concerns
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 27) 
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 28)     def get_allergies(self):
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 29)         return self.allergies
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 30) 
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 31)     def get_prev_products(self):
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 32)         return self.prev_product
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 33) 
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 34)     def get_user_info(self):
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 35)         return {
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 36)             "uid": self.uid,
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 37)             "email": self.email,
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 38)             "display_name": self.display_name,
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 39)             "skin_type": self.skin_type,
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 40)             "concerns": self.concerns,
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 41)             "allergies": self.allergies,
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 42)             "prev_products": self.prev_products,
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 43)             "created_at": self.created_at,
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 44)         }
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 45) 
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 46)     def __str__(self):
+../recommender/app/models/user.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 47)         return f"User({self.uid}): {self.display_name}"
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500  1) class Product:
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500  2)     def __init__(
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500  3)         self,
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500  4)         product_id,
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500  5)         name,
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500  6)         brand,
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500  7)         price,
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500  8)         rating,
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500  9)         skin_type,
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 10)         concerns,
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 11)         ingredients,
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 12)         category,
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 13)     ):
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 14)         self.product_id = product_id
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 15)         self.name = name
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 16)         self.brand = brand
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 17)         self.price = price
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 18)         self.rating = rating
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 19)         self.skin_type = skin_type  # Bitwise representation
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 20)         self.concerns = concerns  # Bitwise representation
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 21)         self.ingredients = ingredients  # List of ingredient IDs
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 22)         self.category = category  # Bitwise representation of the product category
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 23) 
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 24)     def is_suitable_for(self, user_skin_type, user_concerns):
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 25)         is_skin_type_match = (self.skin_type & user_skin_type) > 0
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 26)         is_concerns_match = (self.concerns & user_concerns) > 0
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 27)         return is_skin_type_match and is_concerns_match
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 28) 
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 29)     def contains_allergy(self, user_allergies):
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 30) 
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 31)         return any(ingredient in user_allergies for ingredient in self.ingredients)
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 32) 
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 33)     def __str__(self):
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 34) 
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 35)         return f"Product({self.product_id}): {self.name}"
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 36) 
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 37)     def get_skin_type_label(self):
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 38) 
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 39)         skin_type_labels = {1: "Dry", 2: "Normal", 4: "Oily", 8: "Sensitive"}
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 40)         skin_types = [
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 41)             label for value, label in skin_type_labels.items() if self.skin_type & value
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 42)         ]
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 43)         return ", ".join(skin_types) if skin_types else "No specific skin type"
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 44) 
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 45)     def get_concern_labels(self):
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 46)         concern_labels = {
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 47)             1: "Acne",
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 48)             2: "Aging",
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 49)             4: "Dryness",
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 50)             8: "Redness",
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 51)             16: "Hyperpigmentation",
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 52)             32: "Pores",
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 53)         }
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 54)         concerns = [
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 55)             label for value, label in concern_labels.items() if self.concerns & value
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 56)         ]
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 57)         return ", ".join(concerns) if concerns else "No specific concerns"
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 58) 
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 59)     def get_category_label(self):
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 60) 
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 61)         category_labels = {
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 62)             1: "Cleanser",
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 63)             2: "Moisturizer",
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 64)             4: "Sunscreen",
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 65)             8: "Serum",
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 66)             16: "Mask",
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 67)             32: "Toner",
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 68)             64: "Exfoliator",
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 69)             128: "Eye Cream",
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 70)         }
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 71)         categories = [
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 72)             label for value, label in category_labels.items() if self.category & value
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 73)         ]
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 74)         return ", ".join(categories) if categories else "No specific category"
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 75) 
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 76)     def get_product_info(self):
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 77)         return {
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 78)             "product_id": self.product_id,
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 79)             "name": self.name,
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 80)             "brand": self.brand,
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 81)             "price": self.price,
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 82)             "rating": self.rating,
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 83)             "skin_type": self.get_skin_type_label(),
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 84)             "concerns": self.get_concern_labels(),
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 85)             "category": self.get_category_label(),
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 86)             "ingredients": self.ingredients,
+../recommender/app/models/product.py: 7215233f (kvnguo 2024-11-11 19:51:16 -0500 87)         }
