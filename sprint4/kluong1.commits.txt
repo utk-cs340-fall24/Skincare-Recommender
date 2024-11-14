@@ -1,0 +1,98 @@
+../frontend/src/context/quizQuestions.js: 08d90fb9 (Kelly Luong 2024-11-11 20:50:52 -0500 220)   "navigateToUrl": "",
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500  1) { /* This is the profile modal. */ }
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500  2) 
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500  3) import React, { useEffect, useState } from "react";
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500  4) import { onAuthStateChanged } from "firebase/auth";
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500  5) import axios from "axios";
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500  6) import { auth } from "../../firebase";
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500  7) 
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500  8) function ProfileModal({ isOpen, onClose }) {
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500  9)   const [profile, setProfile] = useState(null);
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 10) 
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 11)   { /* Getting user information. */ }
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 12)   useEffect(() => {
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 13)     if (!isOpen) return;
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 14) 
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 15)     const getUserInfo = () => {
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 16)       onAuthStateChanged(auth, async (user) => {
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 17)         if (user) {
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 18)           try {
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 19)             const response = await axios.get(
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 20)               `http://localhost:5001/api/user/uid/${user.uid}`
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 21)             );
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 22)             setProfile(response.data);
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 23)           } catch (error) {
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 24)             console.error("Error fetching user data:", error);
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 25)           }
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 26)         }
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 27)       });
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 28)     };
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 29) 
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 30)     getUserInfo();
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 31)   }, [isOpen]);
+../frontend/src/components/profileModal.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500 32) 
+../frontend/src/components/profileModal.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500 33)   if (!isOpen) return null;
+../frontend/src/components/profileModal.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500 34) 
+../frontend/src/components/profileModal.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500 35)   return (
+../frontend/src/components/profileModal.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500 36)     <div className="fixed inset-0 flex items-center justify-center z-50">
+../frontend/src/components/profileModal.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500 37)       {/* Background */}
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 38)       <div
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 39)         className="absolute inset-0 bg-customGray opacity-50"
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 40)         onClick={onClose}
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 41)       ></div>
+../frontend/src/components/profileModal.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500 42)       {/* Profile Modal */}
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 43)       <div className="bg-customBlue rounded-[30px] p-20 w-96 h-82 shadow-lg relative z-1">
+../frontend/src/components/profileModal.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500 44)         {/* Exit button */}
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 45)         <button
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 46)           onClick={onClose}
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 47)           className="absolute top-3 right-4 text-customGray"
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 48)         >
+../frontend/src/components/profileModal.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500 49)           ✖️
+../frontend/src/components/profileModal.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500 50)         </button>
+../frontend/src/components/profileModal.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500 51)         <div className="flex flex-col items-center text-center">
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 52)           <div className="p-1 mb-1">
+../frontend/src/components/profileModal.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500 53)             <svg
+../frontend/src/components/profileModal.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500 54)               className="w-16 h-16 text-customGray"
+../frontend/src/components/profileModal.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500 55)               fill="currentColor"
+../frontend/src/components/profileModal.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500 56)               viewBox="0 0 24 24"
+../frontend/src/components/profileModal.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500 57)               xmlns="http://www.w3.org/2000/svg"
+../frontend/src/components/profileModal.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500 58)             >
+../frontend/src/components/profileModal.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500 59)               <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v1h16v-1c0-2.66-5.33-4-8-4z" />
+../frontend/src/components/profileModal.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500 60)             </svg>
+../frontend/src/components/profileModal.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500 61)           </div>
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 62)           <h2 className="text-2xl font-semibold">
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 63)             {profile ? profile.displayName : "User"}
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 64)           </h2>
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 65)           <p className="text-lg text-customGray">
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 66)             {profile ? profile.email : "email@gmail.com"}
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 67)           </p>
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 68)           <p className="text-lg text-customGray">
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 69)             Skin type:{" "}
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 70)             {profile && profile.skinType != 0 ? profile.skinType : "N/A"}
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 71)           </p>
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 72)           <p className="text-lg text-customGray">
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 73)             Skin concerns:{" "}
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 74)             {profile && profile.concerns != 0 ? profile.concerns : "N/A"}
+../frontend/src/components/profileModal.jsx: 39bc3e82 (Kelly Luong 2024-11-11 20:39:53 -0500 75)           </p>
+../frontend/src/components/profileModal.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500 76)         </div>
+../frontend/src/components/profileModal.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500 77)       </div>
+../frontend/src/components/profileModal.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500 78)     </div>
+../frontend/src/components/profileModal.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500 79)   );
+../frontend/src/components/profileModal.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500 80) }
+../frontend/src/components/profileModal.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500 81) 
+../frontend/src/components/profileModal.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500 82) export default ProfileModal;
+../frontend/src/components/navbar.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500   5) import ProfileModal from "./profileModal";
+../frontend/src/components/navbar.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500  10)   const [isModalOpen, setModalOpen] = useState(false);
+../frontend/src/components/navbar.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500  16)   const toggleModal = () => {
+../frontend/src/components/navbar.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500  17)     setModalOpen(!isModalOpen);
+../frontend/src/components/navbar.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500  18)   };
+../frontend/src/components/navbar.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500  19) 
+../frontend/src/components/navbar.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500  41)             <Hamburger toggled={isOpen} toggle={setIsOpen} />
+../frontend/src/components/navbar.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500  79)           <button
+../frontend/src/components/navbar.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500  80)             onClick={toggleModal}
+../frontend/src/components/navbar.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500  81)             className="text-customGray hover:text-customDarkGray"
+../frontend/src/components/navbar.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500  82)           >
+../frontend/src/components/navbar.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500  96)           </button>
+../frontend/src/components/navbar.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500  99) 
+../frontend/src/components/navbar.jsx: 4f870dec (Kelly Luong 2024-11-11 19:10:31 -0500 100)       <ProfileModal isOpen={isModalOpen} onClose={toggleModal} />
+../frontend/src/pages/home.jsx: ^4fc825a (asmith7939 2024-10-30 01:16:01 -0400  99)                     name: "Kelly Luong",

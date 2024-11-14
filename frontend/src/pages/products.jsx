@@ -6,7 +6,7 @@ import "../../index.css";
 import AuthPrompt from "../components/promptLogin";
 import NavBar from "../components/navbar.jsx";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import ProductDetailsModal from "../components/productModal";
 import {
   SKIN_CONCERNS,

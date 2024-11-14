@@ -1,4 +1,5 @@
-import React from 'react';
+import PropTypes from "prop-types";
+import { useState } from "react";
 import "../../index.css";
 
 function ProductDetailsModal({ product, onClose }) {
@@ -10,6 +11,12 @@ function ProductDetailsModal({ product, onClose }) {
     return filledStars + emptyStars;
   }
 
+  const [showMore, setShowMore] = useState(false);
+
+  const toggleShowMore = () => {
+    setShowMore(!showMore);
+  };
+
   function formatBrandName (brand) {
     return brand
       .toLowerCase()
@@ -19,30 +26,25 @@ function ProductDetailsModal({ product, onClose }) {
   }
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div
-        className="relative bg-customBlue p-6 w-[800px] max-h-[65vh] rounded-lg shadow-md overflow-y-auto"
-        style={{
-          boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-          color: 'customGray',
-        }}
-      >
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="relative bg-customBlue rounded-lg p-8 shadow-lg max-w-screen-md max-h-[70vh] text-center overflow-scroll">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-[16px] right-[16px] w-[24px] h-[24px] p-[2px] opacity-50"
+          className="absolute top-4 right-4 text-customCream text-lg font-semibold opacity-75 hover:opacity-100"
         >
-          X
+          ✕
         </button>
 
-        {/* Product Image on the Left */}
-        <div className="float-left w-[300px] h-[450px] mr-6">
-          <img
-            src="./src/images/productplaceholder.png"
-            alt={product.name}
-            className="w-full h-full object-cover rounded-lg"
-          />
-        </div>
+        <div className="flex space-x-6">
+          {/* Product Image */}
+          <div className="w-1/2 flex h-max items-start justify-center">
+            <img
+              src="./src/images/productplaceholder.png"
+              alt={product.name}
+              className="w-full h-auto object-cover rounded-lg"
+            />
+          </div>
 
         {/* Product Info on the Right */}
         <div className="text-customGray font-inclusive">
@@ -57,27 +59,48 @@ function ProductDetailsModal({ product, onClose }) {
           <p className="text-[32px] font-normal leading-[36px] mb-2">
             ${product.price}
           </p>
+          {/* Product Info */}
+          <div className="w-1/2 h-max text-customCream">
+            <h2 className="text-4xl font-semibold mb-4">{product.name}</h2>
 
-          {/* Rating */}
-          <p className="text-[20px] font-normal leading-[24px] mb-2">
-            {generateStarRating(product.rating)}
-          </p>
+            <p className="text-3xl mb-2">${product.price}</p>
 
-          {/* Ingredients Header */}
-          <p className="text-[24px] font-normal leading-[26px] mt-4 mb-1">
-            Ingredients
-          </p>
+            <p className="text-lg mb-2">{generateStarRating(product.rating)}</p>
 
-          {/* Scrollable Ingredients List */}
-          <div className="max-h-[250px] overflow-y-auto pr-2 rounded-lg">
-            <p className="text-[16px] font-normal leading-[24px]">
-              {product.ingredients.join(', ')}
-            </p>
+            <div className="mt-6">
+              <h3 className="text-2xl font-semibold mb-2">Ingredients</h3>
+              <div className="max-h-40 overflow-scroll">
+                <p className="text-lg inline">
+                  {showMore
+                    ? product.ingredients.join(", ")
+                    : `${product.ingredients.slice(0, 10).join(", ")}...`}
+                </p>
+                {product.ingredients.length > 9 && (
+                  <button
+                    onClick={toggleShowMore}
+                    className="text-customCream text-lg underline mt-2 inline"
+                  >
+                    {showMore ? "See Less" : "See More"}
+                  </button>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    </div>
   );
 }
+
+ProductDetailsModal.propTypes = {
+  product: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
+    ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }).isRequired,
+  onClose: PropTypes.func.isRequired,
+};
 
 export default ProductDetailsModal;
