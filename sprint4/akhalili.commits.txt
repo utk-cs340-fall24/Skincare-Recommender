@@ -1,0 +1,94 @@
+../frontend/src/pages/home.jsx: ^4fc825a (asmith7939 2024-10-30 01:16:01 -0400 104)                     name: "Alan Khalili",
+../backend/models/User.js: ef9070e3 (Alan Khalili 2024-11-11 22:52:18 -0500 43)     default: "",
+../backend/models/User.js: c985de31 (Alan Khalili 2024-11-11 20:06:31 -0500 44)   },
+../backend/models/User.js: e71dcf84 (Alan Khalili 2024-11-11 20:05:49 -0500 45)   prevProduct: {
+../backend/models/User.js: e71dcf84 (Alan Khalili 2024-11-11 20:05:49 -0500 46)     type: Schema.Types.ObjectId, // References Product collection
+../backend/models/User.js: e71dcf84 (Alan Khalili 2024-11-11 20:05:49 -0500 47)     ref: 'Product',
+../backend/models/User.js: e71dcf84 (Alan Khalili 2024-11-11 20:05:49 -0500 48)     required: false,
+../backend/models/User.js: e71dcf84 (Alan Khalili 2024-11-11 20:05:49 -0500 49)     default: ''
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500  1) from flask import Flask, jsonify, request
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500  3) import pandas as pd
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500  5) import services.recommender as recommender
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500  6) from services.recommender import ProductRecommender
+../recommender/app/app.py: ce8c51ae (Alan Khalili 2024-11-13 21:02:30 -0500  7) from dotenv import load_dotenv
+../recommender/app/app.py: ce8c51ae (Alan Khalili 2024-11-13 21:02:30 -0500  8) import os
+../recommender/app/app.py: ce8c51ae (Alan Khalili 2024-11-13 21:02:30 -0500 12) load_dotenv()
+../recommender/app/app.py: ce8c51ae (Alan Khalili 2024-11-13 21:02:30 -0500 13) mongo_uri = os.getenv("MONGO_URI")
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 18)     if not client:
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 19)         raise ValueError("MongoDB connection failed.")
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 23)     
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 24)     # Load product data from MongoDB into a DataFrame
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 25)     products_data = list(products_collection.find())
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 26)     if not products_data:
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 27)         raise ValueError("No product data available in MongoDB.")
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 28) 
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 29)     # Convert to DataFrame
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 30)     products_df = pd.DataFrame(products_data)
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 31) 
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 32)     # Initialize recommender with the DataFrame
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 33)     recommender = ProductRecommender(products_df)
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 34) 
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 65) @app.route("/products/similar/<productID>", methods=["GET"])
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 66) def get_similar_products(productID):
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 67)     if not productID:
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 68)         return jsonify({"message": "Product name is required"}), 400
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 69) 
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 70)     try:
+../recommender/app/app.py: ce8c51ae (Alan Khalili 2024-11-13 21:02:30 -0500 71)         # Get similar products from the recommender
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 72)         similar_products_df = recommender.recommend_similar_products(productID)
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 73)         
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 74)         # Convert DataFrame to dictionary with ObjectIds as strings
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 75)         response_data = similar_products_df.to_dict(orient='records')
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 76)         
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 77)         # Ensure any ObjectIds are converted to strings
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 78)         for record in response_data:
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 79)             if '_id' in record:
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 80)                 record['_id'] = str(record['_id'])
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 81) 
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 82)         return jsonify(response_data)
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 83)         
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 84)     except ValueError as e:
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 85)         return jsonify({"message": str(e)}), 404
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 86)     except Exception as e:
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 87)         return jsonify({"message": "An unknown error occurred: " + str(e)}), 500
+../recommender/app/app.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 88)     
+../recommender/app/services/recommender.py: ef9070e3 (Alan Khalili 2024-11-11 22:52:18 -0500  1) import pandas as pd
+../recommender/app/services/recommender.py: ef9070e3 (Alan Khalili 2024-11-11 22:52:18 -0500  2) from sklearn.metrics.pairwise import cosine_similarity
+../recommender/app/services/recommender.py: ef9070e3 (Alan Khalili 2024-11-11 22:52:18 -0500  3) from sklearn.feature_extraction.text import TfidfVectorizer
+../recommender/app/services/recommender.py: ef9070e3 (Alan Khalili 2024-11-11 22:52:18 -0500  4) from sklearn.preprocessing import StandardScaler
+../recommender/app/services/recommender.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500  5) from bson import ObjectId
+../recommender/app/services/recommender.py: ef9070e3 (Alan Khalili 2024-11-11 22:52:18 -0500  6) 
+../recommender/app/services/recommender.py: ef9070e3 (Alan Khalili 2024-11-11 22:52:18 -0500  7) class ProductRecommender:
+../recommender/app/services/recommender.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500  8)     def __init__(self, products_df):
+../recommender/app/services/recommender.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500  9)         self.df = products_df
+../recommender/app/services/recommender.py: ef9070e3 (Alan Khalili 2024-11-11 22:52:18 -0500 10)         self.scaler = StandardScaler()
+../recommender/app/services/recommender.py: ef9070e3 (Alan Khalili 2024-11-11 22:52:18 -0500 11)         self.vectorizer = TfidfVectorizer()
+../recommender/app/services/recommender.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 12) 
+../recommender/app/services/recommender.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 13)         # Join the ingredients list into a single string for each product
+../recommender/app/services/recommender.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 14)         ingredients_data = self.df['ingredients'].apply(lambda x: " ".join(x) if isinstance(x, list) else x)
+../recommender/app/services/recommender.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 15)         
+../recommender/app/services/recommender.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 16)         # Perform TF-IDF vectorization
+../recommender/app/services/recommender.py: ef9070e3 (Alan Khalili 2024-11-11 22:52:18 -0500 17)         self.vectorized_data = self.vectorizer.fit_transform(ingredients_data)
+../recommender/app/services/recommender.py: ef9070e3 (Alan Khalili 2024-11-11 22:52:18 -0500 18)     
+../recommender/app/services/recommender.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 19)     def recommend_similar_products(self, productID, k=5):
+../recommender/app/services/recommender.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 20)         # Ensure productID is in the format of ObjectId
+../recommender/app/services/recommender.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 21)         product_id_obj = ObjectId(productID)
+../recommender/app/services/recommender.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 22)         
+../recommender/app/services/recommender.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 23)         # Compute cosine similarity on the vectorized data
+../recommender/app/services/recommender.py: ef9070e3 (Alan Khalili 2024-11-11 22:52:18 -0500 24)         similarity_matrix = cosine_similarity(self.vectorized_data)
+../recommender/app/services/recommender.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 25) 
+../recommender/app/services/recommender.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 26)         # Look up the product by _id field, which is the default identifier for MongoDB
+../recommender/app/services/recommender.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 27)         product_indices = self.df[self.df['_id'] == product_id_obj].index
+../recommender/app/services/recommender.py: ef9070e3 (Alan Khalili 2024-11-11 22:52:18 -0500 28)         if product_indices.empty:
+../recommender/app/services/recommender.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 29)             raise ValueError(f"Product with ID '{productID}' not found in the dataset.")
+../recommender/app/services/recommender.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 30)         
+../recommender/app/services/recommender.py: ef9070e3 (Alan Khalili 2024-11-11 22:52:18 -0500 31)         product_index = product_indices[0]
+../recommender/app/services/recommender.py: ef9070e3 (Alan Khalili 2024-11-11 22:52:18 -0500 32)         similarity_scores = list(enumerate(similarity_matrix[product_index]))
+../recommender/app/services/recommender.py: ef9070e3 (Alan Khalili 2024-11-11 22:52:18 -0500 33)         similarity_scores = sorted(similarity_scores, key=lambda x: x[1], reverse=True)
+../recommender/app/services/recommender.py: ef9070e3 (Alan Khalili 2024-11-11 22:52:18 -0500 34) 
+../recommender/app/services/recommender.py: ef9070e3 (Alan Khalili 2024-11-11 22:52:18 -0500 35)         # Exclude the product itself and get the indices of the top-k similar products
+../recommender/app/services/recommender.py: ef9070e3 (Alan Khalili 2024-11-11 22:52:18 -0500 36)         similar_products_indices = [i for i in similarity_scores if i[0] != product_index][:k]
+../recommender/app/services/recommender.py: ef9070e3 (Alan Khalili 2024-11-11 22:52:18 -0500 37)         similar_products_df = self.df.iloc[[i[0] for i in similar_products_indices]].copy()
+../recommender/app/services/recommender.py: ef9070e3 (Alan Khalili 2024-11-11 22:52:18 -0500 38)         similar_products_df['similarity_score'] = [i[1] for i in similar_products_indices]
+../recommender/app/services/recommender.py: ef9070e3 (Alan Khalili 2024-11-11 22:52:18 -0500 39)         
+../recommender/app/services/recommender.py: c4425599 (Alan Khalili 2024-11-13 20:59:58 -0500 40)         return similar_products_df
