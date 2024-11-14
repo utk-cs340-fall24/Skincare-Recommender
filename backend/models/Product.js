@@ -18,7 +18,7 @@ const productSchema = new Schema({
   rating: {
     type: Number, // Avg. of all reviews tied to the product 
     required: false,
-    min: 0, // Minimum rating
+    min: 1, // Minimum rating
     max: 5, // Maximum rating
     default: 0,
   },

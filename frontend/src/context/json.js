@@ -1,21 +1,14 @@
-export const quizQuestions = {
+export const json = {
   "logoPosition": "right",
   "pages": [
     {
       "name": "page1",
       "elements": [
         {
-          "type": "boolean",
+          "type": "radiogroup",
           "name": "question1",
-          "title": "Do you know your skin type?",
-          "isRequired": true
-        },
-        {
-          "type": "checkbox",
-          "name": "question2",
-          "visibleIf": "{question1} = true",
           "title": "What's your skin type?",
-          "requiredIf": "{question1} = true",
+          "isRequired": true,
           "choices": [
             {
               "value": "2",
@@ -30,17 +23,54 @@ export const quizQuestions = {
               "text": "Dry"
             },
             {
-              "value": "3",
+              "value": "5",
+              "text": "Combination"
+            },
+            {
+              "value": "8",
               "text": "Sensitive"
+            },
+            {
+              "value": "0",
+              "text": "Not sure"
+            }
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "question2",
+          "visibleIf": "{question1} = '0'",
+          "title": "My t-zone is shiny",
+          "requiredIf": "{question1} = '0'",
+          "choices": [
+            {
+              "value": "1",
+              "text": "Strongly Disagree"
+            },
+            {
+              "value": "2",
+              "text": "Disagree"
+            },
+            {
+              "value": "0",
+              "text": "Neutral"
+            },
+            {
+              "value": "3",
+              "text": "Agree"
+            },
+            {
+              "value": "4",
+              "text": "Strongly Agree"
             }
           ]
         },
         {
           "type": "radiogroup",
           "name": "question3",
-          "visibleIf": "{question1} = false",
-          "title": "My t-zone is shiny",
-          "requiredIf": "{question1} = false",
+          "visibleIf": "{question1} = '0'",
+          "title": "I have enlarged pores",
+          "requiredIf": "{question1} = '0'",
           "choices": [
             {
               "value": "1",
@@ -67,9 +97,9 @@ export const quizQuestions = {
         {
           "type": "radiogroup",
           "name": "question4",
-          "visibleIf": "{question1} = false",
-          "title": "I have enlarged pores",
-          "requiredIf": "{question1} = false",
+          "visibleIf": "{question1} = '0'",
+          "title": "My skin is tight and/or flaky",
+          "requiredIf": "{question1} = '0'",
           "choices": [
             {
               "value": "1",
@@ -96,38 +126,9 @@ export const quizQuestions = {
         {
           "type": "radiogroup",
           "name": "question5",
-          "visibleIf": "{question1} = false",
-          "title": "My skin is tight and/or flaky",
-          "requiredIf": "{question1} = false",
-          "choices": [
-            {
-              "value": "1",
-              "text": "Strongly Disagree"
-            },
-            {
-              "value": "2",
-              "text": "Disagree"
-            },
-            {
-              "value": "0",
-              "text": "Neutral"
-            },
-            {
-              "value": "3",
-              "text": "Agree"
-            },
-            {
-              "value": "4",
-              "text": "Strongly Agree"
-            }
-          ]
-        },
-        {
-          "type": "radiogroup",
-          "name": "question6",
-          "visibleIf": "{question1} = false",
+          "visibleIf": "{question1} = '0'",
           "title": "My skin appears dull",
-          "requiredIf": "{question1} = false",
+          "requiredIf": "{question1} = '0'",
           "choices": [
             {
               "value": "1",
@@ -154,9 +155,9 @@ export const quizQuestions = {
         {
           "type": "radiogroup",
           "name": "question7",
-          "visibleIf": "{question1} = false",
+          "visibleIf": "{question1} = 0",
           "title": "My skin gets red easily",
-          "requiredIf": "{question1} = false",
+          "requiredIf": "{question1} = 0",
           "choices": [
             {
               "value": "1",
@@ -182,7 +183,7 @@ export const quizQuestions = {
         },
         {
           "type": "checkbox",
-          "name": "question8",
+          "name": "question6",
           "title": "What are your skin concerns?",
           "isRequired": true,
           "choices": [
@@ -217,7 +218,6 @@ export const quizQuestions = {
   ],
   "showPageTitles": false,
   "showCompletedPage": false,
-  "navigateToUrl": "",
   "navigateToUrlOnCondition": [
     {
       "url": "https://localhost500"

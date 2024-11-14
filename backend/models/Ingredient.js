@@ -9,7 +9,7 @@ const ingredientSchema = new Schema({
     unique: true, // Ensuring each ingredient is unique
   },
   treats: {
-    type: Number, // Bitwise number representing skin concerns
+    type: Number, // Bitwise number representing skin concerns treated
     required: false,
     default: 0,
   },

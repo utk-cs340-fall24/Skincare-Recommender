@@ -1,8 +1,5 @@
 import userRoutes from "./userRoutes.js";
 import productRoutes from "./productRoutes.js";
-import reviewRoutes from "./reviewRoutes.js";
-import ingredientRoutes from "./ingredientRoutes.js";
-import recommenderRoutes from "./recommendationRoutes.js";
 
 export default function setupRoutes(app) {
   app.use((req, res, next) => {
@@ -23,9 +20,7 @@ export default function setupRoutes(app) {
 
   app.use("/api/user", userRoutes);
   app.use("/api/products", productRoutes);
-  app.use("/api/reviews", reviewRoutes);
-  app.use("/api/ingredients", ingredientRoutes);
-  app.use("/api/recommendation", recommenderRoutes);
+  // TODO: add routes for reviews and recommendations
 
   // Catch-all route for debugging
   app.use((req, res) => {

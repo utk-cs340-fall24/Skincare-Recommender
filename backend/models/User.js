@@ -28,26 +28,12 @@ const userSchema = new Schema({
     required: false,
     default: 0, // Default to no concerns
   },
-  allergies: [
-    {
-      type: Schema.Types.ObjectId, // References Ingredient collection
-      ref: "Ingredient",
-      required: false,
-      default: "",
-    },
-  ],
-  prevProduct: {
-    type: Schema.Types.ObjectId, // References Product collection
-    ref: "Product",
+  allergies: [{
+    type: Schema.Types.ObjectId, // References Ingredient collection
+    ref: 'Ingredient',
     required: false,
-    default: "",
-  },
-  prevProduct: {
-    type: Schema.Types.ObjectId, // References Product collection
-    ref: 'Product',
-    required: false,
-    default: ''
-  },
+    default: []
+  }],
   createdAt: {
     type: Date,
     default: Date.now,
