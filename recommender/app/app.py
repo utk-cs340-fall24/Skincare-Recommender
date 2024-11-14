@@ -4,11 +4,13 @@ import pandas as pd
 from bson import ObjectId
 import services.recommender as recommender
 from services.recommender import ProductRecommender
-from models.product import Product
+from dotenv import load_dotenv
+import os
 
 app = Flask(__name__)
 
-mongo_uri = "mongodb+srv://alankhalili:fq0y7FsiyZneg1UI@skinrecs.emb1z.mongodb.net/?retryWrites=true&w=majority&appName=SKINrecs"
+load_dotenv()
+mongo_uri = os.getenv("MONGO_URI")
 
 
 try:
@@ -66,6 +68,7 @@ def get_similar_products(productID):
         return jsonify({"message": "Product name is required"}), 400
 
     try:
+        # Get similar products from the recommender
         similar_products_df = recommender.recommend_similar_products(productID)
         
         # Convert DataFrame to dictionary with ObjectIds as strings
