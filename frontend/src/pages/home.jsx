@@ -1,4 +1,6 @@
-{ /* This is the homepage. */ }
+{
+  /* This is the homepage. */
+}
 import "../../index.css";
 import NavBar from "../components/navbar.jsx";
 import Button from "../components/button.jsx";
@@ -70,7 +72,7 @@ function Home() {
               skincare recommendations tailored to your unique needs. Our
               mission is to help you find the right products for your skin. Join
               our community to explore a curated selection of skincare solutions
-              for all skin types and concerns. Let's simplify your skincare
+              for all skin types and concerns. Let&apos;s simplify your skincare
               routine and enhance your natural beauty!
             </p>
           </div>
@@ -78,36 +80,64 @@ function Home() {
 
         <div className="mt-40 bg-customCream"></div>
 
-      <footer className="bg-customCream text-customCream py-8 flex flex-col justify-between">
-        {/* Contact Us Section in Rounded Rectangle */}
-        <div className="container mx-auto text-center md:text-left">
-          <div className="bg-customBlue rounded-[30px] p-8 mx-auto w-[1155px] h-[505px] md:w-[80%] md:h-auto">
-            <h3 className="text-[70px] font-inknut font-black text-customCream text-center">
-              Contact Us
-            </h3>
-            <div className="flex justify-center mt-4 space-x-4">
-              {/* Placeholder Circles with Names */}
-              {[
-                "Kevin Guo",
-                "Kelly Luong",
-                "Alan Khalili",
-                "Ahmad Tobasei",
-                "Annalise Smith",
-              ].map((name, index) => (
-                <div key={index} className="flex flex-col items-center">
-                  <div className="w-[155px] h-[144px] rounded-full bg-[#D9D9D9]"></div>{" "}
-                  {/* Placeholder for future photos */}
-                  <p className="mt-2 font-istok text-customCream text-[24px] font-normal leading-[34.55px] text-center">
-                    {name}
-                  </p>
-                </div>
-              ))}
+        <footer className="bg-customCream text-customCream py-8 flex flex-col justify-between">
+          {/* Contact Us Section in Rounded Rectangle */}
+          <div className="container mx-auto text-center md:text-left">
+            <div className="bg-customBlue rounded-[30px] p-8 mx-auto w-[1155px] h-[505px] md:w-[80%] md:h-auto">
+              <h3 className="text-[70px] font-inknut font-black text-customCream text-center">
+                Contact Us
+              </h3>
+              <div className="flex justify-center mt-4 space-x-4">
+                {/* Placeholder Circles with Names and Photos */}
+                {[
+                  {
+                    name: "Kevin Guo",
+                    photo: "https://i.imgur.com/UayXqch.png",
+                    linkedin: "https://www.linkedin.com/in/kvn-guo/",
+                  },
+                  {
+                    name: "Kelly Luong",
+                    photo: "https://i.imgur.com/yzterSc.png",
+                    linkedin: "https://www.linkedin.com/in/kellyyluongg/",
+                  },
+                  {
+                    name: "Alan Khalili",
+                    photo: "https://i.imgur.com/Vq7xmEb.png",
+                    linkedin: "https://www.linkedin.com/in/alankhalili/",
+                  },
+                  {
+                    name: "Ahmad Tobasei",
+                    photo: "https://i.imgur.com/ZMb3SEH.png",
+                    linkedin:
+                      "https://www.linkedin.com/in/ahmad-tobasei-6745a3263/",
+                  },
+                  {
+                    name: "Annalise Smith",
+                    photo: "https://i.imgur.com/GjohJ8f.png",
+                    linkedin:
+                      "https://www.linkedin.com/in/annalise-smith-0666b2304/",
+                  },
+                ].map((person, index) => (
+                  <div key={index} className="flex flex-col items-center">
+                    <div className="w-[155px] h-[144px] rounded-full bg-[#D9D9D9] overflow-hidden">
+                      <a href={person.linkedin}>
+                        <img
+                          src={person.photo}
+                          alt={person.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </a>
+                    </div>
+                    <p className="mt-2 font-istok text-customCream text-[24px] font-normal leading-[34.55px] text-center">
+                      {person.name}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-      </footer>
-
-      <Footer />
+        </footer>
+        <Footer />
       </div>
     </>
   );

@@ -1,0 +1,748 @@
+../backend/models/Ingredient.js: 184eb4eb (kvnguo 2024-10-22 20:13:06 -0400  1) import mongoose from "mongoose";
+../backend/models/Ingredient.js: 184eb4eb (kvnguo 2024-10-22 20:13:06 -0400  2) const { Schema, model } = mongoose;
+../backend/models/Ingredient.js: 184eb4eb (kvnguo 2024-10-22 20:13:06 -0400  3) 
+../backend/models/Ingredient.js: 184eb4eb (kvnguo 2024-10-22 20:13:06 -0400  4) // Ingredient model schema
+../backend/models/Ingredient.js: 184eb4eb (kvnguo 2024-10-22 20:13:06 -0400  5) const ingredientSchema = new Schema({
+../backend/models/Ingredient.js: 184eb4eb (kvnguo 2024-10-22 20:13:06 -0400  6)   name: {
+../backend/models/Ingredient.js: 184eb4eb (kvnguo 2024-10-22 20:13:06 -0400  7)     type: String,
+../backend/models/Ingredient.js: 184eb4eb (kvnguo 2024-10-22 20:13:06 -0400  8)     required: true, // Ingredient name is required
+../backend/models/Ingredient.js: 184eb4eb (kvnguo 2024-10-22 20:13:06 -0400  9)     unique: true, // Ensuring each ingredient is unique
+../backend/models/Ingredient.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 10)   },
+../backend/models/Ingredient.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 11)   treats: {
+../backend/models/Ingredient.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 12)     type: Number, // Bitwise number representing skin concerns
+../backend/models/Ingredient.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 13)     required: false,
+../backend/models/Ingredient.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 14)     default: 0,
+../backend/models/Ingredient.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 15)   },
+../backend/models/Ingredient.js: 184eb4eb (kvnguo 2024-10-22 20:13:06 -0400 16) });
+../backend/models/Ingredient.js: 184eb4eb (kvnguo 2024-10-22 20:13:06 -0400 17) 
+../backend/models/Ingredient.js: 184eb4eb (kvnguo 2024-10-22 20:13:06 -0400 18) const Ingredient = model("Ingredient", ingredientSchema);
+../backend/models/Ingredient.js: 184eb4eb (kvnguo 2024-10-22 20:13:06 -0400 19) export default Ingredient;
+../backend/models/Review.js: 184eb4eb (kvnguo       2024-10-22 20:13:06 -0400  7)     type: Schema.Types.ObjectId,
+../backend/models/Review.js: 184eb4eb (kvnguo       2024-10-22 20:13:06 -0400 12)     type: Schema.Types.ObjectId,
+../backend/models/User.js: 184eb4eb (kvnguo       2024-10-22 20:13:06 -0400 31)   allergies: [{
+../backend/models/User.js: 184eb4eb (kvnguo       2024-10-22 20:13:06 -0400 32)     type: Schema.Types.ObjectId, // References Ingredient collection
+../backend/models/User.js: 184eb4eb (kvnguo       2024-10-22 20:13:06 -0400 33)     ref: 'Ingredient',
+../backend/models/User.js: 184eb4eb (kvnguo       2024-10-22 20:13:06 -0400 34)     required: false,
+../backend/models/User.js: 184eb4eb (kvnguo       2024-10-22 20:13:06 -0400 35)     default: []
+../backend/models/User.js: 184eb4eb (kvnguo       2024-10-22 20:13:06 -0400 36)   }],
+../backend/models/Product.js: bb938b79 (kvnguo       2024-10-22 11:04:15 -0400  6)   name: {
+../backend/models/Product.js: bb938b79 (kvnguo       2024-10-22 11:04:15 -0400  7)     type: String,
+../backend/models/Product.js: bb938b79 (kvnguo       2024-10-22 11:04:15 -0400  8)     required: true,
+../backend/models/Product.js: bb938b79 (kvnguo       2024-10-22 11:04:15 -0400  9)   },
+../backend/models/Product.js: 184eb4eb (kvnguo       2024-10-22 20:13:06 -0400 10)   brand: {
+../backend/models/Product.js: bb938b79 (kvnguo       2024-10-22 11:04:15 -0400 18)   rating: {
+../backend/models/Product.js: 184eb4eb (kvnguo       2024-10-22 20:13:06 -0400 19)     type: Number, // Avg. of all reviews tied to the product 
+../backend/models/Product.js: bb938b79 (kvnguo       2024-10-22 11:04:15 -0400 20)     required: false,
+../backend/models/Product.js: 023dd862 (kvnguo       2024-10-29 00:21:34 -0400 21)     min: 0, // Minimum rating
+../backend/models/Product.js: bb938b79 (kvnguo       2024-10-22 11:04:15 -0400 22)     max: 5, // Maximum rating
+../backend/models/Product.js: bb938b79 (kvnguo       2024-10-22 11:04:15 -0400 23)     default: 0,
+../backend/models/Product.js: bb938b79 (kvnguo       2024-10-22 11:04:15 -0400 24)   },
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  1) import Review from "../models/Review.js";
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  2) 
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  3) // Create a new review
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  4) export const createReview = async (req, res) => {
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  5)   try {
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  6)     const review = new Review(req.body);
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  7)     await review.save();
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  8)     res.status(201).json(review);
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  9)   } catch (error) {
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 10)     res.status(400).json({ message: error.message });
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 11)   }
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 12) };
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 13) 
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 14) // Get a single review by ID
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 15) export const getReview = async (req, res) => {
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 16)   try {
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 17)     const review = await Review.findById(req.params.reviewId)
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 18)       .populate("userId", "name") // Optionally populate user details
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 19)       .populate("productId", "name"); // Optionally populate product details
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 20)     if (!review) return res.status(404).json({ message: "Review not found" });
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 21)     res.json(review);
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 22)   } catch (error) {
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 23)     res.status(400).json({ message: error.message });
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 24)   }
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 25) };
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 26) 
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 27) // Get all reviews for a specific product
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 28) export const getProductReviews = async (req, res) => {
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 29)   try {
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 30)     const reviews = await Review.find({ productId: req.params.productId })
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 31)       .populate("userId", "name") // Optionally populate user details
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 32)       .sort({ createdAt: -1 }); // Sort by creation date (newest first)
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 33)     res.json(reviews);
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 34)   } catch (error) {
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 35)     res.status(400).json({ message: error.message });
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 36)   }
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 37) };
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 38) 
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 39) // Update a review by ID
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 40) export const updateReview = async (req, res) => {
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 41)   try {
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 42)     const review = await Review.findByIdAndUpdate(
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 43)       req.params.reviewId,
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 44)       req.body,
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 45)       { new: true }
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 46)     );
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 47)     if (!review) return res.status(404).json({ message: "Review not found" });
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 48)     res.json(review);
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 49)   } catch (error) {
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 50)     res.status(400).json({ message: error.message });
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 51)   }
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 52) };
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 53) 
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 54) // Delete a review by ID
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 55) export const deleteReview = async (req, res) => {
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 56)   try {
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 57)     const review = await Review.findByIdAndDelete(req.params.reviewId);
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 58)     if (!review) return res.status(404).json({ message: "Review not found" });
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 59)     res.json({ message: "Review deleted successfully" });
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 60)   } catch (error) {
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 61)     res.status(400).json({ message: error.message });
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 62)   }
+../backend/controllers/reviewController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 63) };
+../backend/controllers/userController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400  6)     console.log("creating user");
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400  1) import Product from "../models/Product.js";
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400  5)   try {
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400  6)     const product = new Product(req.body);
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400  7)     await product.save();
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400  8)     res.status(201).json(product);
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400  9)   } catch (error) {
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 10)     res.status(400).json({ message: error.message });
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 11)   }
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 16)   try {
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 17)     const product = await Product.findById(req.params.productId);
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 18)     if (!product) return res.status(404).json({ message: "Product not found" });
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 19)     res.json(product);
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 20)   } catch (error) {
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 21)     res.status(400).json({ message: error.message });
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 22)   }
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 27)   try {
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 28)     const products = await Product.find();
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 29)     res.json(products);
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 30)   } catch (error) {
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 31)     res.status(400).json({ message: error.message });
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 32)   }
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 37)   try {
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 38)     const product = await Product.findByIdAndUpdate(
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 39)       req.params.productId,
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 40)       req.body,
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 41)       { new: true }
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 42)     );
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 43)     if (!product) return res.status(404).json({ message: "Product not found" });
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 44)     res.json(product);
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 45)   } catch (error) {
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 46)     res.status(400).json({ message: error.message });
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 47)   }
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 52)   try {
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 53)     const product = await Product.findByIdAndDelete(req.params.productId);
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 54)     if (!product) return res.status(404).json({ message: "Product not found" });
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 55)     res.json({ message: "Product deleted successfully" });
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 56)   } catch (error) {
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 57)     res.status(400).json({ message: error.message });
+../backend/controllers/productController.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 58)   }
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  1) import Ingredient from "../models/Ingredient.js";
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  2) 
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  3) // Create a new ingredient
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  4) export const createIngredient = async (req, res) => {
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  5)   try {
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  6)     const ingredient = new Ingredient(req.body);
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  7)     await ingredient.save();
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  8)     res.status(201).json(ingredient);
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  9)   } catch (error) {
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 10)     res.status(400).json({ message: error.message });
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 11)   }
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 12) };
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 13) 
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 14) // Get a single ingredient by ID
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 15) export const getIngredient = async (req, res) => {
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 16)   try {
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 17)     const ingredient = await Ingredient.findById(req.params.ingredientId);
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 18)     if (!ingredient)
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 19)       return res.status(404).json({ message: "Ingredient not found" });
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 20)     res.json(ingredient);
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 21)   } catch (error) {
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 22)     res.status(400).json({ message: error.message });
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 23)   }
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 24) };
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 25) 
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 26) // Get all ingredients
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 27) export const getAllIngredients = async (req, res) => {
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 28)   try {
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 29)     const ingredients = await Ingredient.find();
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 30)     res.json(ingredients);
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 31)   } catch (error) {
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 32)     res.status(400).json({ message: error.message });
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 33)   }
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 34) };
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 35) 
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 36) // Update an ingredient by ID
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 37) export const updateIngredient = async (req, res) => {
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 38)   try {
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 39)     const ingredient = await Ingredient.findByIdAndUpdate(
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 40)       req.params.ingredientId,
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 41)       req.body,
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 42)       { new: true }
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 43)     );
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 44)     if (!ingredient)
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 45)       return res.status(404).json({ message: "Ingredient not found" });
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 46)     res.json(ingredient);
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 47)   } catch (error) {
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 48)     res.status(400).json({ message: error.message });
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 49)   }
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 50) };
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 51) 
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 52) // Delete an ingredient by ID
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 53) export const deleteIngredient = async (req, res) => {
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 54)   try {
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 55)     const ingredient = await Ingredient.findByIdAndDelete(
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 56)       req.params.ingredientId
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 57)     );
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 58)     if (!ingredient)
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 59)       return res.status(404).json({ message: "Ingredient not found" });
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 60)     res.json({ message: "Ingredient deleted successfully" });
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 61)   } catch (error) {
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 62)     res.status(400).json({ message: error.message });
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 63)   }
+../backend/controllers/ingredientController.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 64) };
+../backend/routes/index.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400  3) import reviewRoutes from "./reviewRoutes.js";
+../backend/routes/index.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400  4) import ingredientRoutes from "./ingredientRoutes.js";
+../backend/routes/index.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 25)   app.use("/api/reviews", reviewRoutes);
+../backend/routes/index.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 26)   app.use("/api/ingredients", ingredientRoutes);  
+../backend/routes/index.js: c3766b97 (kvnguo       2024-10-29 01:33:23 -0400 27)   // TODO: add routes recommendations
+../backend/routes/ingredientRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  1) import express from "express";
+../backend/routes/ingredientRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  2) import {
+../backend/routes/ingredientRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  3)   createIngredient,
+../backend/routes/ingredientRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  4)   getIngredient,
+../backend/routes/ingredientRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  5)   getAllIngredients,
+../backend/routes/ingredientRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  6)   updateIngredient,
+../backend/routes/ingredientRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  7)   deleteIngredient,
+../backend/routes/ingredientRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  8) } from "../controllers/ingredientController.js";
+../backend/routes/ingredientRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  9) 
+../backend/routes/ingredientRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 10) const router = express.Router();
+../backend/routes/ingredientRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 11) 
+../backend/routes/ingredientRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 12) // Create a new ingredient
+../backend/routes/ingredientRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 13) router.post("/", createIngredient);
+../backend/routes/ingredientRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 14) 
+../backend/routes/ingredientRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 15) // Get a single ingredient by ID
+../backend/routes/ingredientRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 16) router.get("/:ingredientId", getIngredient);
+../backend/routes/ingredientRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 17) 
+../backend/routes/ingredientRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 18) // Get all ingredients
+../backend/routes/ingredientRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 19) router.get("/", getAllIngredients);
+../backend/routes/ingredientRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 20) 
+../backend/routes/ingredientRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 21) // Update an ingredient by ID
+../backend/routes/ingredientRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 22) router.put("/:ingredientId", updateIngredient);
+../backend/routes/ingredientRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 23) 
+../backend/routes/ingredientRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 24) // Delete an ingredient by ID
+../backend/routes/ingredientRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 25) router.delete("/:ingredientId", deleteIngredient);
+../backend/routes/ingredientRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 26) 
+../backend/routes/ingredientRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 27) export default router;
+../backend/routes/reviewRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  1) import express from "express";
+../backend/routes/reviewRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  2) import {
+../backend/routes/reviewRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  3)   createReview,
+../backend/routes/reviewRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  4)   getReview,
+../backend/routes/reviewRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  5)   getProductReviews,
+../backend/routes/reviewRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  6)   updateReview,
+../backend/routes/reviewRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  7)   deleteReview,
+../backend/routes/reviewRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  8) } from "../controllers/reviewController.js";
+../backend/routes/reviewRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400  9) 
+../backend/routes/reviewRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 10) const router = express.Router();
+../backend/routes/reviewRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 11) 
+../backend/routes/reviewRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 12) // Create a new review
+../backend/routes/reviewRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 13) router.post("/", createReview);
+../backend/routes/reviewRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 14) 
+../backend/routes/reviewRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 15) // Get a single review by ID
+../backend/routes/reviewRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 16) router.get("/:reviewId", getReview);
+../backend/routes/reviewRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 17) 
+../backend/routes/reviewRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 18) // Get all reviews for a specific product
+../backend/routes/reviewRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 19) router.get("/product/:productId", getProductReviews);
+../backend/routes/reviewRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 20) 
+../backend/routes/reviewRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 21) // Update a review by ID
+../backend/routes/reviewRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 22) router.put("/:reviewId", updateReview);
+../backend/routes/reviewRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 23) 
+../backend/routes/reviewRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 24) // Delete a review by ID
+../backend/routes/reviewRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 25) router.delete("/:reviewId", deleteReview);
+../backend/routes/reviewRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 26) 
+../backend/routes/reviewRoutes.js: c3766b97 (kvnguo 2024-10-29 01:33:23 -0400 27) export default router;
+../shared/utils/constants.js: 977da996 (kvnguo       2024-10-21 18:57:16 -0400  6)   DRY: 1 << 0, // 1 (0b001) - Represents dry skin
+../shared/utils/constants.js: 977da996 (kvnguo       2024-10-21 18:57:16 -0400  7)   NORMAL: 1 << 1, // 2 (0b010) - Represents normal skin
+../shared/utils/constants.js: 977da996 (kvnguo       2024-10-21 18:57:16 -0400  8)   OILY: 1 << 2, // 2 (0b100) - Represents oily skin
+../shared/utils/constants.js: 977da996 (kvnguo       2024-10-21 18:57:16 -0400  9)   SENSITIVE: 1 << 3, // 8 (0b1000) - Represents sensitive concern
+../shared/utils/constants.js: 977da996 (kvnguo       2024-10-21 18:57:16 -0400 14)   ACNE: 1 << 0, // 1 (0b0001) - Represents acne concern
+../shared/utils/constants.js: 977da996 (kvnguo       2024-10-21 18:57:16 -0400 15)   AGING: 1 << 1, // 2 (0b0010) - Represents aging concern
+../shared/utils/constants.js: 977da996 (kvnguo       2024-10-21 18:57:16 -0400 16)   DRYNESS: 1 << 2, // 4 (0b0100) - Represents dryness concern
+../shared/utils/constants.js: 977da996 (kvnguo       2024-10-21 18:57:16 -0400 17)   REDNESS: 1 << 3, // 8 (0b1000) - Represents redness concern
+../shared/utils/constants.js: 977da996 (kvnguo       2024-10-21 18:57:16 -0400 18)   HYPERPIGMENTATION: 1 << 4, // 16 (0b0001 0000) - Represents hyperpigmentation concern
+../shared/utils/constants.js: 184eb4eb (kvnguo       2024-10-22 20:13:06 -0400 19)   PORES: 1 << 5, // 32 (0b0010 0000) - Represents large pores concern
+../shared/utils/constants.js: 977da996 (kvnguo       2024-10-21 18:57:16 -0400 24)   CLEANSER: 1 << 0, // 1 (0b0001) - Represents cleanser category
+../shared/utils/constants.js: 977da996 (kvnguo       2024-10-21 18:57:16 -0400 25)   MOISTURIZER: 1 << 1, // 2 (0b0010) - Represents moisturizer category
+../shared/utils/constants.js: 977da996 (kvnguo       2024-10-21 18:57:16 -0400 26)   SUNSCREEN: 1 << 2, // 4 (0b0100) - Represents sunscreen category
+../shared/utils/constants.js: 977da996 (kvnguo       2024-10-21 18:57:16 -0400 27)   SERUM: 1 << 3, // 8 (0b1000) - Represents serum category
+../shared/utils/constants.js: 977da996 (kvnguo       2024-10-21 18:57:16 -0400 28)   MASK: 1 << 4, // 16 (0b0001 0000) - Represents mask category
+../shared/utils/constants.js: 977da996 (kvnguo       2024-10-21 18:57:16 -0400 29)   TONER: 1 << 5, // 32 (0b0010 0000) - Represents toner category
+../shared/utils/constants.js: 977da996 (kvnguo       2024-10-21 18:57:16 -0400 30)   EXFOLIATOR: 1 << 6, // 64 (0b0100 0000) - Represents exfoliator category
+../shared/utils/constants.js: 977da996 (kvnguo       2024-10-21 18:57:16 -0400 31)   EYECREAM: 1 << 7, // 128 (0b1000 0000) - Represents eye cream category
+../shared/utils/constants.js: 977da996 (kvnguo       2024-10-21 18:57:16 -0400 32) };
+../shared/utils/constants.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  1) # Skin Types
+../shared/utils/constants.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  2) SKIN_TYPES = {
+../shared/utils/constants.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  3)     "DRY": 1 << 0,  # 1 (0b001) - Represents dry skin
+../shared/utils/constants.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  4)     "NORMAL": 1 << 1,  # 2 (0b010) - Represents normal skin
+../shared/utils/constants.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  5)     "OILY": 1 << 2,  # 4 (0b100) - Represents oily skin
+../shared/utils/constants.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  6)     "SENSITIVE": 1 << 3,  # 8 (0b1000) - Represents sensitive skin
+../shared/utils/constants.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  7) }
+../shared/utils/constants.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  8) 
+../shared/utils/constants.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  9) # Skin Concerns
+../shared/utils/constants.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 10) SKIN_CONCERNS = {
+../shared/utils/constants.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 11)     "ACNE": 1 << 0,  # 1 (0b0001) - Represents acne concern
+../shared/utils/constants.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 12)     "AGING": 1 << 1,  # 2 (0b0010) - Represents aging concern
+../shared/utils/constants.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 13)     "DRYNESS": 1 << 2,  # 4 (0b0100) - Represents dryness concern
+../shared/utils/constants.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 14)     "REDNESS": 1 << 3,  # 8 (0b1000) - Represents redness concern
+../shared/utils/constants.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 15)     "HYPERPIGMENTATION": 1 << 4,  # 16 (0b0001 0000) - Represents hyperpigmentation concern
+../shared/utils/constants.py: 184eb4eb (kvnguo 2024-10-22 20:13:06 -0400 16)     "PORES": 1 << 5,  # 32 (0b0010 0000) - Represents large pores concern
+../shared/utils/constants.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 17) }
+../shared/utils/constants.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 18) 
+../shared/utils/constants.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 19) # Product Categories
+../shared/utils/constants.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 20) PRODUCT_CATEGORIES = {
+../shared/utils/constants.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 21)     "CLEANSER": 1 << 0,  # 1 (0b0001) - Represents cleanser category
+../shared/utils/constants.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 22)     "MOISTURIZER": 1 << 1,  # 2 (0b0010) - Represents moisturizer category
+../shared/utils/constants.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 23)     "SUNSCREEN" : 1 << 2,  # 4 (0b0100) - Represents sunscreen category
+../shared/utils/constants.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 24)     "SERUM": 1 << 3,  # 8 (0b1000) - Represents serum category
+../shared/utils/constants.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 25)     "MASK": 1 << 4,  # 16 (0b0001 0000) - Represents mask category
+../shared/utils/constants.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 26)     "TONER": 1 << 5,  # 32 (0b0010 0000) - Represents toner category
+../shared/utils/constants.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 27)     "EXFOLIATOR": 1 << 6,  # 64 (0b0100 0000) - Represents exfoliator category
+../shared/utils/constants.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 28)     "EYECREAM": 1 << 7,  # 128 (0b1000 0000) - Represents eye cream category
+../shared/utils/constants.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 29) }
+../recommender/data_cleaning/unique.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  1) import csv
+../recommender/data_cleaning/unique.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  2) 
+../recommender/data_cleaning/unique.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  3) def main():
+../recommender/data_cleaning/unique.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  4)     unique_ingredients = set()
+../recommender/data_cleaning/unique.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  5) 
+../recommender/data_cleaning/unique.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  6)     with open('modified_dataset_v4.csv', 'r', encoding='utf-8') as csvfile:
+../recommender/data_cleaning/unique.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  7)         reader = csv.reader(csvfile)
+../recommender/data_cleaning/unique.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  8)         next(reader)  # Skip the header row
+../recommender/data_cleaning/unique.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  9) 
+../recommender/data_cleaning/unique.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 10)         for row in reader:
+../recommender/data_cleaning/unique.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 11)             try:
+../recommender/data_cleaning/unique.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 12)                 ingredients = eval(row[-1]) # Safely evaluate the ingredient string
+../recommender/data_cleaning/unique.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 13)                 for ingredient in ingredients:
+../recommender/data_cleaning/unique.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 14)                     unique_ingredients.add(ingredient) # Add each ingredient directly to the set
+../recommender/data_cleaning/unique.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 15) 
+../recommender/data_cleaning/unique.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 16)             except (SyntaxError, NameError): #handle any error when reading the data
+../recommender/data_cleaning/unique.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 17)                 print(f"Error evaluating ingredients: {row[-1]}")
+../recommender/data_cleaning/unique.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 18) 
+../recommender/data_cleaning/unique.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 19)     sorted_unique_ingredients = sorted(list(unique_ingredients))
+../recommender/data_cleaning/unique.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 20) 
+../recommender/data_cleaning/unique.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 21)     with open('unique.txt', 'w', encoding='utf-8') as outfile:
+../recommender/data_cleaning/unique.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 22)         for ingredient in sorted_unique_ingredients:
+../recommender/data_cleaning/unique.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 23)             outfile.write(ingredient + '\n')
+../recommender/data_cleaning/unique.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 24) 
+../recommender/data_cleaning/unique.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 25) if __name__ == "__main__":
+../recommender/data_cleaning/unique.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 26)     main()
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  1) import sys
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  2) import os
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  3) import pandas as pd
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  4) import ast
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  5) 
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  6) # Get the absolute path of the current script
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  7) current_script_path = os.path.abspath(__file__)
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  8) 
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  9) # Get the project root directory 
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 10) project_root = os.path.dirname(os.path.dirname(os.path.dirname(current_script_path)))
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 11) 
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 12) # Add the project root to the Python path
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 13) sys.path.append(project_root)
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 14) 
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 15) from shared.utils.constants import SKIN_TYPES, PRODUCT_CATEGORIES
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 16) 
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 17) # List of phrases in ingredient lists that we want to ignore
+../recommender/data_cleaning/clean_data.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 18) unwanted_phrases = ["No Info", "Visit the", "check out", "find more at", "see more at", "Please", "\\", ":", "Change" , "please", "change", "feel"]
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 19) 
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 20) # Function to check if ingredients list is valid
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 21) def is_valid_ingredients(ingredient_list):
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 22)     return not any(phrase in ingredient_list for phrase in unwanted_phrases)
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 23) 
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 24) # Function to process ingredients into a list of strings
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 25) def process_ingredients(ingredients):
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 26)     # Split the ingredients string by commas and strip whitespace
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 27)     return [ingredient.strip() for ingredient in ingredients.split(',')]
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 28) 
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 29) # Function to convert categories to their corresponding bitwise values
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 30) def process_categories(categories):
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 31)     bitwise_category = 0 
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 32)     categories_list = ast.literal_eval(categories)
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 33)     for category in categories_list:
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 34)         bitwise_category |= PRODUCT_CATEGORIES.get(category, 0)  
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 35)     return bitwise_category
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 36) 
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 37) # Function to convert skin types to their corresponding bitwise values
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 38) def process_skintypes(row):
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 39)     bitwise_skintype = 0 
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 40)     if row["Normal"]:
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 41)         bitwise_skintype |= SKIN_TYPES["NORMAL"]
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 42)     if row["Oily"]:
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 43)         bitwise_skintype |= SKIN_TYPES["OILY"]
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 44)     if row["Sensitive"]:
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 45)         bitwise_skintype |= SKIN_TYPES["SENSITIVE"]
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 46)     if row["Dry"]:  
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 47)         bitwise_skintype |= SKIN_TYPES["DRY"]
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 48)     return bitwise_skintype
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 49) 
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 50) # Read the CSV file
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 51) file_path = "modified_dataset_v1.csv"
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 52) try:
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 53)     df = pd.read_csv(file_path)
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 54) except FileNotFoundError:
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 55)     print(f"Error: The file {file_path} was not found.")
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 56)     sys.exit(1)
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 57) 
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 58) # Remove duplicates and rows with NaN values
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 59) df = df.drop_duplicates()
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 60) df = df.dropna()
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 61) 
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 62) # Filter the DataFrame to keep only valid ingredient lists
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 63) df = df[df["ingredients"].apply(is_valid_ingredients)]
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 64) 
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 65) # Initialize cleaned DataFrame using the product model schema
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 66) cleaned_df = pd.DataFrame(columns=["category", "skintype", "name", "brand", "price", "rating", "ingredients"])
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 67) 
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 68) # Assign values to the cleaned DataFrame
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 69) cleaned_df["category"] = df["Label"].apply(process_categories) 
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 70) cleaned_df["skintype"] = df.apply(process_skintypes, axis=1)
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 71) cleaned_df["name"] = df["name"]
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 72) cleaned_df["brand"] = df["brand"]
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 73) cleaned_df["price"] = df["price"]
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 74) cleaned_df["rating"] = df["rank"]
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 75) 
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 76) # TODO: Add additional logic for cleaning ingredients list 
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 77) cleaned_df["ingredients"] = df["ingredients"].apply(process_ingredients)
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 78) 
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 79) cleaned_df.to_csv("modified_dataset_v2.csv", index=False)
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 80) 
+../recommender/data_cleaning/clean_data.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 81) 
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400   1) import pandas as pd
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400   2) import re
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400   3) 
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400   4) # Comprehensive ingredient mapping 
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400   5) ingredient_mapping = {
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400   6)     # Common misspellings
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400   7)     "fragranc": "parfum",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400   8)     "saccha romyces": "saccharomyces",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400   9)     
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  10)     # Water synonyms
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  11)     "aqua": "water",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  12)     "eau": "water",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  13)     
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  14)     # Standardized naming
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  15)     "ci ": "color index ",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  16)     "cetearyl alcohol": "cetyl stearyl alcohol",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  17)     "ceteareth-": "ceteareth",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  18)     "peg-": "peg",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  19)     "ppg-": "ppg",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  20)     
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  21)     # Carbon chain number standardization
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  22)     "c12-15": "c12 15",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  23)     "c12-13": "c12 13",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  24)     "c13-14": "c13 14",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  25)     "c14-22": "c14 22",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  26)     "c15-23": "c15 23",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  27)     "c20-40": "c20 40",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  28)     "c10-18": "c10 18",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  29)     "c30-38": "c30 38",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  30)     "c30-45": "c30 45",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  31)     "c50-45": "c50 45",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  32)     "c9-12": "c9 12",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  33)     "c6-14": "c6 14",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  34)     "c5-9": "c5 9",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  35)     "c10-c30": "c10 c30",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  36)     "c10-30": "c10 30",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  37)     
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  38)     # Peptide standardization
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  39)     "sh-oligopeptide": "sholigopeptide",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  40)     "sh-polypeptide": "shpolypeptide",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  41)     
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  42)     # Special character removal
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  43)     r"\(": "",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  44)     r"\)": "",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  45)     r"\*": "",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  46)     r"\+": "",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  47)     r"-": " ",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  48)     r"\.": "",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  49)     r"\[": "",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  50)     r"\]": "",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  51)     r"\"": "",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  52)     r"\'": "",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  53)     
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  54)     # Space handling
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  55)     r"\s+": " ",  # Replace multiple spaces with single space
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  56)     
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  57)     # Color index standardization
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  58)     "color index 77491": "iron oxides",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  59)     "color index 77492": "iron oxides",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  60)     "color index 77499": "iron oxides",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  61)     "color index 77489": "iron oxides",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  62)     "color index ": "color index",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  63)     
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  64)     # Common name to scientific name
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  65)     "honey": "mel",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  66)     "aloe vera": "aloe barbadensis",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  67)     "chamomile": "chamomilla recutita flower",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  68)     "calendula": "calendula officinalis flower",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  69)     "ylang ylang": "cananga odorata flower",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  70)     
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  71)     # Remove marketing terms
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  72)     "certified organic cultivation": "",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  73)     "certified organic": "",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  74)     "plant origin": "",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  75)     "natural": "",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  76)     "organic": "",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  77)     
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  78)     # Regex patterns for trailing words
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  79)     r" extract$": "",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  80)     r" oil$": "",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  81)     r" water$": "",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  82)     r" beeswax$": "beeswax",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  83)     r" leaf$": "leaf",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  84)     r" seed$": "seed",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  85)     r" root$": "root",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  86)     r" flower$": "flower",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  87)     r" fruit$": "fruit",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  88)     
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  89)     # Standardized ingredients
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  90)     "abies sibirica": "abies sibirica",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  91)     "abronia villosa leaf": "abronia villosa leaf",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  92)     "acacia concinna fruit": "acacia concinna fruit",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  93)     "acacia dealbata flower stem": "acacia dealbata flower stem",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  94)     "c10 30 cholesterol lanosterol esters": "c10 30 cholesterol lanosterol esters",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  95)     "c9 12 alkane coconut": "c9 12 alkane",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  96)     "carica papaya fruit carica papaya papaya fruit": "carica papaya fruit",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  97)     "chamomilla recutita chamomilla recutita flower flower": "chamomilla recutita flower",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  98)     "o cymen 5 ol": "o cymen 5 ol",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400  99)     "saccharomyces ferment filtrate": "saccharomyces ferment filtrate",
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 100)     
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 101)     # Disclaimer removal (using raw string for regex)
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 102)     r"disodium edta essential oil please be aware.*ingredients\.": "disodium edta"
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 103) }
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 104) 
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 105) def normalize_ingredient(ingredient):
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 106)     ingredient = ingredient.lower()
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 107) 
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 108)     # 1. Perform mapping *before* regex substitutions:
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 109)     for k, v in ingredient_mapping.items():
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 110)         ingredient = ingredient.replace(k, v)
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 111) 
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 112)     # 2. Remove unwanted phrases (after mapping):
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 113)     ingredient = re.sub(r"please be aware.*ingredients\.", "", ingredient)
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 114)     ingredient = re.sub(r"certified organic cultivation|certified organic|plant origin|natural|organic", "", ingredient)
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 115) 
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 116)     # 3. Remove special characters and extra whitespace:
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 117)     ingredient = re.sub(r"[*+\.\[\]\"']", "", ingredient)
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 118)     ingredient = re.sub(r"[^a-zA-Z0-9]", " ", ingredient)
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 119)     ingredient = re.sub(r"\s+", " ", ingredient).strip()
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 120) 
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 121)     # 4. Remove redundant words at the end:
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 122)     ingredient = re.sub(r"\sextract|\soil|\swater$", "", ingredient)
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 123) 
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 124)     # 5. Remove ingredients that are just whitespace or start with a number:
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 125)     if ingredient.strip() == "" or ingredient[0].isdigit():  # Check for empty string AFTER stripping
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 126)         return ""  # Return empty string to be removed later
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 127)     else:
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 128)        return ingredient.strip()
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 129) 
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 130) 
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 131) def normalize_ingredients_list(x):
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 132)     try:
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 133)         normalized = [normalize_ingredient(ing) for ing in eval(x)]
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 134)         # Remove empty strings from the normalized list
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 135)         return [ing for ing in normalized if ing]  # Equivalent to: if ing != ""
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 136)     except (SyntaxError, TypeError, NameError):
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 137)         print(f"Error processing: {x}")
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 138)         return []
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 139) 
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 140) 
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 141) def main():
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 142)     df = pd.read_csv('modified_dataset_v2.csv')
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 143) 
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 144)     df['ingredients'] = df['ingredients'].astype(str)
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 145)     df['ingredients'] = df['ingredients'].apply(normalize_ingredients_list)
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 146)     df['ingredients'] = df['ingredients'].apply(lambda x: str(x))  # Convert back to string
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 147) 
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 148)     df.to_csv('modified_dataset_v3.csv', index=False)
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 149) 
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 150) 
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 151) 
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 152) 
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 153) if __name__ == "__main__":
+../recommender/data_cleaning/normalize_ingredients.py: 56fb4adb (kvnguo 2024-10-26 22:43:37 -0400 154)     main()
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400   1) import pandas as pd
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400   2) 
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400   3) # Load your dataset
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400   4) data = pd.read_csv("original_data.csv")
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400   5) 
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400   6) # Function to classify product labels
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400   7) def classify_labels(row):
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400   8)     # Existing labels as a list
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400   9)     labels = []
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  10) 
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  11)     # Keep existing label unless it's "Treatment" (remove), "Sun protect" (change to SUNSCREEN), "Face Mask" (Change to MASK), or "Eye crem" (Change to EYECREAM)
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  12)     if row["Label"] == "Treatment":
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  13)         pass
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  14)     elif row["Label"] == "Sun protect":
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  15)         labels.append("SUNSCREEN")
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  16)     elif row["Label"] == "Face Mask":
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  17)         labels.append("MASK")
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  18)     elif row["Label"] == "Eye cream":
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  19)         labels.append("EYECREAM")
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  20)     else:
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  21)         labels.append(row["Label"].upper())  # Convert to uppercase
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  22) 
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  23)     # Check product name for additional labels
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  24)     name = row["name"].lower()
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  25)     # Cleaner and only be cleansers and exfoliators
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  26)     if "CLEANSER" in labels:
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  27)         if any(
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  28)             term in name
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  29)             for term in [
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  30)                 "exfoliating",
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  31)                 "peel",
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  32)                 "aha",
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  33)                 "bha",
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  34)                 "salasilyic",
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  35)                 "glycolic",
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  36)                 "lactic",
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  37)             ]
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  38)         ):
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  39)             labels.append("EXFOLIATOR")
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  40)             return
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  41)     else:
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  42)         # Other names for moisturizer
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  43)         if any(
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  44)             term in name
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  45)             for term in ["emulsion", "moisturizer", "cream", "lotion", "sleeping mask"]
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  46)         ):
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  47)             labels.append("MOISTURIZER")
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  48)         # Other names for toners
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  49)         if "toner" in name:
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  50)             # Toners can't be moisturizers or serums
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  51)             labels = [
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  52)                 label for label in labels if label not in ["MOISTURIZER", "SERUM"]
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  53)             ]
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  54)             labels.append("TONER")
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  55)         # Other names for serums
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  56)         if any(
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  57)             term in name
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  58)             for term in [
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  59)                 "emulsion",
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  60)                 "serum",
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  61)                 "solution",
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  62)                 "essence",
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  63)                 "concentrate",
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  64)                 "gel",
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  65)                 "drops",
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  66)             ]
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  67)         ):
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  68)             # Toners can't be moisturizers or toners
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  69)             labels = [
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  70)                 label for label in labels if label not in ["MOISTURIZER", "TONER"]
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  71)             ]
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  72)             labels.append("SERUM")
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  73)         # Other names for exfoliators
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  74)         if any(
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  75)             term in name
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  76)             for term in [
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  77)                 "exfoliating",
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  78)                 "peel",
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  79)                 "aha",
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  80)                 "bha",
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  81)                 "salasilyic",
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  82)                 "glycolic",
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  83)                 "lactic",
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  84)             ]
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  85)         ):
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  86)             labels.append("EXFOLIATOR")
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  87)         # For eye creams
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  88)         if "eye" in name:
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  89)             labels.append("EYECREAM")
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  90)         # Sleeping masks aren't masks
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  91)         if "mask" in name and "sleeping" not in name:
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  92)             labels = [
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  93)                 label
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  94)                 for label in labels
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  95)                 if label not in ["MOISTURIZER", "TONER", "SERUM"]
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  96)             ]
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  97)             labels.append("MASK")
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  98)         # Other names for sunscreens
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400  99)         if "spf" in name or "sun" in name:
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 100)             labels.append("SUNSCREEN")
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 101) 
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 102)     # Remove duplicates and convert all to uppercase
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 103)     labels = list(set(label.upper() for label in labels))
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 104)     # If no label added, classific as MISC
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 105)     if len(labels) == 0:
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 106)         labels = ["MISC"]
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 107)     return labels
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 108) 
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 109) 
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 110) # Apply the function to each row
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 111) data["Label"] = data.apply(classify_labels, axis=1)
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 112) 
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 113) # Save the modified dataset to a new CSV file
+../recommender/data_cleaning/update_labels.py: 977da996 (kvnguo 2024-10-21 18:57:16 -0400 114) data.to_csv("modified_dataset_v1.csv", index=False)
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400  1) import pandas as pd
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400  2) import ast
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400  3) 
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400  4) ingredient_mapping = {
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400  5)     "vitamin c": 16,
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400  6)     "ascorbic acid": 16,
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400  7)     "kojic acid": 16,
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400  8)     "niacinamide": 24,
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400  9)     "alpha arbutin": 16,
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 10)     "licorice root": 16,
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 11)     "azelaic acid": 25,
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 12)     "hyaluronic acid": 4,
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 13)     "ceramide": 4,
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 14)     "glycerin": 4,
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 15)     "squalane": 4,
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 16)     "shea": 4,
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 17)     "retinol": 2,
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 18)     "peptides": 2,
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 19)     "collagen": 2,
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 20)     "glycolic acid": 3,
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 21)     "lactic acid": 3,
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 22)     "salicylic acid": 1,
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 23)     "benzoyl peroxide": 1,
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 24)     "tea tree oil": 1,
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 25)     "sulfur": 1,
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 26)     "green tea": 25,
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 27)     "aloe": 12,
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 28)     "centella": 8,
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 29)     "zinc oxide": 9,
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 30)     "melaleuca alternifolia leaf": 1,
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 31)     "butyrospermum parkii": 4,
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 32)     "glycyrrhiza glabra root": 16,
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 33)     "camellia sinensis leaf": 25,
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 34)     "bakuchiol": 2,
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 35)     "mandelic acid": 3,
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 36) }
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 37) 
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 38) df = pd.read_csv(
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 39)     "modified_dataset_v4.csv", converters={"ingredients": ast.literal_eval}
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 40) )
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 41) 
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 42) 
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 43) def calculate_concerns(ingredients):
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 44)     concerns = 0
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 45)     for ingredient in ingredients:
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 46)         for key, value in ingredient_mapping.items():
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 47)             if key in ingredient.lower():
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 48)                 concerns |= value
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 49)                 break
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 50)     return concerns
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 51) 
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 52) 
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 53) df["concerns"] = df["ingredients"].apply(calculate_concerns)
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 54) 
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 55) cols = list(df.columns)
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 56) concerns_index = cols.index('concerns')
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 57) cols.insert(2, cols.pop(concerns_index))  
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 58) df = df[cols]
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 59) 
+../recommender/data_cleaning/add_concerns.py: 219d6803 (kvnguo 2024-10-28 16:09:08 -0400 60) df.to_csv("modified_dataset_v5.csv", index=False)
