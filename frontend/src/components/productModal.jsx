@@ -28,8 +28,17 @@ function ProductDetailsModal({ product, onClose }) {
     };
   }, []);
 
+  const handleBackgroundClick = (e) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+      onClick={handleBackgroundClick}
+    >
       <div className="relative bg-customBlue rounded-lg p-8 shadow-lg w-full max-w-screen-md text-center overflow-hidden">
         {/* Close Button */}
         <button
