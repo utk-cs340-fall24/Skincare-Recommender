@@ -15,11 +15,9 @@ function ProductsPage() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Dynamic brands and ingredients states
   const [brands, setBrands] = useState([]);
   const [ingredients, setIngredients] = useState([]);
 
-  // Filter states
   const [filters, setFilters] = useState({
     brand: "",
     minPrice: "",
@@ -41,7 +39,8 @@ function ProductsPage() {
     skinConcerns: false,
   });
 
-  // Fetch products and extract unique brands and ingredients
+  const [sortOption, setSortOption] = useState("");
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -49,17 +48,15 @@ function ProductsPage() {
         const data = await response.json();
         setProducts(data);
 
-        // Extract unique brands
         const uniqueBrands = [
           ...new Set(data.map((product) => product.brand)),
         ].sort();
         setBrands(uniqueBrands);
 
-        // Extract unique ingredients
         const allIngredients = data.flatMap((product) => product.ingredients);
         const uniqueIngredients = [...new Set(allIngredients)]
-          .filter((ing) => ing) // Remove empty strings
-          .sort((a, b) => a.localeCompare(b)); // Sort alphabetically
+          .filter((ing) => ing)
+          .sort((a, b) => a.localeCompare(b));
         setIngredients(uniqueIngredients);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -71,33 +68,27 @@ function ProductsPage() {
 
   // Advanced filtering logic
   const applyFilters = useMemo(() => {
-    return products.filter((product) => {
-      // Brand filter
+    let filtered = products.filter((product) => {
       if (filters.brand && product.brand !== filters.brand) return false;
 
-      // Price filter
       const minPrice = filters.minPrice ? parseFloat(filters.minPrice) : 0;
       const maxPrice = filters.maxPrice
         ? parseFloat(filters.maxPrice)
         : Infinity;
       if (product.price < minPrice || product.price > maxPrice) return false;
 
-      // Category filter
       if (filters.category && product.category !== parseInt(filters.category))
         return false;
 
-      // Ingredient filter
       if (
         filters.ingredient &&
         !product.ingredients.some((ing) => ing.includes(filters.ingredient))
       )
         return false;
 
-      // Rating filter
       if (filters.minRating && product.rating < parseFloat(filters.minRating))
         return false;
 
-      // Skin Type filter (bitwise)
       if (filters.skinTypes.length > 0) {
         const skinTypeMatch = filters.skinTypes.some(
           (type) => (product.skinType & type) !== 0
@@ -105,7 +96,6 @@ function ProductsPage() {
         if (!skinTypeMatch) return false;
       }
 
-      // Skin Concerns filter (bitwise)
       if (filters.skinConcerns.length > 0) {
         const concernsMatch = filters.skinConcerns.some(
           (concern) => (product.concerns & concern) !== 0
@@ -115,14 +105,24 @@ function ProductsPage() {
 
       return true;
     });
-  }, [products, filters]);
 
-  // Update filtered products when filters change
+    if (sortOption === "price-asc") {
+      filtered = filtered.sort((a, b) => a.price - b.price);
+    } else if (sortOption === "price-desc") {
+      filtered = filtered.sort((a, b) => b.price - a.price);
+    } else if (sortOption === "rating-asc") {
+      filtered = filtered.sort((a, b) => a.rating - b.rating);
+    } else if (sortOption === "rating-desc") {
+      filtered = filtered.sort((a, b) => b.rating - a.rating);
+    }
+
+    return filtered;
+  }, [products, filters, sortOption]);
+
   useEffect(() => {
     setFilteredProducts(applyFilters);
   }, [applyFilters]);
 
-  // Modal handlers
   const openModal = (product) => {
     setSelectedProduct(product);
     setIsModalOpen(true);
@@ -133,7 +133,6 @@ function ProductsPage() {
     setIsModalOpen(false);
   };
 
-  // Filter update handlers
   const updateFilter = (filterName, value) => {
     setFilters((prev) => ({ ...prev, [filterName]: value }));
   };
@@ -148,7 +147,6 @@ function ProductsPage() {
     });
   };
 
-  // Toggle filter section expansion
   const toggleFilterExpand = (section) => {
     setExpandedFilters((prev) => ({
       ...prev,
@@ -406,6 +404,19 @@ function ProductsPage() {
 
           {/* Products Grid */}
           <div className="flex-1">
+            <div className="flex justify-end mb-4">
+              <select
+                value={sortOption}
+                onChange={(e) => setSortOption(e.target.value)}
+                className="p-2 border rounded"
+              >
+                <option value="">Sort By</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="rating-asc">Rating: Low to High</option>
+                <option value="rating-desc">Rating: High to Low</option>
+              </select>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {filteredProducts.map((product) => (
                 <div
