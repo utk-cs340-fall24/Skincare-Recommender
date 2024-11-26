@@ -9,7 +9,7 @@ import {
   PRODUCT_CATEGORIES,
 } from "../../../shared/utils/constants.js";
 
-export default function ProductsPage() {
+function ProductsPage() {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -273,7 +273,7 @@ export default function ProductsPage() {
                   <option value="">All Categories</option>
                   {Object.entries(PRODUCT_CATEGORIES).map(([key, value]) => (
                     <option key={key} value={value}>
-                      {key.charAt(0) + key.slice(1).toLowerCase()}
+                      {key.charAt(0).toUpperCase() + key.slice(1).toLowerCase()}
                     </option>
                   ))}
                 </select>
@@ -300,7 +300,7 @@ export default function ProductsPage() {
                   className="w-full mt-2 p-2 border rounded"
                 >
                   <option value="">All Ingredients</option>
-                  {ingredients.slice(0, 50).map((ingredient) => (
+                  {ingredients.map((ingredient) => (
                     <option key={ingredient} value={ingredient}>
                       {ingredient}
                     </option>
@@ -315,7 +315,7 @@ export default function ProductsPage() {
                 onClick={() => toggleFilterExpand("rating")}
                 className="flex justify-between items-center cursor-pointer"
               >
-                <h3 className="font-semibold">Minimum Rating</h3>
+                <h3 className="font-semibold">Rating</h3>
                 <ChevronDown
                   className={`h-5 w-5 transition-transform ${
                     expandedFilters.rating ? "rotate-180" : ""
@@ -328,10 +328,9 @@ export default function ProductsPage() {
                   onChange={(e) => updateFilter("minRating", e.target.value)}
                   className="w-full mt-2 p-2 border rounded"
                 >
-                  <option value="">Any Rating</option>
+                  <option value="">All Ratings</option>
                   <option value="3">3+ Stars</option>
                   <option value="4">4+ Stars</option>
-                  <option value="4.5">4.5+ Stars</option>
                 </select>
               )}
             </div>
@@ -350,7 +349,7 @@ export default function ProductsPage() {
                 />
               </div>
               {expandedFilters.skinType && (
-                <div className="space-y-2 mt-2">
+                <div className="mt-2 space-y-1">
                   {Object.entries(SKIN_TYPES).map(([key, value]) => (
                     <div key={key} className="flex items-center">
                       <input
@@ -384,7 +383,7 @@ export default function ProductsPage() {
                 />
               </div>
               {expandedFilters.skinConcerns && (
-                <div className="space-y-2 mt-2">
+                <div className="mt-2 space-y-1">
                   {Object.entries(SKIN_CONCERNS).map(([key, value]) => (
                     <div key={key} className="flex items-center">
                       <input
@@ -404,43 +403,47 @@ export default function ProductsPage() {
               )}
             </div>
           </div>
+
           {/* Products Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 text-customGray">
-            {filteredProducts.map((product) => (
-              <div
-                key={product._id}
-                className="p-4 border bg-white rounded-lg shadow-md hover:shadow-lg"
-              >
-                <div className="flex justify-center items-center w-[272px] h-[270px] overflow-hidden">
-                  <img
-                    src="./src/images/productplaceholder.png"
-                    alt={product.name}
-                    className="object-contain max-w-full max-h-full rounded-lg"
-                  />
+          <div className="flex-1">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {filteredProducts.map((product) => (
+                <div
+                  key={product._id}
+                  className="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow cursor-pointer"
+                  onClick={() => openModal(product)}
+                >
+                  <div className="h-64 flex items-center justify-center mb-4">
+                    <img
+                      src="./src/images/productplaceholder.png"
+                      alt={product.name}
+                      className="max-h-full object-contain"
+                    />
+                  </div>
+                  <div className="text-center">
+                    <h3 className="font-semibold text-lg">{product.name}</h3>
+                    <p className="text-gray-600">${product.price}</p>
+                    <div className="flex justify-center mt-2">
+                      {[...Array(Math.round(product.rating))].map((_, i) => (
+                        <span key={i} className="text-yellow-500">
+                          ★
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-                <div className="text-inclusive text-lg font-normal">
-                  <p
-                    className="text-center cursor-pointer"
-                    onClick={() => openModal(product)}
-                  >
-                    {product.name}
-                  </p>
-                  <p className="text-center text-customGray">
-                    ${product.price}
-                  </p>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-          {/* Modal Control */}
-          {isModalOpen && selectedProduct && (
-            <ProductDetailsModal
-              product={selectedProduct}
-              onClose={closeModal}
-            />
-          )}
         </div>
       </div>
+
+      {/* Product Details Modal */}
+      {isModalOpen && selectedProduct && (
+        <ProductDetailsModal product={selectedProduct} onClose={closeModal} />
+      )}
     </div>
   );
 }
+
+export default ProductsPage;
