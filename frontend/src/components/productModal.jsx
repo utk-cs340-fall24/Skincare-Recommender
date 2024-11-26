@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../../index.css";
 
 function ProductDetailsModal({ product, onClose }) {
@@ -18,6 +18,15 @@ function ProductDetailsModal({ product, onClose }) {
   const toggleShowMore = () => {
     setShowMore(!showMore);
   };
+
+  // Lock background scrolling when modal is opened
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
@@ -55,7 +64,9 @@ function ProductDetailsModal({ product, onClose }) {
                 <p className="text-lg inline">
                   {showMore
                     ? product.ingredients.join(", ")
-                    : `${product.ingredients.slice(0, max_ingredients).join(", ")}...`}{" "}
+                    : `${product.ingredients
+                        .slice(0, max_ingredients)
+                        .join(", ")}...`}{" "}
                 </p>
                 {product.ingredients.length > max_ingredients && (
                   <button
