@@ -13,21 +13,15 @@ function ProductDetailsModal({ product, onClose }) {
 
   const [showMore, setShowMore] = useState(false);
 
+  const max_ingredients = 8;
+
   const toggleShowMore = () => {
     setShowMore(!showMore);
   };
 
-  function formatBrandName (brand) {
-    return brand
-      .toLowerCase()
-      .split(' ')
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
-  }
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="relative bg-customBlue rounded-lg p-8 shadow-lg max-w-screen-md max-h-[70vh] text-center overflow-scroll">
+      <div className="relative bg-customBlue rounded-lg p-8 shadow-lg max-w-screen-md max-h-[70vh] text-center overflow-hidden">
         {/* Close Button */}
         <button
           onClick={onClose}
@@ -46,19 +40,6 @@ function ProductDetailsModal({ product, onClose }) {
             />
           </div>
 
-        {/* Product Info on the Right */}
-        <div className="text-customGray font-inclusive">
-          {/* Product Title */}
-          <h2 className="text-[36px] font-normal leading-[38px] mb-2">
-            {product.name}
-          </h2>
-          <p className="text-[32px] font-normal leading-[36px] mb-2">
-            by {formatBrandName(product.brand)}
-          </p>
-          {/* Price */}
-          <p className="text-[32px] font-normal leading-[36px] mb-2">
-            ${product.price}
-          </p>
           {/* Product Info */}
           <div className="w-1/2 h-max text-customCream">
             <h2 className="text-4xl font-semibold mb-4">{product.name}</h2>
@@ -69,13 +50,13 @@ function ProductDetailsModal({ product, onClose }) {
 
             <div className="mt-6">
               <h3 className="text-2xl font-semibold mb-2">Ingredients</h3>
-              <div className="max-h-40 overflow-scroll">
+              <div className="max-h-40 overflow-y-scroll overflow-x-hidden">
                 <p className="text-lg inline">
                   {showMore
                     ? product.ingredients.join(", ")
-                    : `${product.ingredients.slice(0, 10).join(", ")}...`}
+                    : `${product.ingredients.slice(0, max_ingredients).join(", ")}...`}{" "}
                 </p>
-                {product.ingredients.length > 9 && (
+                {product.ingredients.length > max_ingredients && (
                   <button
                     onClick={toggleShowMore}
                     className="text-customCream text-lg underline mt-2 inline"
@@ -88,7 +69,6 @@ function ProductDetailsModal({ product, onClose }) {
           </div>
         </div>
       </div>
-    </div>
     </div>
   );
 }
