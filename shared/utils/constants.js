@@ -5,7 +5,7 @@
 export const SKIN_TYPES = {
   DRY: 1 << 0, // 1 (0b001) - Represents dry skin
   NORMAL: 1 << 1, // 2 (0b010) - Represents normal skin
-  OILY: 1 << 2, // 2 (0b100) - Represents oily skin
+  OILY: 1 << 2, // 4 (0b100) - Represents oily skin
   SENSITIVE: 1 << 3, // 8 (0b1000) - Represents sensitive concern
 };
 
@@ -30,3 +30,30 @@ export const PRODUCT_CATEGORIES = {
   EXFOLIATOR: 1 << 6, // 64 (0b0100 0000) - Represents exfoliator category
   EYECREAM: 1 << 7, // 128 (0b1000 0000) - Represents eye cream category
 };
+
+export function bitwiseSkinTypeToString(skinType) {
+  const types = [];
+  if (skinType & SKIN_TYPES.SENSITIVE) types.push("Sensitive");
+  if (skinType & SKIN_TYPES.DRY && skinType & SKIN_TYPES.OILY)
+    types.push("Combination");
+  else {
+    if (skinType & SKIN_TYPES.DRY) types.push("Dry");
+    if (skinType & SKIN_TYPES.OILY) types.push("Oily");
+  }
+  if (skinType & SKIN_TYPES.NORMAL) types.push("Normal");
+
+  return types.join(", ");
+}
+
+export function bitwiseSkinConcernsToString(skinConcerns) {
+  const concerns = [];
+  if (skinConcerns & SKIN_CONCERNS.ACNE) concerns.push("Acne");
+  if (skinConcerns & SKIN_CONCERNS.AGING) concerns.push("Aging");
+  if (skinConcerns & SKIN_CONCERNS.DRYNESS) concerns.push("Dryness");
+  if (skinConcerns & SKIN_CONCERNS.REDNESS) concerns.push("Redness");
+  if (skinConcerns & SKIN_CONCERNS.HYPERPIGMENTATION)
+    concerns.push("Hyperpigmentation");
+  if (skinConcerns & SKIN_CONCERNS.PORES) concerns.push("Large Pores");
+
+  return concerns.join(", ");
+}
