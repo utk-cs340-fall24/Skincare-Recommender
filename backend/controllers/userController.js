@@ -22,7 +22,6 @@ export const getUser = async (req, res) => {
       ? { _id: userId } // Search by `_id` if it's a valid ObjectId
       : { uid: userId }; // Otherwise, search by `uid`
 
-    console.log("query", query); 
     const user = await User.findOne(query);
 
     if (!user) {
@@ -38,10 +37,13 @@ export const getUser = async (req, res) => {
 // Update a user by ID or UID
 export const updateUser = async (req, res) => {
   try {
-    const { userId, uid } = req.params;
+    const { userId } = req.params;
 
-    // Search and update by either _id or uid
-    const query = userId ? { _id: userId } : { uid };
+    // Determine if the `userId` is an ObjectId or a `uid`
+    const query = mongoose.Types.ObjectId.isValid(userId)
+      ? { _id: userId } // Search by `_id` if it's a valid ObjectId
+      : { uid: userId }; // Otherwise, search by `uid`
+
     const user = await User.findOneAndUpdate(query, req.body, { new: true });
 
     if (!user) return res.status(404).json({ message: "User not found" });
@@ -54,10 +56,12 @@ export const updateUser = async (req, res) => {
 // Delete a user by ID or UID
 export const deleteUser = async (req, res) => {
   try {
-    const { userId, uid } = req.params;
+    const { userId } = req.params;
 
-    // Search and delete by either _id or uid
-    const query = userId ? { _id: userId } : { uid };
+    // Determine if the `userId` is an ObjectId or a `uid`
+    const query = mongoose.Types.ObjectId.isValid(userId)
+      ? { _id: userId } // Search by `_id` if it's a valid ObjectId
+      : { uid: userId }; // Otherwise, search by `uid`
     const user = await User.findOneAndDelete(query);
 
     if (!user) return res.status(404).json({ message: "User not found" });

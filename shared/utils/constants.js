@@ -5,7 +5,7 @@
 export const SKIN_TYPES = {
   DRY: 1 << 0, // 1 (0b001) - Represents dry skin
   NORMAL: 1 << 1, // 2 (0b010) - Represents normal skin
-  OILY: 1 << 2, // 2 (0b100) - Represents oily skin
+  OILY: 1 << 2, // 4 (0b100) - Represents oily skin
   SENSITIVE: 1 << 3, // 8 (0b1000) - Represents sensitive concern
 };
 
