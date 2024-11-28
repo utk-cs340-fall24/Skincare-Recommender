@@ -1,14 +1,15 @@
-{ /* This is the profile modal. */ }
-
 import React, { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import axios from "axios";
 import { auth } from "../../firebase";
+import {
+  bitwiseSkinConcernsToString,
+  bitwiseSkinTypeToString,
+} from "../../../shared/utils/constants";
 
 function ProfileModal({ isOpen, onClose }) {
   const [profile, setProfile] = useState(null);
 
-  { /* Getting user information. */ }
   useEffect(() => {
     if (!isOpen) return;
 
@@ -40,7 +41,7 @@ function ProfileModal({ isOpen, onClose }) {
         onClick={onClose}
       ></div>
       {/* Profile Modal */}
-      <div className="bg-customBlue rounded-[30px] p-20 w-96 h-82 shadow-lg relative z-1">
+      <div className="bg-customBlue rounded-[30px] p-20 w-[500px] h-[400px] shadow-lg relative z-1">
         {/* Exit button */}
         <button
           onClick={onClose}
@@ -66,12 +67,16 @@ function ProfileModal({ isOpen, onClose }) {
             {profile ? profile.email : "email@gmail.com"}
           </p>
           <p className="text-lg text-customGray">
-            Skin type:{" "}
-            {profile && profile.skinType != 0 ? profile.skinType : "N/A"}
+            <strong>Skin type:</strong>{" "}
+            {profile && profile.skinType != 0
+              ? bitwiseSkinTypeToString(profile.skinType)
+              : "N/A"}
           </p>
           <p className="text-lg text-customGray">
-            Skin concerns:{" "}
-            {profile && profile.concerns != 0 ? profile.concerns : "N/A"}
+            <strong>Skin concerns:</strong>{" "}
+            {profile && profile.concerns != 0
+              ? bitwiseSkinConcernsToString(profile.concerns)
+              : "N/A"}
           </p>
         </div>
       </div>

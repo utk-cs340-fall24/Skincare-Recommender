@@ -6,39 +6,65 @@ import { themeJson } from "../context/theme";
 import { quizQuestions } from "../context/quizQuestions";
 import { getAuth } from "firebase/auth";
 import axios from "axios";
-import { SKIN_TYPES } from "../../../shared/utils/constants.js";
+import { SKIN_TYPES, SKIN_CONCERNS } from "../../../shared/utils/constants.js";
 import { useNavigate } from "react-router-dom"; // Import the useNavigate hook for redirection
 
 // Helper function to build updated user data
 function buildUpdatedUser(surveyData, user) {
-  let skinType = 0;
-  let skinConcerns = 0;
+  user.skinType = determineSkinType(surveyData);
+  user.concerns = determineSkinConcerns(surveyData);
+}
 
-  // Calculate skin type based on the user's response to question2
+function determineSkinType(surveyData) {
+  let skinType = 0;
+
+  // Calculate skin type based on the user's response to question1
   if (surveyData.question1) {
+    // If the user knows their skin type
     const skinTypes = surveyData.question2.map((val) => parseInt(val));
-    skinType = skinTypes.reduce((acc, val) => acc | val, 0); // Use OR to accumulate skin types
+    skinType = skinTypes.reduce((acc, val) => acc | val, 0);
+    console.log("Skin type:", skinType);
   } else {
-    const isOily = parseInt(surveyData.question3) ? SKIN_TYPES.OILY : 0;
-    const hasLargePores = parseInt(surveyData.question4) ? SKIN_TYPES.PORES : 0;
-    const isTightFlaky = parseInt(surveyData.question5) ? SKIN_TYPES.DRY : 0;
-    const isDull = parseInt(surveyData.question6) ? SKIN_TYPES.NORMAL : 0;
-    const isSenitive = parseInt(surveyData.question7)
+    // If the user doesn't know their skin type
+    const isDry = parseInt(surveyData.question3) ? SKIN_TYPES.DRY : 0;
+    const isOily = parseInt(surveyData.question4) ? SKIN_TYPES.OILY : 0;
+    const isSenitive = parseInt(surveyData.question5)
       ? SKIN_TYPES.SENSITIVE
       : 0;
-
-    skinType = isOily | hasLargePores | isTightFlaky | isDull | isSenitive;
+    skinType = isDry | isOily | isSenitive;
     if (skinType === 0) skinType = SKIN_TYPES.NORMAL;
   }
 
-  // Calculate skin concerns based on the user's response to question8
-  const concerns = surveyData.question8
-    ? surveyData.question8.map((val) => parseInt(val))
-    : [];
-  skinConcerns = concerns.reduce((acc, val) => acc | val, 0); // Use OR to accumulate concerns
-  user.skinType = skinType;
-  user.concerns = skinConcerns;
-  console.log("Updated user:", user);
+  return skinType;
+}
+
+function determineSkinConcerns(surveyData) {
+  let skinConcerns = 0;
+
+  // Calculate skin concerns based on the user's response to question6
+  if (surveyData.question6) {
+    // If the user knows their skin concerns
+    const concerns = surveyData.question7.map((val) => parseInt(val));
+    skinConcerns = concerns.reduce((acc, val) => acc | val, 0);
+  } else {
+    // If the user doesn't know their skin concerns
+    const isAcne = parseInt(surveyData.question8) ? SKIN_CONCERNS.ACNE : 0;
+    const isAging = parseInt(surveyData.question9) ? SKIN_CONCERNS.AGING : 0;
+    const isDryness = parseInt(surveyData.question10)
+      ? SKIN_CONCERNS.DRYNESS
+      : 0;
+    const isRedness = parseInt(surveyData.question11)
+      ? SKIN_CONCERNS.REDNESS
+      : 0;
+    const isHyperpigmentation = parseInt(surveyData.question12)
+      ? SKIN_CONCERNS.HYPERPIGMENTATION
+      : 0;
+    const isPores = parseInt(surveyData.question13) ? SKIN_CONCERNS.PORES : 0;
+    skinConcerns =
+      isAcne | isAging | isDryness | isRedness | isHyperpigmentation | isPores;
+  }
+
+  return skinConcerns;
 }
 
 function SurveyComponent() {
@@ -78,7 +104,6 @@ function SurveyComponent() {
 
       // Redirect to the results page, passing the updated user as state
       navigate("/results", { state: { results: updatedUser.data } });
-
     } catch (error) {
       console.error(
         "Error updating user:",

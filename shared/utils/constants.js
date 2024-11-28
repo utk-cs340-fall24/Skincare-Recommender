@@ -30,3 +30,30 @@ export const PRODUCT_CATEGORIES = {
   EXFOLIATOR: 1 << 6, // 64 (0b0100 0000) - Represents exfoliator category
   EYECREAM: 1 << 7, // 128 (0b1000 0000) - Represents eye cream category
 };
+
+export function bitwiseSkinTypeToString(skinType) {
+  const types = [];
+  if (skinType & SKIN_TYPES.SENSITIVE) types.push("Sensitive");
+  if (skinType & SKIN_TYPES.DRY && skinType & SKIN_TYPES.OILY)
+    types.push("Combination");
+  else {
+    if (skinType & SKIN_TYPES.DRY) types.push("Dry");
+    if (skinType & SKIN_TYPES.OILY) types.push("Oily");
+  }
+  if (skinType & SKIN_TYPES.NORMAL) types.push("Normal");
+
+  return types.join(", ");
+}
+
+export function bitwiseSkinConcernsToString(skinConcerns) {
+  const concerns = [];
+  if (skinConcerns & SKIN_CONCERNS.ACNE) concerns.push("Acne");
+  if (skinConcerns & SKIN_CONCERNS.AGING) concerns.push("Aging");
+  if (skinConcerns & SKIN_CONCERNS.DRYNESS) concerns.push("Dryness");
+  if (skinConcerns & SKIN_CONCERNS.REDNESS) concerns.push("Redness");
+  if (skinConcerns & SKIN_CONCERNS.HYPERPIGMENTATION)
+    concerns.push("Hyperpigmentation");
+  if (skinConcerns & SKIN_CONCERNS.PORES) concerns.push("Large Pores");
+
+  return concerns.join(", ");
+}
