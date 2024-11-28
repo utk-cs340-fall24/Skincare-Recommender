@@ -4,7 +4,6 @@ import {
   getUser,
   updateUser,
   deleteUser,
-  getUserByUID,
 } from "../controllers/userController.js";
 
 const router = express.Router();
@@ -21,7 +20,5 @@ router.put("/:userId", updateUser);
 // Delete a user by ID
 router.delete("/:userId", deleteUser);
 
-// Get a user by UID
-router.get("/uid/:uid", getUserByUID);
 
 export default router;

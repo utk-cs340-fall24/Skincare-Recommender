@@ -7,7 +7,7 @@ import NavBar from "../components/navbar.jsx";
 function Results() {
   return (
     <>
-      <AuthPrompt />x
+      <AuthPrompt />
       <NavBar />
       <p>this is the results page</p>
     </>

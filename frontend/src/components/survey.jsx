@@ -1,60 +1,54 @@
-{/* This is the survey Component. */}
-
 import React from "react";
 import { Model } from "survey-core";
 import { Survey } from "survey-react-ui";
 import "survey-core/defaultV2.min.css";
-import { themeJson } from "../context/theme"
+import { themeJson } from "../context/theme";
 import { quizQuestions } from "../context/quizQuestions";
+import { getAuth } from "firebase/auth";
+import axios from "axios";
 
-function SurveyComponent({ onComplete }) {
-    const survey = new Model(quizQuestions);
-    survey.applyTheme(themeJson);
+function SurveyComponent() {
+  const survey = new Model(quizQuestions);
+  survey.applyTheme(themeJson);
 
-    survey.onComplete.add(async (sender, options) => {
-        const surveyData = sender.data;
-        console.log(JSON.stringify(surveyData, null, 3));
+  survey.onComplete.add(async (sender, /*options*/) => {
+    const surveyData = sender.data;
+    console.log("Survey Data:", JSON.stringify(surveyData, null, 3));
 
-        try {
-            // Fetch the current user
-            const user = firebase.auth().currentUser;
-            if (!user) throw new Error("User not authenticated");
+    try {
+    //   // Get the current user from Firebase Authentication
+    //   const auth = getAuth();
+    //   const user = auth.currentUser;
+    //   if (!user) throw new Error("User not authenticated");
 
-            const uid = user.uid;
+    //   const uid = user.uid;
+    //   console.log("User UID:", uid);
 
-            // get user by UID
-            const response = await fetch(`http://localhost:5001/api/user/${uid}`);
-            if (!response.ok) throw new Error("Failed to fetch user data");
+    //   // Directly send the PUT request to update user data
+    //   const updateResponse = await axios.put(
+    //     `http://localhost:5001/api/user/${uid}`,
+    //     {
+    //       skinType: surveyData.skinType,
+    //       concerns: surveyData.concerns,
+    //     },
+    //     {
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //     }
+    //   );
 
-            const userData = await response.json();
+    //   console.log("User successfully updated:", updateResponse.data);
+    console.log("Updating user");
+    } catch (error) {
+      console.error("Error updating user:", error);
+    }
 
-            // update user details with survey data
-            const updateResponse = await fetch(`http://localhost:5001/api/user/${userData._id}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    ...userData,
-                    skinType: surveyData.skinType, 
-                    concerns: surveyData.concerns 
-                })
-            });
+    // You can handle any additional logic here, like redirecting or showing a message
+    console.log("Survey completed!");
+  });
 
-            if (!updateResponse.ok) throw new Error("Failed to update user");
-
-            console.log("User successfully updated");
-
-        } catch (error) {
-            console.error("Error updating user:", error);
-        }
-
-        if (onComplete) {
-            onComplete();
-        }
-    });
-
-    return (<Survey model={survey} />);
+  return <Survey model={survey} />;
 }
 
 export default SurveyComponent;

@@ -17,7 +17,7 @@ function ProfileModal({ isOpen, onClose }) {
         if (user) {
           try {
             const response = await axios.get(
-              `http://localhost:5001/api/user/uid/${user.uid}`
+              `http://localhost:5001/api/user/${user.uid}`
             );
             setProfile(response.data);
           } catch (error) {

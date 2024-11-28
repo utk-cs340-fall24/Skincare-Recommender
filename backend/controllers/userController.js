@@ -1,4 +1,5 @@
 import User from "../models/User.js";
+import mongoose from "mongoose";
 
 // Create a new user
 export const createUser = async (req, res) => {
@@ -12,23 +13,37 @@ export const createUser = async (req, res) => {
   }
 };
 
-// Get a user by ID
 export const getUser = async (req, res) => {
   try {
-    const user = await User.findById(req.params.userId);
-    if (!user) return res.status(404).json({ message: "User not found" });
+    const { userId } = req.params;
+
+    // Determine if the `userId` is an ObjectId or a `uid`
+    const query = mongoose.Types.ObjectId.isValid(userId)
+      ? { _id: userId } // Search by `_id` if it's a valid ObjectId
+      : { uid: userId }; // Otherwise, search by `uid`
+
+    console.log("query", query); 
+    const user = await User.findOne(query);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
     res.json(user);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 };
 
-// Update a user by ID
+// Update a user by ID or UID
 export const updateUser = async (req, res) => {
   try {
-    const user = await User.findByIdAndUpdate(req.params.userId, req.body, {
-      new: true,
-    });
+    const { userId, uid } = req.params;
+
+    // Search and update by either _id or uid
+    const query = userId ? { _id: userId } : { uid };
+    const user = await User.findOneAndUpdate(query, req.body, { new: true });
+
     if (!user) return res.status(404).json({ message: "User not found" });
     res.json(user);
   } catch (error) {
@@ -36,24 +51,17 @@ export const updateUser = async (req, res) => {
   }
 };
 
-// Delete a user by ID
+// Delete a user by ID or UID
 export const deleteUser = async (req, res) => {
   try {
-    const user = await User.findByIdAndDelete(req.params.userId);
+    const { userId, uid } = req.params;
+
+    // Search and delete by either _id or uid
+    const query = userId ? { _id: userId } : { uid };
+    const user = await User.findOneAndDelete(query);
+
     if (!user) return res.status(404).json({ message: "User not found" });
     res.json({ message: "User deleted successfully" });
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
-};
-
-// Get a User by UID
-export const getUserByUID = async (req, res) => {
-  try {
-    //console.log("UID from request params:", req.params.uid); // Debugging line
-    const user = await User.findOne({ uid: req.params.uid });
-    if (!user) return res.status(404).json({ message: "User not found" });
-    res.json(user);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
