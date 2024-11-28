@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { ChevronDown } from "lucide-react";
-import NavBar from "../components/navbar.jsx";
+import Navbar from "../components/navbar";
 import AuthPrompt from "../components/promptLogin";
 import ProductDetailsModal from "../components/productModal";
 import {
@@ -18,6 +18,7 @@ function ProductsPage() {
   const [brands, setBrands] = useState([]);
   const [ingredients, setIngredients] = useState([]);
 
+  const [searchTerm, setSearchTerm] = useState("");
   const [filters, setFilters] = useState({
     brand: "",
     minPrice: "",
@@ -69,6 +70,14 @@ function ProductsPage() {
   // Advanced filtering logic
   const applyFilters = useMemo(() => {
     let filtered = products.filter((product) => {
+      // Search term filter
+      if (
+        searchTerm &&
+        !product.name.toLowerCase().includes(searchTerm.toLowerCase())
+      ) {
+        return false;
+      }
+
       if (filters.brand && product.brand !== filters.brand) return false;
 
       const minPrice = filters.minPrice ? parseFloat(filters.minPrice) : 0;
@@ -117,7 +126,7 @@ function ProductsPage() {
     }
 
     return filtered;
-  }, [products, filters, sortOption]);
+  }, [products, filters, sortOption, searchTerm]);
 
   useEffect(() => {
     setFilteredProducts(applyFilters);
@@ -166,12 +175,13 @@ function ProductsPage() {
       skinTypes: [],
       skinConcerns: [],
     });
+    setSearchTerm("");
   };
 
   return (
     <div className="bg-gray-50 min-h-screen">
       <AuthPrompt />
-      <NavBar />
+      <Navbar onSearch={(term) => setSearchTerm(term)} />
 
       <div className="container mx-auto px-4 py-8">
         <div className="flex">

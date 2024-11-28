@@ -1,13 +1,39 @@
-import { useState } from "react";
-import SearchBar from "./searchbar";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Spin as Hamburger } from "hamburger-react";
 import ProfileModal from "./profileModal";
+import PropTypes from "prop-types";
+import SearchBar from "./searchbar";
 
-export default function Header() {
+function Navbar({ onSearch }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [query, setQuery] = useState("");
   const [isModalOpen, setModalOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const existingSearch = params.get("search");
+    if (existingSearch) {
+      setSearchTerm(existingSearch);
+    }
+  }, [location.search]);
+
+  useEffect(() => {
+    if (location.pathname === "/products") {
+      const handler = setTimeout(() => {
+        const params = new URLSearchParams(location.search);
+        if (searchTerm !== params.get("search")) {
+          params.set("search", searchTerm);
+          navigate(`/products?${params.toString()}`, { replace: true });
+        }
+        onSearch && onSearch(searchTerm);
+      }, 200);
+
+      return () => clearTimeout(handler);
+    }
+  }, [searchTerm, location.pathname, location.search, onSearch, navigate]);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -17,10 +43,17 @@ export default function Header() {
     setModalOpen(!isModalOpen);
   };
 
-  function handleUpdate(value) {
-    setQuery(value);
-    console.log(value);
-  }
+  const handleSearch = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (location.pathname !== "/products") {
+      navigate(`/products?search=${encodeURIComponent(searchTerm)}`);
+    }
+  };
 
   return (
     <header className="bg-customBlue md:flex md:justify-between md:items-center md:px-4 md:py-3">
@@ -44,10 +77,11 @@ export default function Header() {
       </div>
 
       <div className="md:flex-grow md:px-[5vh] hidden md:flex ml-[10%] mr-[5%] w-1/3">
+        {/* Searchbar */}
         <SearchBar
-          placeholder="Search Products"
-          onSearch={handleUpdate}
-          searchValue={query}
+          term={searchTerm}
+          change={handleSearch}
+          submit={handleSubmit}
         />
       </div>
 
@@ -57,10 +91,11 @@ export default function Header() {
         } px-2 pt-2 pb-12 md:pb-2 md:flex md:items-center md:ml-auto`}
       >
         <div className="block md:hidden px-2 py-1 text-customGray font-semibold rounded">
+          {/* Searchbar */}
           <SearchBar
-            placeholder="Search Products"
-            onSearch={handleUpdate}
-            searchValue={query}
+            term={searchTerm}
+            change={handleSearch}
+            submit={handleSubmit}
           />
         </div>
         <Link
@@ -101,3 +136,9 @@ export default function Header() {
     </header>
   );
 }
+
+Navbar.propTypes = {
+  onSearch: PropTypes.func,
+};
+
+export default Navbar;
