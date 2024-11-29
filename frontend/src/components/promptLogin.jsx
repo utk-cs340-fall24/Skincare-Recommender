@@ -1,4 +1,6 @@
-{/* Pop up of prompt to login or create an account */}
+{
+  /* Pop up of prompt to login or create an account */
+}
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../firebase";
 import { onAuthStateChanged } from "firebase/auth";
@@ -49,15 +51,15 @@ const AuthPrompt = () => {
             {/* Login button */}
             <Button
               label="Login"
-              color="#F6CACB"
-              activeColor="#DF9D9D"
+              color="customLightPink"
+              activeColor="customDarkPink"
               onClick={handleLogin}
             />
             {/* Sign up Button */}
             <Button
               label="Sign Up"
-              color="#F6CACB"
-              activeColor="#DF9D9D"
+              color="customLightPink"
+              activeColor="customDarkPink"
               onClick={handleSignup}
             />
           </div>

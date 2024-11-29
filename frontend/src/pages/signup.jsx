@@ -129,8 +129,8 @@ const Signup = () => {
             <div className="mb-4 text-center">
               <Button
                 label="Sign up"
-                color="#F6CACB"
-                activeColor="#DF9D9D"
+                color="customLightPink"
+                activeColor="customDarkPink"
                 type="submit"
               />
             </div>
