@@ -13,11 +13,11 @@ function Home() {
       <AuthPrompt />
       <div className="bg-customCream min-h-screen">
         {/* Hero Section */}
-        <div className="container mx-auto px-4 py-16 md:py-24">
-          <div className="grid md:grid-cols-2 items-center gap-12">
+        <div className="container mx-auto px-4 py-16 lg:py-24">
+          <div className="grid lg:grid-cols-2 items-center gap-12">
             {/* Hero Text */}
-            <div className="text-center md:text-left space-y-4">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-customBlue">
+            <div className="text-center lg:text-left space-y-4">
+              <h1 className="text-4xl lg:text-5xl lg:text-6xl font-bold text-customBlue">
                 Your skin deserves the best, and we can recommend the best!
               </h1>
               <p className="text-lg text-customBlue mt-4">
@@ -33,7 +33,7 @@ function Home() {
             </div>
 
             {/* Hero Image */}
-            <div className="flex justify-center md:justify-end">
+            <div className="flex justify-center lg:justify-end">
               <img
                 src="./src/images/mask.webp"
                 alt="Skincare Products"
@@ -45,10 +45,10 @@ function Home() {
         </div>
 
         {/* About Section */}
-        <div className="container mx-auto px-4 py-16 md:py-24">
-          <div className="grid md:grid-cols-2 items-center gap-12">
+        <div className="container mx-auto px-4 py-16 lg:py-24">
+          <div className="grid lg:grid-cols-2 items-center gap-12">
             {/* Serum Image */}
-            <div className="order-2 md:order-1">
+            <div className="order-2 lg:order-1">
               <img
                 src="./src/images/serum.jpeg"
                 alt="Skincare Serum"
@@ -58,8 +58,8 @@ function Home() {
             </div>
 
             {/* About Text */}
-            <div className="order-1 md:order-2 bg-customLightPink rounded-lg p-8 text-center">
-              <h2 className="text-4xl md:text-5xl font-bold text-customCream mb-6">
+            <div className="order-1 lg:order-2 bg-customLightPink rounded-lg p-8 text-center">
+              <h2 className="text-4xl lg:text-5xl font-bold text-customCream mb-6">
                 About
               </h2>
               <p className="text-lg text-customCream leading-relaxed">
@@ -75,12 +75,12 @@ function Home() {
         </div>
 
         {/* Contact Section */}
-        <div className="container mx-auto px-4 py-16 md:py-24">
-          <div className="bg-customBlue rounded-3xl p-8 md:p-12 text-center">
-            <h3 className="text-4xl md:text-6xl font-bold text-customCream mb-12">
+        <div className="container mx-auto px-4 py-16 lg:py-24">
+          <div className="bg-customBlue rounded-3xl p-8 lg:p-12 text-center">
+            <h3 className="text-4xl lg:text-6xl font-bold text-customCream mb-12">
               Contact Us
             </h3>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-8 justify-center items-center">
+            <div className="grid grid-cols-2 lg:grid-cols-5 gap-8 justify-center items-center">
               {[
                 {
                   name: "Kevin Guo",
