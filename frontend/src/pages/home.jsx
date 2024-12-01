@@ -53,7 +53,7 @@ function Home() {
                 src="./src/images/serum.jpeg"
                 alt="Skincare Serum"
                 loading="lazy"
-                className="w-full h-auto rounded-lg shadow-lg max-h-96 lg:max-h-full object-cover"
+                className="w-full h-auto rounded-lg shadow-lg max-h-96 lg:max-h-[600px] object-cover"
               />
             </div>
 
