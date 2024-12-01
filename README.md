@@ -20,7 +20,7 @@ Quiz
 Products Page
 ![Products](/shared/pictures/products.png "Products Page")
 
-## Table of Contents (Optional)
+## Table of Contents
 
 1. [Frontend](./frontend)
 2. [Backend](./backend)
