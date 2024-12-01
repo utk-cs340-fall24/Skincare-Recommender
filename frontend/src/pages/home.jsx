@@ -48,17 +48,17 @@ function Home() {
         <div className="container mx-auto px-4 py-16 lg:py-24">
           <div className="grid lg:grid-cols-2 items-center gap-12">
             {/* Serum Image */}
-            <div className="order-2 lg:order-1">
+            <div className="order-2 lg:relative bottom-24 left-20 lg:order-1">
               <img
                 src="./src/images/serum.jpeg"
                 alt="Skincare Serum"
                 loading="lazy"
-                className="w-full h-auto rounded-lg shadow-lg max-h-96 object-cover"
+                className="w-full h-auto rounded-lg shadow-lg max-h-96 lg:max-h-full object-cover"
               />
             </div>
 
             {/* About Text */}
-            <div className="order-1 lg:order-2 bg-customLightPink rounded-lg p-8 text-center">
+            <div className="order-1 lg:order-2 bg-customLightPink rounded-lg p-8 text-center lg:relative top-40 right-20">
               <h2 className="text-4xl lg:text-5xl font-bold text-customCream mb-6">
                 About
               </h2>
