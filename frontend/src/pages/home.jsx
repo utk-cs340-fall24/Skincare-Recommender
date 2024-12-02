@@ -46,7 +46,7 @@ function Home() {
 
         {/* About Section */}
         <div className="container mx-auto px-4 py-16 lg:py-24">
-          <div className="grid lg:grid-cols-2 items-center gap-12">
+          <div className="grid lg:grid-cols-2 items-stretch gap-12">
             {/* Serum Image */}
             <div className="order-2 lg:relative bottom-24 left-20 lg:order-1">
               <img
@@ -58,18 +58,28 @@ function Home() {
             </div>
 
             {/* About Text */}
-            <div className="order-1 lg:order-2 bg-customLightPink rounded-lg p-8 text-center lg:relative top-40 right-20">
-              <h2 className="text-4xl lg:text-5xl font-bold text-customCream mb-6">
-                About
-              </h2>
-              <p className="text-lg text-customCream leading-relaxed">
-                Welcome to the Skincare Recommender! We provide personalized
-                skincare recommendations tailored to your unique needs. Our
-                mission is to help you find the right products for your skin.
-                Join our community to explore a curated selection of skincare
-                solutions for all skin types and concerns. Let&apos;s simplify
-                your skincare routine and enhance your natural beauty!
-              </p>
+            {/* About Text */}
+            <div className="order-1 lg:order-2 bg-customLightPink rounded-lg p-12 text-center flex items-center lg:relative top-40 right-20 shadow-lg">
+              <div>
+                <h2 className="text-5xl lg:text-6xl font-extrabold text-customCream mb-8">
+                  About
+                </h2>
+                <p className="text-2xl lg:text-3xl text-customCream leading-relaxed tracking-wide">
+                  Welcome to the{" "}
+                  <span className="font-bold">Skincare Recommender</span>! We
+                  provide personalized skincare recommendations tailored to your
+                  unique needs.
+                  <br />
+                  <br />
+                  Our mission is to help you find the right products for your
+                  skin. Join our community to explore a curated selection of
+                  skincare solutions for all skin types and concerns.
+                  <br />
+                  <br />
+                  Let&apos;s simplify your skincare routine and enhance your
+                  natural beauty!
+                </p>
+              </div>
             </div>
           </div>
         </div>
