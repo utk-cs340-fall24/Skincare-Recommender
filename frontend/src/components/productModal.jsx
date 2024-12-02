@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
-import "../../index.css";
+import PrevProductButton from "./PrevProductButton";
 
 function ProductDetailsModal({ product, onClose }) {
   // Function to generate star rating based on product rating
@@ -39,28 +39,29 @@ function ProductDetailsModal({ product, onClose }) {
       className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
       onClick={handleBackgroundClick}
     >
-      <div className="relative bg-customBlue rounded-lg p-8 shadow-lg w-full max-w-screen-md text-center overflow-hidden">
+      <div className="relative bg-customBlue rounded-lg p-8 shadow-lg w-full max-w-screen-md grid grid-rows-[1fr_auto] overflow-hidden">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-customCream text-lg font-semibold opacity-75 hover:opacity-100"
+          className="absolute top-4 right-4 text-customCream text-lg font-semibold opacity-75 hover:opacity-100 z-10"
           aria-label="Close"
         >
           ✕
         </button>
 
-        <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6">
+        {/* Top Row: Image and Product Info */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Product Image */}
-          <div className="w-full md:w-1/2 flex h-max items-start justify-center">
+          <div className="flex items-start justify-center">
             <img
-              src={product.image || "./src/images/productplaceholder.png"}
+              src={"./src/images/productplaceholder.png"}
               alt={product.name}
               className="w-full h-auto object-cover rounded-lg"
             />
           </div>
 
           {/* Product Info */}
-          <div className="w-full md:w-1/2 h-max text-customCream">
+          <div className="text-customCream">
             <h2 className="text-4xl font-semibold mb-4">{product.name}</h2>
 
             <p className="text-3xl mb-2">${product.price}</p>
@@ -91,6 +92,14 @@ function ProductDetailsModal({ product, onClose }) {
             </div>
           </div>
         </div>
+
+        {/* Bottom Row: PrevProductButton */}
+        <div className="mt-6">
+          <PrevProductButton
+            className="w-full rounded-lg bg-gray-500 hover:bg-gray-200 text-customBlue text-lg font-semibold py-2 px-4"
+            product={product}
+          />
+        </div>
       </div>
     </div>
   );
@@ -102,9 +111,7 @@ ProductDetailsModal.propTypes = {
     price: PropTypes.number.isRequired,
     rating: PropTypes.number.isRequired,
     ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
-    image: PropTypes.string, // Added for dynamic image URL
   }).isRequired,
   onClose: PropTypes.func.isRequired,
 };
-
 export default ProductDetailsModal;
