@@ -1,4 +1,6 @@
-{ /* This is the login. */ }
+{
+  /* This is the login. */
+}
 import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
@@ -80,8 +82,8 @@ const Login = () => {
               <div className="mb-4 text-center">
                 <Button
                   label="Login"
-                  color="#F6CACB"
-                  activeColor="#DF9D9D"
+                  color="customLightPink"
+                  activeColor="customDarkPink"
                   onClick={onLogin}
                 />
               </div>

@@ -1,10 +1,7 @@
-{
-  /* This is the homepage. */
-}
 import "../../index.css";
-import NavBar from "../components/navbar.jsx";
-import Button from "../components/button.jsx";
-import Footer from "../components/footer.jsx";
+import NavBar from "../components/navbar";
+import Button from "../components/button";
+import Footer from "../components/footer";
 import AuthPrompt from "../components/promptLogin";
 import { useNavigate } from "react-router-dom";
 
@@ -14,129 +11,137 @@ function Home() {
     <>
       <NavBar />
       <AuthPrompt />
-      {/* This is the entire homepage. */}
-      <div className="bg-customCream">
-        {/* This is the headline of the homepage. */}
-        <div className="py-12">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between">
-            {/* Text to welcome and introduce the website */}
-            <div className="text-center md:text-left space-y-4 -ml-12">
-              <h1 className="text-6xl text-customBlue">
-                Your skin deserves the best,
+      <div className="bg-customCream min-h-screen">
+        {/* Hero Section */}
+        <div className="container mx-auto px-4 py-16 lg:py-24">
+          <div className="grid lg:grid-cols-2 items-center gap-12">
+            {/* Hero Text */}
+            <div className="text-center lg:text-left space-y-4">
+              <h1 className="text-4xl lg:text-5xl lg:text-6xl font-bold text-customBlue">
+                Your skin deserves the best, and we can recommend the best!
               </h1>
-              <h2 className="text-6xl text-customBlue">
-                and we can recommend the
-              </h2>
-              <h3 className="text-6xl text-customBlue">best!</h3>
-              <p className="text-lg text-customBlue">
+              <p className="text-lg text-customBlue mt-4">
                 Take our skincare quiz to get started:
               </p>
-              {/* Button to take the Skincare Quiz */}
               <Button
                 label="Skincare Quiz"
-                color="#F6CACB"
-                activeColor="#DF9D9D"
+                color="customLightPink"
+                activeColor="customDarkPink"
                 onClick={() => navigate("/quiz")}
+                className=""
               />
             </div>
 
-            {/* Image to take up some white space and represent our website */}
-            <div className="mt-8 md:mt-0 -mr-12">
+            {/* Hero Image */}
+            <div className="flex justify-center lg:justify-end">
               <img
                 src="./src/images/mask.webp"
                 alt="Skincare Products"
                 loading="lazy"
-                className="w-full h-auto"
-              ></img>
+                className="max-w-full h-auto"
+              />
             </div>
           </div>
         </div>
 
-        {/* Container for Image and About Section */}
-        <div className="flex justify-left mr-3 ml-60 mt-2 relative mb-2">
-          {/* Image for Serum */}
-          <img
-            src="./src/images/serum.jpeg"
-            alt="Skincare Serum"
-            loading="lazy"
-            className="w-[500px] h-[520px] rounded-lg opacity-100"
-          ></img>
+        {/* About Section */}
+        <div className="container mx-auto px-4 py-16 lg:py-24">
+          <div className="grid lg:grid-cols-2 items-stretch gap-12">
+            {/* Serum Image */}
+            <div className="order-2 lg:relative bottom-24 left-20 lg:order-1">
+              <img
+                src="./src/images/serum.jpeg"
+                alt="Skincare Serum"
+                loading="lazy"
+                className="w-full h-auto rounded-lg shadow-lg max-h-96 lg:max-h-[600px] object-cover"
+              />
+            </div>
 
-          {/* About Section */}
-          <div className="w-[480px] h-auto bg-customLightPink rounded-lg opacity-100 flex flex-col p-4 absolute left-[38%] top-[48%] mb-20">
-            <h2 className="text-customCream text-[56px] font-inknut font-bold leading-[64px] text-center mb-4">
-              About
-            </h2>
-            <p className="font-inclusive text-customCream text-[18px] font-normal leading-[36px] text-center px-4 py-2">
-              Welcome to the Skincare Recommender! We provide personalized
-              skincare recommendations tailored to your unique needs. Our
-              mission is to help you find the right products for your skin. Join
-              our community to explore a curated selection of skincare solutions
-              for all skin types and concerns. Let&apos;s simplify your skincare
-              routine and enhance your natural beauty!
-            </p>
-          </div>
-        </div>
-
-        <div className="mt-40 bg-customCream"></div>
-
-        <footer className="bg-customCream text-customCream py-8 flex flex-col justify-between">
-          {/* Contact Us Section in Rounded Rectangle */}
-          <div className="container mx-auto text-center md:text-left">
-            <div className="bg-customBlue rounded-[30px] p-8 mx-auto w-[1155px] h-[505px] md:w-[80%] md:h-auto">
-              <h3 className="text-[70px] font-inknut font-black text-customCream text-center">
-                Contact Us
-              </h3>
-              <div className="flex justify-center mt-4 space-x-4">
-                {/* Placeholder Circles with Names and Photos */}
-                {[
-                  {
-                    name: "Kevin Guo",
-                    photo: "https://i.imgur.com/UayXqch.png",
-                    linkedin: "https://www.linkedin.com/in/kvn-guo/",
-                  },
-                  {
-                    name: "Kelly Luong",
-                    photo: "https://i.imgur.com/yzterSc.png",
-                    linkedin: "https://www.linkedin.com/in/kellyyluongg/",
-                  },
-                  {
-                    name: "Alan Khalili",
-                    photo: "https://i.imgur.com/Vq7xmEb.png",
-                    linkedin: "https://www.linkedin.com/in/alankhalili/",
-                  },
-                  {
-                    name: "Ahmad Tobasei",
-                    photo: "https://i.imgur.com/ZMb3SEH.png",
-                    linkedin:
-                      "https://www.linkedin.com/in/ahmad-tobasei-6745a3263/",
-                  },
-                  {
-                    name: "Annalise Smith",
-                    photo: "https://i.imgur.com/GjohJ8f.png",
-                    linkedin:
-                      "https://www.linkedin.com/in/annalise-smith-0666b2304/",
-                  },
-                ].map((person, index) => (
-                  <div key={index} className="flex flex-col items-center">
-                    <div className="w-[155px] h-[144px] rounded-full bg-[#D9D9D9] overflow-hidden">
-                      <a href={person.linkedin}>
-                        <img
-                          src={person.photo}
-                          alt={person.name}
-                          className="w-full h-full object-cover"
-                        />
-                      </a>
-                    </div>
-                    <p className="mt-2 font-istok text-customCream text-[24px] font-normal leading-[34.55px] text-center">
-                      {person.name}
-                    </p>
-                  </div>
-                ))}
+            {/* About Text */}
+            {/* About Text */}
+            <div className="order-1 lg:order-2 bg-customLightPink rounded-lg p-12 text-center flex items-center lg:relative top-40 right-20 shadow-lg">
+              <div>
+                <h2 className="text-5xl lg:text-6xl font-extrabold text-customCream mb-8">
+                  About
+                </h2>
+                <p className="text-2xl lg:text-3xl text-customCream leading-relaxed tracking-wide">
+                  Welcome to the{" "}
+                  <span className="font-bold">Skincare Recommender</span>! We
+                  provide personalized skincare recommendations tailored to your
+                  unique needs.
+                  <br />
+                  <br />
+                  Our mission is to help you find the right products for your
+                  skin. Join our community to explore a curated selection of
+                  skincare solutions for all skin types and concerns.
+                  <br />
+                  <br />
+                  Let&apos;s simplify your skincare routine and enhance your
+                  natural beauty!
+                </p>
               </div>
             </div>
           </div>
-        </footer>
+        </div>
+
+        {/* Contact Section */}
+        <div className="container mx-auto px-4 py-16 lg:py-24">
+          <div className="bg-customBlue rounded-3xl p-8 lg:p-12 text-center">
+            <h3 className="text-4xl lg:text-6xl font-bold text-customCream mb-12">
+              Contact Us
+            </h3>
+            <div className="grid grid-cols-2 lg:grid-cols-5 gap-8 justify-center items-center">
+              {[
+                {
+                  name: "Kevin Guo",
+                  photo: "https://i.imgur.com/UayXqch.png",
+                  linkedin: "https://www.linkedin.com/in/kvn-guo/",
+                },
+                {
+                  name: "Kelly Luong",
+                  photo: "https://i.imgur.com/yzterSc.png",
+                  linkedin: "https://www.linkedin.com/in/kellyyluongg/",
+                },
+                {
+                  name: "Alan Khalili",
+                  photo: "https://i.imgur.com/Vq7xmEb.png",
+                  linkedin: "https://www.linkedin.com/in/alankhalili/",
+                },
+                {
+                  name: "Ahmad Tobasei",
+                  photo: "https://i.imgur.com/ZMb3SEH.png",
+                  linkedin:
+                    "https://www.linkedin.com/in/ahmad-tobasei-6745a3263/",
+                },
+                {
+                  name: "Annalise Smith",
+                  photo: "https://i.imgur.com/GjohJ8f.png",
+                  linkedin:
+                    "https://www.linkedin.com/in/annalise-smith-0666b2304/",
+                },
+              ].map((person, index) => (
+                <div key={index} className="flex flex-col items-center">
+                  <a
+                    href={person.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block mb-2"
+                  >
+                    <div className="w-36 h-36 rounded-full overflow-hidden border-4 border-customCream hover:scale-105 transition-transform">
+                      <img
+                        src={person.photo}
+                        alt={person.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </a>
+                  <p className="text-xl text-customCream mt-2">{person.name}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
         <Footer />
       </div>
     </>
