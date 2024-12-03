@@ -5,7 +5,6 @@ import SurveyComponent from "../components/survey";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../hooks/useUser";
 
-
 function Quiz() {
   const navigate = useNavigate();
 
@@ -21,7 +20,9 @@ function Quiz() {
     <>
       <NavBar user={user} />
       <AuthPrompt />
-      <SurveyComponent onComplete={handleSurveyComplete} user={user}/>
+      <div className="bg-customCream min-h-screen pt-[60px]">
+        <SurveyComponent onComplete={handleSurveyComplete} user={user} />
+      </div>
     </>
   );
 }
