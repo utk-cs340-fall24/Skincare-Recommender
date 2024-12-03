@@ -11,6 +11,7 @@ function Results() {
   const navigate = useNavigate();
   const [recommendations, setRecommendations] = useState([]);
   const [previousProductRecommendations, setPreviousProductRecommendations] = useState({});
+  const [productNames, setProductNames] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -42,8 +43,15 @@ function Results() {
 
         // Fetch recommendations for previous products
         const previousProductRecs = {};
+        const productNameMap = {};
+
         for (const productId of userResponse.data.prevProducts || []) {
           try {
+            // Fetch product name
+            const productNameResponse = await axios.get(`http://localhost:5001/api/products/name/${productId}`);
+            productNameMap[productId] = productNameResponse.data.name;
+
+            // Fetch recommendations for the product
             const productRecsResponse = await axios.get(`http://localhost:5001/api/recommendation/products/${productId}`);
             
             // Extract similar products from the response
@@ -57,6 +65,7 @@ function Results() {
         }
 
         setPreviousProductRecommendations(previousProductRecs);
+        setProductNames(productNameMap);
         setIsLoading(false);
       } catch (err) {
         console.error('Error fetching recommendations:', err);
@@ -147,7 +156,7 @@ function Results() {
           productRecommendations.length > 0 && (
             <section key={productId} className="mb-12">
               <h2 className="text-2xl font-bold mb-6 text-center text-customBlue">
-                Because You Liked This Product
+                Because You Liked {productNames[productId] || productId}
               </h2>
               {renderProductGrid(productRecommendations)}
             </section>
