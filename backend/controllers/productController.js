@@ -11,6 +11,18 @@ export const createProduct = async (req, res) => {
   }
 };
 
+// Get a product name by ID
+export const getProductName = async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.productID);
+    if (!product) return res.status(404).json({ message: "Product not found" });
+    const fullProductName = product.name + " by " + product.brand;
+    res.json({ name: fullProductName });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
 // Get a single product by ID
 export const getProduct = async (req, res) => {
   try {

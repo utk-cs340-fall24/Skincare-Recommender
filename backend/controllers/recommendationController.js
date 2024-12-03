@@ -1,5 +1,6 @@
 import axios from "axios";
 import { config } from "dotenv";
+import Product from "../models/Product.js";
 
 config();
 
@@ -13,15 +14,17 @@ export const getRecommendations = async (req, res) => {
 
   try {
     // Make the request to the Python recommender service
-    console.log(`${RECOMMENDER_API_URL}/${userid}`);
     const response = await axios.get(`${RECOMMENDER_API_URL}/${userid}`);
 
     // Check if the response contains the recommended products
     if (response.data && response.data.length > 0) {
-      return res.json({
-        userId: userid,
-        recommendations: response.data,
-      });
+      // Use Promise.all to resolve all product lookups
+      const products = await Promise.all(
+        response.data.map(async (productId) => {
+          return Product.findById(productId);
+        })
+      );
+      return res.json(products);
     } else {
       return res
         .status(404)
@@ -30,5 +33,34 @@ export const getRecommendations = async (req, res) => {
   } catch (error) {
     console.error("Error while fetching recommendations:", error);
     return res.status(500).json({ message: "Error fetching recommendations." });
+  }
+};
+
+export const getSimilarProducts = async (req, res) => {
+  const { productid } = req.params;
+
+  try {
+    const response = await axios.get(
+      `${RECOMMENDER_API_URL}/similar/${productid}`
+    );
+
+    if (response.data && response.data.length > 0) {
+      const similarProducts = await Promise.all(
+        response.data.map(async (similarProductId) => {
+          return Product.findById(similarProductId);
+        })
+      );
+
+      return res.json(similarProducts);
+    } else {
+      return res
+        .status(404)
+        .json({ message: "No similar products found for this product." });
+    }
+  } catch (error) {
+    console.error("Error while fetching similar products:", error);
+    return res
+      .status(500)
+      .json({ message: "Error fetching similar products." });
   }
 };
