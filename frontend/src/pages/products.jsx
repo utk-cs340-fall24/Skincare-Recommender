@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import { ChevronDown } from "lucide-react";
 import Navbar from "../components/navbar";
@@ -152,11 +152,6 @@ function ProductsPage() {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-  };
-
-  const handlePageSizeChange = (size) => {
-    setPageSize(size);
-    setCurrentPage(1); // Reset to page 1 when changing page size
   };
 
   const openModal = (product) => {
