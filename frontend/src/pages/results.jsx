@@ -6,12 +6,13 @@ import { useUser } from "../hooks/useUser.jsx";
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { RefreshCw } from 'lucide-react'; // Assuming you have lucide-react installed
+import { RefreshCw } from "lucide-react"; // Assuming you have lucide-react installed
 
 function Results() {
   const navigate = useNavigate();
   const [recommendations, setRecommendations] = useState([]);
-  const [previousProductRecommendations, setPreviousProductRecommendations] = useState({});
+  const [previousProductRecommendations, setPreviousProductRecommendations] =
+    useState({});
   const [productNames, setProductNames] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -161,20 +162,22 @@ function Results() {
             <h1 className="text-center text-3xl font-bold text-customBlue mr-4">
               You have {bitwiseSkinTypeToString(user.skinType)} skin!
             </h1>
-            <button 
-              onClick={handleRefresh} 
+            <button
+              onClick={handleRefresh}
               disabled={isLoading || isRefreshing}
               className={`
                 p-2 rounded-full 
-                ${isLoading || isRefreshing 
-                  ? 'text-gray-400 cursor-not-allowed' 
-                  : 'text-customBlue hover:bg-gray-200 transition-colors'}
+                ${
+                  isLoading || isRefreshing
+                    ? "text-gray-400 cursor-not-allowed"
+                    : "text-customBlue hover:bg-gray-200 transition-colors"
+                }
               `}
               title="Refresh Recommendations"
             >
-              <RefreshCw 
-                className={isRefreshing ? 'animate-spin' : ''} 
-                size={24} 
+              <RefreshCw
+                className={isRefreshing ? "animate-spin" : ""}
+                size={24}
               />
             </button>
           </div>
@@ -211,9 +214,20 @@ function Results() {
                 </section>
               )
           )}
+          <div className="text-center mt-8">
+            <p className="text-gray-600">
+              Don&apos;t like your results?{" "}
+              <a
+                href="/quiz"
+                className="text-customBlue underline hover:text-customBlueDark"
+              >
+                Retake the quiz
+              </a>
+            </p>
+          </div>
         </div>
 
-        {/* Product Details Modal */}
+        {/*  Product Details Modal */}
         {isModalOpen && selectedProduct && (
           <ProductDetailsModal
             product={selectedProduct}
