@@ -3,21 +3,90 @@ import AuthPrompt from "../components/promptLogin";
 import NavBar from "../components/navbar.jsx";
 import ProductDetailsModal from "../components/productModal";
 import { useUser } from "../hooks/useUser.jsx";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { RefreshCw } from 'lucide-react'; // Assuming you have lucide-react installed
 
 function Results() {
   const navigate = useNavigate();
   const [recommendations, setRecommendations] = useState([]);
-  const [previousProductRecommendations, setPreviousProductRecommendations] =
-    useState({});
+  const [previousProductRecommendations, setPreviousProductRecommendations] = useState({});
   const [productNames, setProductNames] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { user, loading: userLoading, error: userError } = useUser();
+
+  const fetchRecommendations = useCallback(async () => {
+    // Determine loading state based on whether this is an initial load or a refresh
+    if (!isRefreshing) {
+      setIsLoading(true);
+    }
+    setError(null);
+
+    try {
+      // First, fetch user details
+      const userResponse = await axios.get(
+        `http://localhost:5001/api/user/${user.uid}`
+      );
+
+      // Fetch recommendations using the user ID
+      const recommendationsResponse = await axios.get(
+        `http://localhost:5001/api/recommendation/${userResponse.data._id}`
+      );
+
+      // Check the structure of the response and handle accordingly
+      const recommendationData = Array.isArray(recommendationsResponse.data)
+        ? recommendationsResponse.data
+        : recommendationsResponse.data.recommendations || [];
+
+      setRecommendations(recommendationData);
+
+      // Fetch recommendations for previous products
+      const previousProductRecs = {};
+      const productNameMap = {};
+
+      for (const productId of userResponse.data.prevProducts || []) {
+        try {
+          // Fetch product name
+          const productNameResponse = await axios.get(
+            `http://localhost:5001/api/products/name/${productId}`
+          );
+          productNameMap[productId] = productNameResponse.data.name;
+
+          // Fetch recommendations for the product
+          const productRecsResponse = await axios.get(
+            `http://localhost:5001/api/recommendation/products/${productId}`
+          );
+
+          // Extract similar products from the response
+          const similarProducts =
+            productRecsResponse.data.similarProducts || [];
+
+          previousProductRecs[productId] = similarProducts;
+        } catch (productRecError) {
+          console.error(
+            `Error fetching recommendations for product ${productId}:`,
+            productRecError
+          );
+          previousProductRecs[productId] = [];
+        }
+      }
+
+      setPreviousProductRecommendations(previousProductRecs);
+      setProductNames(productNameMap);
+      setIsLoading(false);
+      setIsRefreshing(false);
+    } catch (err) {
+      console.error("Error fetching recommendations:", err);
+      setError(err);
+      setIsLoading(false);
+      setIsRefreshing(false);
+    }
+  }, [user, isRefreshing]);
 
   useEffect(() => {
     // Early returns for authentication and loading states
@@ -26,69 +95,13 @@ function Results() {
     if (!user) navigate("/login");
     if (!user.skinType) navigate("/quiz");
 
-    // Fetch recommendations
-    const fetchRecommendations = async () => {
-      try {
-        // First, fetch user details
-        const userResponse = await axios.get(
-          `http://localhost:5001/api/user/${user.uid}`
-        );
-
-        // Fetch recommendations using the user ID
-        const recommendationsResponse = await axios.get(
-          `http://localhost:5001/api/recommendation/${userResponse.data._id}`
-        );
-
-        // Check the structure of the response and handle accordingly
-        const recommendationData = Array.isArray(recommendationsResponse.data)
-          ? recommendationsResponse.data
-          : recommendationsResponse.data.recommendations || [];
-
-        setRecommendations(recommendationData);
-
-        // Fetch recommendations for previous products
-        const previousProductRecs = {};
-        const productNameMap = {};
-
-        for (const productId of userResponse.data.prevProducts || []) {
-          try {
-            // Fetch product name
-            const productNameResponse = await axios.get(
-              `http://localhost:5001/api/products/name/${productId}`
-            );
-            productNameMap[productId] = productNameResponse.data.name;
-
-            // Fetch recommendations for the product
-            const productRecsResponse = await axios.get(
-              `http://localhost:5001/api/recommendation/products/${productId}`
-            );
-
-            // Extract similar products from the response
-            const similarProducts =
-              productRecsResponse.data.similarProducts || [];
-
-            previousProductRecs[productId] = similarProducts;
-          } catch (productRecError) {
-            console.error(
-              `Error fetching recommendations for product ${productId}:`,
-              productRecError
-            );
-            previousProductRecs[productId] = [];
-          }
-        }
-
-        setPreviousProductRecommendations(previousProductRecs);
-        setProductNames(productNameMap);
-        setIsLoading(false);
-      } catch (err) {
-        console.error("Error fetching recommendations:", err);
-        setError(err);
-        setIsLoading(false);
-      }
-    };
-
     fetchRecommendations();
-  }, [user, navigate]);
+  }, [user, navigate, fetchRecommendations, userLoading, userError]);
+
+  const handleRefresh = () => {
+    setIsRefreshing(true);
+    fetchRecommendations();
+  };
 
   const openModal = (product) => {
     setSelectedProduct(product);
@@ -135,7 +148,6 @@ function Results() {
   // Handle loading and error states
   if (userLoading) return <div>Loading user...</div>;
   if (userError) return <div>Error: {userError.message}</div>;
-  if (error) return <div>Error fetching recommendations: {error.message}</div>;
 
   return (
     <>
@@ -144,10 +156,28 @@ function Results() {
 
       <div className="mt-[60px] bg-gray-50 min-h-screen">
         <div className="container mx-auto px-4 py-8">
-          {/* Skin Type Section */}
-          <h1 className="text-center text-3xl font-bold mb-8 text-customBlue">
-            You have {bitwiseSkinTypeToString(user.skinType)} skin!
-          </h1>
+          {/* Skin Type Section with Refresh Button */}
+          <div className="flex items-center justify-center mb-8">
+            <h1 className="text-center text-3xl font-bold text-customBlue mr-4">
+              You have {bitwiseSkinTypeToString(user.skinType)} skin!
+            </h1>
+            <button 
+              onClick={handleRefresh} 
+              disabled={isLoading || isRefreshing}
+              className={`
+                p-2 rounded-full 
+                ${isLoading || isRefreshing 
+                  ? 'text-gray-400 cursor-not-allowed' 
+                  : 'text-customBlue hover:bg-gray-200 transition-colors'}
+              `}
+              title="Refresh Recommendations"
+            >
+              <RefreshCw 
+                className={isRefreshing ? 'animate-spin' : ''} 
+                size={24} 
+              />
+            </button>
+          </div>
 
           {/* Main Recommendations */}
           <section className="mb-12">
@@ -156,6 +186,10 @@ function Results() {
             </h2>
             {isLoading ? (
               <div className="text-center">Loading recommendations...</div>
+            ) : error ? (
+              <div className="text-center text-red-600">
+                Error fetching recommendations: {error.message}
+              </div>
             ) : recommendations.length === 0 ? (
               <div className="text-center text-gray-600">
                 No recommendations found.
