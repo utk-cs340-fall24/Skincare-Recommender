@@ -9,9 +9,9 @@ class ProductRecommender:
         self.products_df = products_df
 
         # Prepare the ingredients data
-        self.products_df["combined_ingredients"] = self.products_df["ingredients"].apply(
-            lambda x: " ".join(x) if isinstance(x, list) else x
-        )
+        self.products_df["combined_ingredients"] = self.products_df[
+            "ingredients"
+        ].apply(lambda x: " ".join(x) if isinstance(x, list) else x)
 
         # Initialize and fit the TF-IDF vectorizer
         self.vectorizer = TfidfVectorizer()
@@ -22,6 +22,7 @@ class ProductRecommender:
     def recommend_products_for_user(self, user, k=9):
         # Filter products by allergies
         filtered_df = self.products_df.copy()
+
         for allergy in user.get_allergies():
             filtered_df = filtered_df[
                 ~filtered_df["ingredients"].apply(
@@ -48,6 +49,10 @@ class ProductRecommender:
         # If no previous products specified, return top-k rated products
         if not user.get_prev_products() or len(user.get_prev_products()) == 0:
             return filtered_df.nlargest(k, "rating")
+
+        prev_products = user.get_prev_products()
+        if prev_products:
+            filtered_df = filtered_df[~filtered_df["_id"].isin(prev_products)]
 
         # Combine all ingredients from previous products
         prev_products_ingredients = []
@@ -124,3 +129,5 @@ class ProductRecommender:
         ]
 
         return similar_products_df
+    
+    

@@ -80,7 +80,7 @@ function PrevProductButton({ product, className = "" }) {
       className={className}
       onClick={handleHistoryToggle}
     >
-      {isInHistory ? "Remove from history" : "Add to history"}
+      {isInHistory ? "Remove from liked" : "Like this product"}
     </button>
   );
 }

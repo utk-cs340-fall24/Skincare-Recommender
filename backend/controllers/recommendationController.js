@@ -1,5 +1,6 @@
 import axios from "axios";
 import { config } from "dotenv";
+import Product from "../models/Product.js";
 
 config();
 
@@ -13,15 +14,17 @@ export const getRecommendations = async (req, res) => {
 
   try {
     // Make the request to the Python recommender service
-    console.log(`${RECOMMENDER_API_URL}/${userid}`);
     const response = await axios.get(`${RECOMMENDER_API_URL}/${userid}`);
 
     // Check if the response contains the recommended products
     if (response.data && response.data.length > 0) {
-      return res.json({
-        userId: userid,
-        recommendations: response.data,
-      });
+      // Use Promise.all to resolve all product lookups
+      const products = await Promise.all(
+        response.data.map(async (productId) => {
+          return Product.findById(productId);
+        })
+      );
+      return res.json(products);
     } else {
       return res
         .status(404)
@@ -37,16 +40,18 @@ export const getSimilarProducts = async (req, res) => {
   const { productid } = req.params;
 
   try {
-    console.log(`${RECOMMENDER_API_URL}/similar/${productid}`);
     const response = await axios.get(
       `${RECOMMENDER_API_URL}/similar/${productid}`
     );
 
     if (response.data && response.data.length > 0) {
-      return res.json({
-        productId: productid,
-        similarProducts: response.data,
-      });
+      const similarProducts = await Promise.all(
+        response.data.map(async (similarProductId) => {
+          return Product.findById(similarProductId);
+        })
+      );
+
+      return res.json(similarProducts);
     } else {
       return res
         .status(404)

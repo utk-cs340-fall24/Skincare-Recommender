@@ -6,7 +6,7 @@ import {
 
 const router = express.Router();
 
-router.get("/products/:productid", getSimilarProducts);
+router.get("/product/:productid", getSimilarProducts);
 
 // Get recommendations for a specific user by user ID
 router.get("/:userid", getRecommendations);

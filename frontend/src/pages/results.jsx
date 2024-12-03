@@ -6,23 +6,29 @@ import { useUser } from "../hooks/useUser.jsx";
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { RefreshCw } from "lucide-react"; // Assuming you have lucide-react installed
+import { RefreshCw } from "lucide-react";
 
 function Results() {
   const navigate = useNavigate();
   const [recommendations, setRecommendations] = useState([]);
   const [previousProductRecommendations, setPreviousProductRecommendations] =
     useState({});
-  const [productNames, setProductNames] = useState({});
+  const [previousProducts, setPreviousProducts] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [lastUserData, setLastUserData] = useState(null);
+  const [hasInitialFetch, setHasInitialFetch] = useState(false);
   const { user, loading: userLoading, error: userError } = useUser();
 
   const fetchRecommendations = useCallback(async () => {
     // Determine loading state based on whether this is an initial load or a refresh
+    if (hasInitialFetch && !isRefreshing) {
+      return;
+    }
+
     if (!isRefreshing) {
       setIsLoading(true);
     }
@@ -33,41 +39,44 @@ function Results() {
       const userResponse = await axios.get(
         `http://localhost:5001/api/user/${user.uid}`
       );
+      console.log("fetched user");
+      const currentUserData = userResponse.data;
+      if (JSON.stringify(currentUserData) === JSON.stringify(lastUserData)) {
+        setIsLoading(false);
+        setIsRefreshing(false);
+        return;
+      }
+
+      // Update last user data
+      setLastUserData(currentUserData);
 
       // Fetch recommendations using the user ID
       const recommendationsResponse = await axios.get(
-        `http://localhost:5001/api/recommendation/${userResponse.data._id}`
+        `http://localhost:5001/api/recommendation/${currentUserData._id}`
       );
+      console.log("fetched user recommendations");
 
-      // Check the structure of the response and handle accordingly
-      const recommendationData = Array.isArray(recommendationsResponse.data)
-        ? recommendationsResponse.data
-        : recommendationsResponse.data.recommendations || [];
-
-      setRecommendations(recommendationData);
+      setRecommendations(recommendationsResponse.data);
 
       // Fetch recommendations for previous products
       const previousProductRecs = {};
-      const productNameMap = {};
+      const prevProducts = {};
 
       for (const productId of userResponse.data.prevProducts || []) {
         try {
-          // Fetch product name
-          const productNameResponse = await axios.get(
-            `http://localhost:5001/api/products/name/${productId}`
+          // Fetch product
+          const recommendedProduct = await axios.get(
+            `http://localhost:5001/api/products/${productId}`
           );
-          productNameMap[productId] = productNameResponse.data.name;
+          console.log("fetched previous product");
+          prevProducts[productId] = recommendedProduct.data;
 
           // Fetch recommendations for the product
           const productRecsResponse = await axios.get(
-            `http://localhost:5001/api/recommendation/products/${productId}`
+            `http://localhost:5001/api/recommendation/product/${productId}`
           );
-
-          // Extract similar products from the response
-          const similarProducts =
-            productRecsResponse.data.similarProducts || [];
-
-          previousProductRecs[productId] = similarProducts;
+          console.log("fetched prev product recommendations");
+          previousProductRecs[productId] = productRecsResponse.data;
         } catch (productRecError) {
           console.error(
             `Error fetching recommendations for product ${productId}:`,
@@ -78,7 +87,9 @@ function Results() {
       }
 
       setPreviousProductRecommendations(previousProductRecs);
-      setProductNames(productNameMap);
+      setPreviousProducts(prevProducts);
+
+      setHasInitialFetch(true);
       setIsLoading(false);
       setIsRefreshing(false);
     } catch (err) {
@@ -87,7 +98,7 @@ function Results() {
       setIsLoading(false);
       setIsRefreshing(false);
     }
-  }, [user, isRefreshing]);
+  }, [user, isRefreshing, lastUserData, hasInitialFetch]);
 
   useEffect(() => {
     // Early returns for authentication and loading states
@@ -145,6 +156,17 @@ function Results() {
       ))}
     </div>
   );
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-center text-customBlue text-2xl">
+          <RefreshCw className="animate-spin inline-block mr-2" size={32} />
+          Loading recommendations...
+        </div>
+      </div>
+    );
+  }
 
   // Handle loading and error states
   if (userLoading) return <div>Loading user...</div>;
@@ -208,7 +230,13 @@ function Results() {
               productRecommendations.length > 0 && (
                 <section key={productId} className="mb-12">
                   <h2 className="text-2xl font-bold mb-6 text-center text-customBlue">
-                    Because You Liked {productNames[productId] || productId}
+                    Because You Liked{" "}
+                    <span
+                      className="cursor-pointer underline"
+                      onClick={() => openModal(previousProducts[productId])}
+                    >
+                      {previousProducts[productId].name}
+                    </span>
                   </h2>
                   {renderProductGrid(productRecommendations)}
                 </section>
