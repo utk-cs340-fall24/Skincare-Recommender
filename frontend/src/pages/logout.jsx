@@ -1,5 +1,4 @@
-{ /* This is the logout page. */ }
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase";
 
@@ -55,7 +54,9 @@ const Logout = () => {
     !loading && (
       <>
         <div className="bg-customCream h-screen flex items-center justify-center">
-          <h1 className="text-customBlue text-4xl font-bold font-inknut">{message}</h1>{" "}
+          <h1 className="text-customBlue text-4xl font-bold font-inknut">
+            {message}
+          </h1>{" "}
         </div>
       </>
     )

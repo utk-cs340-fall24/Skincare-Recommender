@@ -1,36 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import axios from "axios";
-import { auth } from "../../firebase";
+import PropTypes from "prop-types";
 import {
   bitwiseSkinConcernsToString,
   bitwiseSkinTypeToString,
 } from "../../../shared/utils/constants";
 
-function ProfileModal({ isOpen, onClose }) {
-  const [profile, setProfile] = useState(null);
-
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const getUserInfo = () => {
-      onAuthStateChanged(auth, async (user) => {
-        if (user) {
-          try {
-            const response = await axios.get(
-              `http://localhost:5001/api/user/${user.uid}`
-            );
-            setProfile(response.data);
-          } catch (error) {
-            console.error("Error fetching user data:", error);
-          }
-        }
-      });
-    };
-
-    getUserInfo();
-  }, [isOpen]);
-
+function ProfileModal({ isOpen, onClose, user }) {
   if (!isOpen) return null;
 
   return (
@@ -61,21 +35,21 @@ function ProfileModal({ isOpen, onClose }) {
             </svg>
           </div>
           <h2 className="text-2xl font-semibold">
-            {profile ? profile.displayName : "User"}
+            {user ? user.displayName : "User"}
           </h2>
           <p className="text-lg text-customGray">
-            {profile ? profile.email : "email@gmail.com"}
+            {user ? user.email : "email@gmail.com"}
           </p>
           <p className="text-lg text-customGray">
             <strong>Skin type:</strong>{" "}
-            {profile && profile.skinType != 0
-              ? bitwiseSkinTypeToString(profile.skinType)
+            {user && user.skinType != 0
+              ? bitwiseSkinTypeToString(user.skinType)
               : "N/A"}
           </p>
           <p className="text-lg text-customGray">
             <strong>Skin concerns:</strong>{" "}
-            {profile && profile.concerns != 0
-              ? bitwiseSkinConcernsToString(profile.concerns)
+            {user && user.concerns != 0
+              ? bitwiseSkinConcernsToString(user.concerns)
               : "N/A"}
           </p>
         </div>
@@ -83,5 +57,10 @@ function ProfileModal({ isOpen, onClose }) {
     </div>
   );
 }
+ProfileModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  user: PropTypes.object,
+};
 
 export default ProfileModal;

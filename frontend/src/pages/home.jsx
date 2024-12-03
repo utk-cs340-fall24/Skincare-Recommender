@@ -4,12 +4,18 @@ import Button from "../components/button";
 import Footer from "../components/footer";
 import AuthPrompt from "../components/promptLogin";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../hooks/useUser";
 
 function Home() {
   const navigate = useNavigate();
+
+  const { user, loading, error } = useUser();
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
   return (
     <>
-      <NavBar />
+      <NavBar user={user} />
       <AuthPrompt />
       <div className="bg-customCream min-h-screen">
         {/* Hero Section */}
@@ -21,15 +27,36 @@ function Home() {
                 Your skin deserves the best, and we can recommend the best!
               </h1>
               <p className="text-lg text-customBlue mt-4">
-                Take our skincare quiz to get started:
+                {user && user.quizTaken ? (
+                  <>
+                    <span>
+                      Get your personalized skincare recommendations!{" "}
+                    </span>
+                    <br>
+                    </br>
+                    <Button
+                      label="Get Recommendations"
+                      color="customLightPink"
+                      activeColor="customDarkPink"
+                      onClick={() => navigate("/results")}
+                      className=""
+                    />
+                  </>
+                ) : (
+                  <>
+                    <span>Take our skincare quiz to get started: </span>
+                    <br>
+                    </br>
+                    <Button
+                      label="Skincare Quiz"
+                      color="customLightPink"
+                      activeColor="customDarkPink"
+                      onClick={() => navigate("/quiz")}
+                      className=""
+                    />
+                  </>
+                )}
               </p>
-              <Button
-                label="Skincare Quiz"
-                color="customLightPink"
-                activeColor="customDarkPink"
-                onClick={() => navigate("/quiz")}
-                className=""
-              />
             </div>
 
             {/* Hero Image */}
@@ -57,7 +84,6 @@ function Home() {
               />
             </div>
 
-            {/* About Text */}
             {/* About Text */}
             <div className="order-1 lg:order-2 bg-customLightPink rounded-lg p-12 text-center flex items-center lg:relative top-40 right-20 shadow-lg">
               <div>
