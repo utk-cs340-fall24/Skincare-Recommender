@@ -11,7 +11,7 @@ SKIN_CONCERNS = {
     "ACNE": 1 << 0,  # 1 (0b0001) - Represents acne concern
     "AGING": 1 << 1,  # 2 (0b0010) - Represents aging concern
     "DRYNESS": 1 << 2,  # 4 (0b0100) - Represents dryness concern
-    "REDNESS": 1 << 3,  # 8 (0b1000) - Represents redness concern
+    "REDNESS": 1 << 3, # 8 (0b1000) - Represents redness concern
     "HYPERPIGMENTATION": 1 << 4,  # 16 (0b0001 0000) - Represents hyperpigmentation concern
     "PORES": 1 << 5,  # 32 (0b0010 0000) - Represents large pores concern
 }

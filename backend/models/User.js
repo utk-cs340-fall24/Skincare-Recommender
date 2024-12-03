@@ -30,8 +30,7 @@ const userSchema = new Schema({
   },
   allergies: [
     {
-      type: Schema.Types.ObjectId, // References Ingredient collection
-      ref: "Ingredient",
+      type: String, 
       required: false,
       default: [],
     },
