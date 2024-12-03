@@ -33,27 +33,27 @@ export const PRODUCT_CATEGORIES = {
 
 export function bitwiseSkinTypeToString(skinType) {
   const types = [];
-  if (skinType & SKIN_TYPES.SENSITIVE) types.push("Sensitive");
+  if (skinType & SKIN_TYPES.SENSITIVE) types.push("sensitive");
   if (skinType & SKIN_TYPES.DRY && skinType & SKIN_TYPES.OILY)
-    types.push("Combination");
+    types.push("combination");
   else {
-    if (skinType & SKIN_TYPES.DRY) types.push("Dry");
-    if (skinType & SKIN_TYPES.OILY) types.push("Oily");
+    if (skinType & SKIN_TYPES.DRY) types.push("dry");
+    if (skinType & SKIN_TYPES.OILY) types.push("oily");
   }
-  if (skinType & SKIN_TYPES.NORMAL) types.push("Normal");
+  if (skinType & SKIN_TYPES.NORMAL) types.push("normal");
 
   return types.join(", ");
 }
 
 export function bitwiseSkinConcernsToString(skinConcerns) {
   const concerns = [];
-  if (skinConcerns & SKIN_CONCERNS.ACNE) concerns.push("Acne");
-  if (skinConcerns & SKIN_CONCERNS.AGING) concerns.push("Aging");
-  if (skinConcerns & SKIN_CONCERNS.DRYNESS) concerns.push("Dryness");
-  if (skinConcerns & SKIN_CONCERNS.REDNESS) concerns.push("Redness");
+  if (skinConcerns & SKIN_CONCERNS.ACNE) concerns.push("acne");
+  if (skinConcerns & SKIN_CONCERNS.AGING) concerns.push("aging");
+  if (skinConcerns & SKIN_CONCERNS.DRYNESS) concerns.push("dryness");
+  if (skinConcerns & SKIN_CONCERNS.REDNESS) concerns.push("redness");
   if (skinConcerns & SKIN_CONCERNS.HYPERPIGMENTATION)
-    concerns.push("Hyperpigmentation");
-  if (skinConcerns & SKIN_CONCERNS.PORES) concerns.push("Large Pores");
+    concerns.push("hyperpigmentation");
+  if (skinConcerns & SKIN_CONCERNS.PORES) concerns.push("large pores");
 
   return concerns.join(", ");
 }
