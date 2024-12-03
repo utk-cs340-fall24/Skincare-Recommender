@@ -86,7 +86,7 @@ class ProductRecommender:
 
         return recommended_products_df
 
-    def recommend_similar_products(self, productID, k=5):
+    def recommend_similar_products(self, productID, k=6):
         # Join the ingredients list into a single string for each product
         ingredients_data = self.products_df["ingredients"].apply(
             lambda x: " ".join(x) if isinstance(x, list) else x
