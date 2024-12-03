@@ -32,3 +32,30 @@ export const getRecommendations = async (req, res) => {
     return res.status(500).json({ message: "Error fetching recommendations." });
   }
 };
+
+export const getSimilarProducts = async (req, res) => {
+  const { productid } = req.params;
+
+  try {
+    console.log(`${RECOMMENDER_API_URL}/similar/${productid}`);
+    const response = await axios.get(
+      `${RECOMMENDER_API_URL}/similar/${productid}`
+    );
+
+    if (response.data && response.data.length > 0) {
+      return res.json({
+        productId: productid,
+        similarProducts: response.data,
+      });
+    } else {
+      return res
+        .status(404)
+        .json({ message: "No similar products found for this product." });
+    }
+  } catch (error) {
+    console.error("Error while fetching similar products:", error);
+    return res
+      .status(500)
+      .json({ message: "Error fetching similar products." });
+  }
+};
