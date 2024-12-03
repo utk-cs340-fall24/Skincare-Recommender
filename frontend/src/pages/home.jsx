@@ -17,7 +17,7 @@ function Home() {
     <>
       <NavBar user={user} />
       <AuthPrompt />
-      <div className="bg-customCream min-h-screen">
+      <div className="bg-customCream min-h-screen pt-[60px]">
         {/* Hero Section */}
         <div className="container mx-auto px-4 py-16 lg:py-24">
           <div className="grid lg:grid-cols-2 items-center gap-12">

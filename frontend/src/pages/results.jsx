@@ -3,7 +3,7 @@ import AuthPrompt from "../components/promptLogin";
 import NavBar from "../components/navbar.jsx";
 import ProductDetailsModal from "../components/productModal";
 import { useUser } from "../hooks/useUser.jsx";
-import { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { RefreshCw } from "lucide-react";

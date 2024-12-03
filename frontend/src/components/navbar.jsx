@@ -56,7 +56,7 @@ function Navbar({ onSearch, user }) {
   };
 
   return (
-    <header className="bg-customBlue md:flex md:justify-between md:items-center md:px-4 md:py-3">
+    <header className="bg-customBlue md:flex md:justify-between md:items-center md:px-4 md:py-3 fixed top-0 left-0 w-full z-50">
       <div className="flex items-center justify-between px-4 py-3 md:p-0">
         <Link
           to="/"
