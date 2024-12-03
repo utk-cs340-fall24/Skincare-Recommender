@@ -10,7 +10,8 @@ import { useNavigate } from "react-router-dom";
 function Results() {
   const navigate = useNavigate();
   const [recommendations, setRecommendations] = useState([]);
-  const [previousProductRecommendations, setPreviousProductRecommendations] = useState({});
+  const [previousProductRecommendations, setPreviousProductRecommendations] =
+    useState({});
   const [productNames, setProductNames] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -29,14 +30,18 @@ function Results() {
     const fetchRecommendations = async () => {
       try {
         // First, fetch user details
-        const userResponse = await axios.get(`http://localhost:5001/api/user/${user.uid}`);
-        
+        const userResponse = await axios.get(
+          `http://localhost:5001/api/user/${user.uid}`
+        );
+
         // Fetch recommendations using the user ID
-        const recommendationsResponse = await axios.get(`http://localhost:5001/api/recommendation/${userResponse.data._id}`);
+        const recommendationsResponse = await axios.get(
+          `http://localhost:5001/api/recommendation/${userResponse.data._id}`
+        );
 
         // Check the structure of the response and handle accordingly
-        const recommendationData = Array.isArray(recommendationsResponse.data) 
-          ? recommendationsResponse.data 
+        const recommendationData = Array.isArray(recommendationsResponse.data)
+          ? recommendationsResponse.data
           : recommendationsResponse.data.recommendations || [];
 
         setRecommendations(recommendationData);
@@ -48,18 +53,26 @@ function Results() {
         for (const productId of userResponse.data.prevProducts || []) {
           try {
             // Fetch product name
-            const productNameResponse = await axios.get(`http://localhost:5001/api/products/name/${productId}`);
+            const productNameResponse = await axios.get(
+              `http://localhost:5001/api/products/name/${productId}`
+            );
             productNameMap[productId] = productNameResponse.data.name;
 
             // Fetch recommendations for the product
-            const productRecsResponse = await axios.get(`http://localhost:5001/api/recommendation/products/${productId}`);
-            
+            const productRecsResponse = await axios.get(
+              `http://localhost:5001/api/recommendation/products/${productId}`
+            );
+
             // Extract similar products from the response
-            const similarProducts = productRecsResponse.data.similarProducts || [];
-            
+            const similarProducts =
+              productRecsResponse.data.similarProducts || [];
+
             previousProductRecs[productId] = similarProducts;
           } catch (productRecError) {
-            console.error(`Error fetching recommendations for product ${productId}:`, productRecError);
+            console.error(
+              `Error fetching recommendations for product ${productId}:`,
+              productRecError
+            );
             previousProductRecs[productId] = [];
           }
         }
@@ -68,7 +81,7 @@ function Results() {
         setProductNames(productNameMap);
         setIsLoading(false);
       } catch (err) {
-        console.error('Error fetching recommendations:', err);
+        console.error("Error fetching recommendations:", err);
         setError(err);
         setIsLoading(false);
       }
@@ -125,54 +138,57 @@ function Results() {
   if (error) return <div>Error fetching recommendations: {error.message}</div>;
 
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <>
       <AuthPrompt />
       <NavBar user={user} />
 
-      <div className="container mx-auto px-4 py-8">
-        {/* Skin Type Section */}
-        <h1 className="text-center text-3xl font-bold mb-8 text-customBlue">
-          You have {bitwiseSkinTypeToString(user.skinType)} skin!
-        </h1>
+      <div className="mt-[60px] bg-gray-50 min-h-screen">
+        <div className="container mx-auto px-4 py-8">
+          {/* Skin Type Section */}
+          <h1 className="text-center text-3xl font-bold mb-8 text-customBlue">
+            You have {bitwiseSkinTypeToString(user.skinType)} skin!
+          </h1>
 
-        {/* Main Recommendations */}
-        <section className="mb-12">
-          <h2 className="text-2xl font-bold mb-6 text-center text-customBlue">
-            Recommended for You
-          </h2>
-          {isLoading ? (
-            <div className="text-center">Loading recommendations...</div>
-          ) : recommendations.length === 0 ? (
-            <div className="text-center text-gray-600">
-              No recommendations found.
-            </div>
-          ) : (
-            renderProductGrid(recommendations)
+          {/* Main Recommendations */}
+          <section className="mb-12">
+            <h2 className="text-2xl font-bold mb-6 text-center text-customBlue">
+              Recommended for You
+            </h2>
+            {isLoading ? (
+              <div className="text-center">Loading recommendations...</div>
+            ) : recommendations.length === 0 ? (
+              <div className="text-center text-gray-600">
+                No recommendations found.
+              </div>
+            ) : (
+              renderProductGrid(recommendations)
+            )}
+          </section>
+
+          {/* Previous Product Recommendations */}
+          {Object.entries(previousProductRecommendations).map(
+            ([productId, productRecommendations]) =>
+              productRecommendations.length > 0 && (
+                <section key={productId} className="mb-12">
+                  <h2 className="text-2xl font-bold mb-6 text-center text-customBlue">
+                    Because You Liked {productNames[productId] || productId}
+                  </h2>
+                  {renderProductGrid(productRecommendations)}
+                </section>
+              )
           )}
-        </section>
+        </div>
 
-        {/* Previous Product Recommendations */}
-        {Object.entries(previousProductRecommendations).map(([productId, productRecommendations]) => (
-          productRecommendations.length > 0 && (
-            <section key={productId} className="mb-12">
-              <h2 className="text-2xl font-bold mb-6 text-center text-customBlue">
-                Because You Liked {productNames[productId] || productId}
-              </h2>
-              {renderProductGrid(productRecommendations)}
-            </section>
-          )
-        ))}
+        {/* Product Details Modal */}
+        {isModalOpen && selectedProduct && (
+          <ProductDetailsModal
+            product={selectedProduct}
+            onClose={closeModal}
+            user={user}
+          />
+        )}
       </div>
-
-      {/* Product Details Modal */}
-      {isModalOpen && selectedProduct && (
-        <ProductDetailsModal 
-          product={selectedProduct} 
-          onClose={closeModal} 
-          user={user}
-        />
-      )}
-    </div>
+    </>
   );
 }
 
