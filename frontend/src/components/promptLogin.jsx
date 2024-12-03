@@ -1,6 +1,3 @@
-{
-  /* Pop up of prompt to login or create an account */
-}
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../firebase";
 import { onAuthStateChanged } from "firebase/auth";

@@ -43,6 +43,11 @@ const userSchema = new Schema({
       default: [],
     },
   ],
+  quizTaken: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

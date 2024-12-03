@@ -1,32 +1,32 @@
-import { useLocation } from "react-router-dom";
 import "../../index.css";
 import AuthPrompt from "../components/promptLogin";
 import NavBar from "../components/navbar.jsx";
+import { useUser } from "../hooks/useUser.jsx";
 
 function Results() {
-  // Access the results from location.state
-  const location = useLocation();
-  const results = location.state?.results; // Use optional chaining to avoid errors if results are undefined
+  const { user, loading, error } = useUser();
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <>
       <AuthPrompt />
-      <NavBar />
+      <NavBar user={user}/>
       <p>This is the results page</p>
       <p>Results:</p>
       {/* Conditionally render the results if they exist */}
-      {results ? (
+      {user ? (
         <div>
-          <p>Name: {results.displayName}</p>
-          <p>Email: {results.email}</p>
-          <p>Skin Type: {results.skinType}</p>
-          <p>Concerns: {results.concerns}</p>
+          <p>Name: {user.displayName}</p>
+          <p>Email: {user.email}</p>
+          <p>Skin Type: {user.skinType}</p>
+          <p>Concerns: {user.concerns}</p>
           {/* You can map over any array if results contains arrays */}
-          {results.skinConcerns && results.skinConcerns.length > 0 && (
+          {user.skinConcerns && user.skinConcerns.length > 0 && (
             <div>
               <p>Skin Concerns:</p>
               <ul>
-                {results.skinConcerns.map((concern, index) => (
+                {user.skinConcerns.map((concern, index) => (
                   <li key={index}>{concern}</li>
                 ))}
               </ul>
