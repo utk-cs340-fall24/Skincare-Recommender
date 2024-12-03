@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { ChevronDown } from "lucide-react";
 import Navbar from "../components/navbar";
 import AuthPrompt from "../components/promptLogin";
@@ -373,7 +373,7 @@ function ProductsPage() {
                         onChange={() =>
                           toggleMultiSelectFilter("skinTypes", value)
                         }
-                        className="mr-2"
+                        className="mr-2 rounded text-customBlue focus:ring-customBlue checked:bg-customBlue"
                       />
                       <label htmlFor={`skinType-${key}`}>{key}</label>
                     </div>
@@ -407,7 +407,7 @@ function ProductsPage() {
                         onChange={() =>
                           toggleMultiSelectFilter("skinConcerns", value)
                         }
-                        className="mr-2"
+                        className="mr-2 rounded text-customBlue focus:ring-customBlue checked:bg-customBlue"
                       />
                       <label htmlFor={`skinConcern-${key}`}>{key}</label>
                     </div>
@@ -416,14 +416,13 @@ function ProductsPage() {
               )}
             </div>
           </div>
-
           {/* Products Grid */}
           <div className="flex-1">
             <div className="flex justify-end mb-4">
               <select
                 value={sortOption}
                 onChange={(e) => setSortOption(e.target.value)}
-                className="p-2 border rounded"
+                className="p-2 border rounded-lg"
               >
                 <option value="">Sort By</option>
                 <option value="price-asc">Price: Low to High</option>
@@ -436,7 +435,7 @@ function ProductsPage() {
               {filteredProducts.map((product) => (
                 <div
                   key={product._id}
-                  className="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow cursor-pointer"
+                  className="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow duration-500 cursor-pointer"
                   onClick={() => openModal(product)}
                 >
                   <div className="h-64 flex items-center justify-center mb-4">
@@ -466,7 +465,11 @@ function ProductsPage() {
 
       {/* Product Details Modal */}
       {isModalOpen && selectedProduct && (
-        <ProductDetailsModal product={selectedProduct} onClose={closeModal} user={user}/>
+        <ProductDetailsModal
+          product={selectedProduct}
+          onClose={closeModal}
+          user={user}
+        />
       )}
     </div>
   );

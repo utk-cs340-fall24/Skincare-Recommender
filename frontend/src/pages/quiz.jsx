@@ -1,4 +1,4 @@
-import "../../index.css";
+import React from "react";
 import NavBar from "../components/navbar.jsx";
 import AuthPrompt from "../components/promptLogin";
 import SurveyComponent from "../components/survey";

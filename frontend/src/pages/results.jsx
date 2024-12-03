@@ -1,4 +1,4 @@
-import "../../index.css";
+import React from "react";
 import AuthPrompt from "../components/promptLogin";
 import NavBar from "../components/navbar.jsx";
 import { useUser } from "../hooks/useUser.jsx";

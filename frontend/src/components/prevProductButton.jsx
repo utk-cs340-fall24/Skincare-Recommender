@@ -1,5 +1,5 @@
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { useState, useEffect } from "react";
 import { auth } from "../../firebase";
 import axios from "axios";
 import { onAuthStateChanged } from "firebase/auth";
@@ -17,12 +17,12 @@ function PrevProductButton({ product, className = "" }) {
             const response = await axios.get(
               `http://localhost:5001/api/user/${user.uid}`
             );
-            
+
             // Check if the product is in prevProducts
             const isPrevProduct = response.data.prevProducts.some(
               (prevProduct) => prevProduct === product._id
             );
-            
+
             setIsInHistory(isPrevProduct);
             setUserId(user.uid);
             setUserData(response.data);
@@ -71,15 +71,15 @@ function PrevProductButton({ product, className = "" }) {
 
       console.log("User successfully updated:", updateResponse.data);
     } catch (error) {
-      console.error(`Error ${isInHistory ? 'removing' : 'adding'} product to history:`, error);
+      console.error(
+        `Error ${isInHistory ? "removing" : "adding"} product to history:`,
+        error
+      );
     }
   };
 
   return (
-    <button 
-      className={className}
-      onClick={handleHistoryToggle}
-    >
+    <button className={className} onClick={handleHistoryToggle}>
       {isInHistory ? "Remove from history" : "Add to history"}
     </button>
   );
