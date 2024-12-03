@@ -9,7 +9,7 @@ class ProductRecommender:
         self.products_df = products_df
         self.vectorizer = TfidfVectorizer()
 
-    def recommend_products_for_user(self, user, k=10):
+    def recommend_products_for_user(self, user, k=12):
         # Filter products by allergies
         filtered_df = self.products_df.copy()
         for allergy in user.get_allergies():
