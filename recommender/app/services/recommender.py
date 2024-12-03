@@ -19,7 +19,7 @@ class ProductRecommender:
             self.products_df["combined_ingredients"]
         )
 
-    def recommend_products_for_user(self, user, k=12):
+    def recommend_products_for_user(self, user, k=9):
         # Filter products by allergies
         filtered_df = self.products_df.copy()
         for allergy in user.get_allergies():
@@ -92,7 +92,7 @@ class ProductRecommender:
 
         return recommended_products_df
 
-    def recommend_similar_products(self, productID, k=6):
+    def recommend_similar_products(self, productID, k=3):
         # Ensure productID is in the format of ObjectId
         product_id_obj = ObjectId(productID)
 
