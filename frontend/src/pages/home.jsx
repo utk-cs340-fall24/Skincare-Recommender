@@ -1,4 +1,4 @@
-import "../../index.css";
+import React from "react";
 import NavBar from "../components/navbar";
 import Button from "../components/button";
 import Footer from "../components/footer";
@@ -39,7 +39,7 @@ function Home() {
                       color="customLightPink"
                       activeColor="customDarkPink"
                       onClick={() => navigate("/results")}
-                      className=""
+                      className="mt-6"
                     />
                   </>
                 ) : (
@@ -52,7 +52,7 @@ function Home() {
                       color="customLightPink"
                       activeColor="customDarkPink"
                       onClick={() => navigate("/quiz")}
-                      className=""
+                      className="mt-6"
                     />
                   </>
                 )}

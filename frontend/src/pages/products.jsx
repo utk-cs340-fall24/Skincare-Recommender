@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
+import axios from "axios";
 import { ChevronDown } from "lucide-react";
 import Navbar from "../components/navbar";
 import AuthPrompt from "../components/promptLogin";
@@ -51,8 +52,8 @@ function ProductsPage() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("http://localhost:5001/api/products");
-        const data = await response.json();
+        const response = await axios.get("http://localhost:5001/api/products");
+        const data = response.data;
         setProducts(data);
 
         const uniqueBrands = [

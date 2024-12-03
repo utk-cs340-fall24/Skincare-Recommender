@@ -26,3 +26,7 @@ trap "echo 'Stopping all processes...'; kill ${PIDS[@]}; exit" SIGINT
 
 # Wait for processes to finish
 wait
+
+lsof -t -i :5000 | xargs kill -9
+
+clear

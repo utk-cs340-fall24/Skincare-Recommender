@@ -2,6 +2,7 @@ import express from "express";
 import {
   createProduct,
   getProduct,
+  getProductName,
   getAllProducts,
   updateProduct,
   deleteProduct,
@@ -11,6 +12,9 @@ const router = express.Router();
 
 // Create a new product
 router.post("/", createProduct);
+
+// Get a product name by ID
+router.get("/name/:productID", getProductName);
 
 // Get a single product by ID
 router.get("/:productId", getProduct);
