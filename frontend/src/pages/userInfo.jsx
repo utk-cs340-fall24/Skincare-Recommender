@@ -1,7 +1,6 @@
-{/* This is the user info page. */}
-import React, { useEffect, useState } from 'react';
-import { auth } from '../../firebase'; // Adjust the import path as necessary
-import { onAuthStateChanged } from 'firebase/auth';
+import { useEffect, useState } from "react";
+import { auth } from "../../firebase"; // Adjust the import path as necessary
+import { onAuthStateChanged } from "firebase/auth";
 
 const UserInfo = () => {
   const [userInfo, setUserInfo] = useState(null);
@@ -14,8 +13,8 @@ const UserInfo = () => {
         setUserInfo({
           uid: user.uid,
           email: user.email,
-          displayName: user.displayName || 'N/A',
-          photoURL: user.photoURL || 'N/A',
+          displayName: user.displayName || "N/A",
+          photoURL: user.photoURL || "N/A",
         });
       } else {
         // User is not signed in
@@ -30,7 +29,11 @@ const UserInfo = () => {
 
   // Show loading indicator while checking user info
   if (loading) {
-    return <div className="flex items-center justify-center h-screen">Loading...</div>;
+    return (
+      <div className="flex items-center justify-center h-screen">
+        Loading...
+      </div>
+    );
   }
 
   return (
@@ -38,10 +41,23 @@ const UserInfo = () => {
       <h2 className="text-2xl font-bold mb-4">User Information</h2>
       {userInfo ? (
         <div className="bg-white shadow-md rounded-lg p-4">
-          <p><strong>User ID:</strong> {userInfo.uid}</p>
-          <p><strong>Email:</strong> {userInfo.email}</p>
-          <p><strong>Display Name:</strong> {userInfo.displayName}</p>
-          <p><strong>Photo URL:</strong> <img src={userInfo.photoURL} alt="User Profile" className="w-24 h-24 rounded-full" /></p>
+          <p>
+            <strong>User ID:</strong> {userInfo.uid}
+          </p>
+          <p>
+            <strong>Email:</strong> {userInfo.email}
+          </p>
+          <p>
+            <strong>Display Name:</strong> {userInfo.displayName}
+          </p>
+          <p>
+            <strong>Photo URL:</strong>{" "}
+            <img
+              src={userInfo.photoURL}
+              alt="User Profile"
+              className="w-24 h-24 rounded-full"
+            />
+          </p>
         </div>
       ) : (
         <p>No user is currently logged in.</p>

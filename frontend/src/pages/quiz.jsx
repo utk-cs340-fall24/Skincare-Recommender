@@ -1,23 +1,27 @@
-{ /* This is the quiz page. */ }
 import "../../index.css";
 import NavBar from "../components/navbar.jsx";
 import AuthPrompt from "../components/promptLogin";
 import SurveyComponent from "../components/survey";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../hooks/useUser";
+
 
 function Quiz() {
   const navigate = useNavigate();
 
-  {/* This navigates to the results page when the quiz has been completed */}
+  const { user, loading, error } = useUser();
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
   const handleSurveyComplete = () => {
     navigate("/results");
   };
 
   return (
     <>
-      <NavBar />
+      <NavBar user={user} />
       <AuthPrompt />
-      <SurveyComponent onComplete={handleSurveyComplete} />
+      <SurveyComponent onComplete={handleSurveyComplete} user={user}/>
     </>
   );
 }

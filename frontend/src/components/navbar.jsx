@@ -5,7 +5,7 @@ import ProfileModal from "./profileModal";
 import PropTypes from "prop-types";
 import SearchBar from "./searchbar";
 
-function Navbar({ onSearch }) {
+function Navbar({ onSearch, user }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -104,12 +104,23 @@ function Navbar({ onSearch }) {
         >
           Products
         </Link>
-        <Link
-          to="/quiz"
-          className="mt-1 block px-2 py-1 text-customGray font-semibold rounded text-right md:mt-0 md:ml-2"
-        >
-          Quiz
-        </Link>
+        {user && user.quizTaken ? (
+          <Link
+            to={{
+              pathname: "/results",
+            }}
+            className="mt-1 block px-2 py-1 text-customGray font-semibold rounded text-right md:mt-0 md:ml-2"
+          >
+            Recommendations
+          </Link>
+        ) : (
+          <Link
+            to="/quiz"
+            className="mt-1 block px-2 py-1 text-customGray font-semibold rounded text-right md:mt-0 md:ml-2"
+          >
+            Quiz
+          </Link>
+        )}
         <div className="mt-1 block px-2 py-1 absolute right-2 md:relative md:mt-0 md:ml-2">
           <button
             onClick={toggleModal}
@@ -132,13 +143,14 @@ function Navbar({ onSearch }) {
         </div>
       </nav>
 
-      <ProfileModal isOpen={isModalOpen} onClose={toggleModal} />
+      <ProfileModal isOpen={isModalOpen} onClose={toggleModal} user={user} />
     </header>
   );
 }
 
 Navbar.propTypes = {
   onSearch: PropTypes.func,
+  user: PropTypes.object,
 };
 
 export default Navbar;

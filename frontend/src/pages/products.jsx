@@ -8,8 +8,11 @@ import {
   SKIN_TYPES,
   PRODUCT_CATEGORIES,
 } from "../../../shared/utils/constants.js";
+import { useUser } from "../hooks/useUser.jsx";
 
 function ProductsPage() {
+  const { user, loading, error } = useUser();
+
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -178,10 +181,12 @@ function ProductsPage() {
     setSearchTerm("");
   };
 
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
   return (
     <div className="bg-gray-50 min-h-screen">
       <AuthPrompt />
-      <Navbar onSearch={(term) => setSearchTerm(term)} />
+      <Navbar onSearch={(term) => setSearchTerm(term)} user={user} />
 
       <div className="container mx-auto px-4 py-8">
         <div className="flex">
@@ -461,7 +466,7 @@ function ProductsPage() {
 
       {/* Product Details Modal */}
       {isModalOpen && selectedProduct && (
-        <ProductDetailsModal product={selectedProduct} onClose={closeModal} />
+        <ProductDetailsModal product={selectedProduct} onClose={closeModal} user={user}/>
       )}
     </div>
   );
